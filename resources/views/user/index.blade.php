@@ -28,14 +28,14 @@
             <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-striped" id="table-users">
+                  <table class="table table-striped" id="table-users" style="width: 100%;">
                     <thead class="bg-primary">
                       <tr>
                         <th class="text-center" style="width: 30px;">
                           #
                         </th>
                         <th>Nama Lengkap</th>
-                        <th>Username</th>
+                        <th>Nama Penggguna</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>

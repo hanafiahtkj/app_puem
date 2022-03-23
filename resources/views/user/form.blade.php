@@ -8,6 +8,10 @@
         visibility: hidden;
         position: absolute;
       }
+      .image-preview, #callback-preview {
+        width: 200px!important;
+        height: 200px!important;
+      }
     </style>
   </x-slot>
 
@@ -48,7 +52,7 @@
                   </div>
                 </div>
                 <div class="form-group row mb-4">
-                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Username</label>
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Pengguna</label>
                   <div class="col-sm-12 col-md-7">
                     <input type="text" class="form-control @if($errors->has('username')) is-invalid @endif" name="username" value="{{ old('username', isset($user) ? $user->username : '') }}" autocomplete="off">
                     @if($errors->has('username'))
@@ -66,7 +70,7 @@
                   </div>
                 </div>
                 <div class="form-group row mb-4">
-                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Password Confirmation</label>
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Konfirmasi Password</label>
                   <div class="col-sm-12 col-md-7">
                     <input type="password" class="form-control @if($errors->has('password_confirmation')) is-invalid @endif" name="password_confirmation">
                     @if($errors->has('password_confirmation'))
@@ -86,7 +90,7 @@
                 <div class="form-group row mb-4">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                   <div class="col-sm-12 col-md-7">
-                    <button class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+                    <button class="btn btn-primary btn-lg">SiMPAN</button>
                   </div>
                 </div>
               </div>

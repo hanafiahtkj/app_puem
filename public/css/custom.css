@@ -218,3 +218,18 @@ body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li a {
     text-align: left;
     padding: 0 20px;
 } */
+/* body.sidebar-mini .main-sidebar {
+    display: none;
+}
+body.sidebar-mini .main-content, body.sidebar-mini .main-footer {
+    padding-left: 30px;
+}
+body.sidebar-mini .navbar {
+    left: 0px;
+} */
+@media (max-width: 1024px) {
+    .navbar {
+        left: 0px;
+        right: 0;
+    }
+}
