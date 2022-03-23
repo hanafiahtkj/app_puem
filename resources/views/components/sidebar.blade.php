@@ -1,5 +1,5 @@
 <div class="main-sidebar">
-  <aside id="sidebar-wrapper">
+  <aside id="sidebar-wrapper" class="bg-gradasi">
     <div class="sidebar-brand">
       <a href="{{ route('dashboard') }}">
         <img src="{{ asset('img/logo.png') }}" class="d-inline-block" alt="" style="height: 40px;"> PUEM
@@ -11,11 +11,11 @@
       </a>
     </div>
     <ul class="sidebar-menu">
-      <li class="menu-header">Darbor</li>
+      {{-- <li class="menu-header">Darbor</li> --}}
       <li class="nav-item">
         <a href="{{ route('dashboard') }}" class="nav-link"><i class="fas fa-home"></i><span>Dasbor</span></a>
       </li>
-      <li class="menu-header">Aplikasi</li>
+      {{-- <li class="menu-header">Aplikasi</li> --}}
       <li class="nav-item dropdown">
           <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Data UEM</span></a>
           <ul class="dropdown-menu">
