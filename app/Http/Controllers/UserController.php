@@ -33,7 +33,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.form');
+        $data = [
+            'roles' => Role::all(),
+        ];
+        return view('user.form', $data);
     }
 
     /**
@@ -48,7 +51,9 @@ class UserController extends Controller
             'name'       => 'required|string|max:255',
             'username'   => 'required|min:5|unique:users',
             'password'   => 'required|string|confirmed|min:8',
+            'level'      => 'required',
             'image'      => 'required|mimes:jpg,bmp,png',
+            'status'     => 'required',
         ];
 
         $request->validate($validasi);
@@ -68,13 +73,13 @@ class UserController extends Controller
             'email'        => $request->username,
             'password'     => Hash::make($request->password),
             'image'        => $path,
-            'status'       => 1,
+            'status'       => $request->status,
             'email_verified_at' => now()
         ]);
 
         // event(new Registered($user));
 
-        $user->assignRole('Admin');
+        $user->assignRole($request->level);
 
         return redirect()->route('users.index')
             ->with('success','Pengguna berhasil ditambahkan!');
@@ -100,8 +105,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        foreach($user->getRoleNames() as $v){
+            $roleName = $v;
+        }
         $data = [
             'user'      => $user,
+            'roleName'  => $roleName,
+            'roles'     => Role::all(),
         ];
         return view('user.form', $data);
     }
@@ -119,7 +129,9 @@ class UserController extends Controller
             'name'       => 'required|string|max:255',
             'username'   => 'required|unique:users,username,'.$id,
             'password'   => 'same:confirm-password',
+            'level'      => 'required',
             'image'      => 'mimes:jpg,bmp,png',
+            'status'     => 'required',
         ];
 
         $request->validate($validasi);
@@ -140,11 +152,12 @@ class UserController extends Controller
             );
             $input['image'] = $path;
         }
-        
-        $input['email'] =  $request->username;
 
         $user = User::find($id);
         $user->update($input);
+
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $user->assignRole($request->level);
     
         return redirect()->route('users.index')
             ->with('success','Pengguna berhasil dirubah');
@@ -169,6 +182,11 @@ class UserController extends Controller
     {
         $users = User::orderBy('id','DESC');
         return Datatables::of($users)
+            ->addColumn('role',function(User $users){
+                foreach($users->getRoleNames() as $v){
+                    return $v;
+                }
+            })
             ->make(true);
     }
 }

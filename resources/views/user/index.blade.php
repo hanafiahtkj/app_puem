@@ -1,6 +1,6 @@
 <x-app-layout>
 
-  <x-slot name="title">Data Pengguna</x-slot>
+  <x-slot name="title">DATA PENGGUNA</x-slot>
 
   <x-slot name="extra_css">
     <link rel="stylesheet" href="{{ asset('vendor/DataTables/datatables.min.css') }}">
@@ -36,6 +36,8 @@
                         </th>
                         <th>Nama Lengkap</th>
                         <th>Nama Penggguna</th>
+                        <th>Level</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
@@ -88,12 +90,28 @@
           {data: 'id', "searchable": false},
           {data: 'name'},
           {data: 'username'},
+          {data: 'role'},
+          {data: 'status'},
           {data: null, "searchable": false},
         ],
         columnDefs  : [
-          { "targets": [0], "searchable": false, "orderable": false, className: "text-center" },
+          { targets: [0], searchable: false, orderable: false, className: "text-center" },
           {
-            targets: 3,
+              targets: 4,
+              render: function ( data, type, row ) {
+                var status = '';
+                switch(row['status']) {
+                  case 1:
+                    status = '<span class="badge badge-info">Aktif</span>';
+                    break;
+                  default:
+                  status = '<span class="badge badge-danger">Nonaktif</span>';
+                }
+                return status;
+              },
+            },
+          {
+            targets: 5,
             render: function ( data, type, row ) {
               var authid = '{{ Auth::User()->id }}';
               var url = '{{ route("users.edit", ":id") }}';

@@ -78,6 +78,20 @@
                     @endif
                   </div>
                 </div>
+                <div class="form-group row mb-4">
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Level</label>
+                  <div class="col-sm-12 col-md-7">
+                    <select class="form-control @if($errors->has('level')) is-invalid @endif" id="level" name="level">
+                      <option value="">Pilih Salah Satu</option>
+                      @foreach ($roles as $role)
+                        <option value="{{ $role->name }}" {{ old('level', isset($roleName) ? $roleName : '') == $role->name ? "selected" : "" }}>{{ $role->name }}</option>
+                      @endforeach
+                    </select>
+                    @if($errors->has('level'))
+                      <div class="invalid-feedback">{{$errors->first('level')}}</div>
+                    @endif
+                    </div>
+                </div>
                 <div class="form-group row mb-4" id="form-foto">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Foto</label>
                   <div class="col-sm-12 col-md-7">
@@ -85,6 +99,19 @@
                       <label for="image-upload" id="image-label">Choose File</label>
                       <input type="file" name="image" id="image-upload">
                     </div>
+                  </div>
+                </div>
+                <div class="form-group row mb-4">
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
+                  <div class="col-sm-12 col-md-7">  
+                    <select class="form-control selectric @if($errors->has('status')) is-invalid @endif" name="status" required>
+                        <option value="">Pilih...</option>
+                        <option value="1" {{ @$user->status === 1 ? 'selected' : '' }}>Aktif</option>
+                        <option value="0" {{ @$user->status === 0 ? 'selected' : '' }}>Nonaktif</option>
+                    </select>
+                    @if($errors->has('status'))
+                      <div class="invalid-feedback">{{$errors->first('status')}}</div>
+                    @endif
                   </div>
                 </div>
                 <div class="form-group row mb-4">
