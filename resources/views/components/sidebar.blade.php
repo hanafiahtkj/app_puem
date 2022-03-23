@@ -1,4 +1,4 @@
-<div class="main-sidebar">
+<div class="main-sidebar bg-gradasi">
   <aside id="sidebar-wrapper" class="bg-gradasi">
     <div class="sidebar-brand">
       <a href="{{ route('dashboard') }}">
