@@ -46,8 +46,8 @@
       <li class="nav-item dropdown">
         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Master Data</span></a>
         <ul class="dropdown-menu">
-          <li class="nav-item"><a href="" class="nav-link">Desa</a></li>
           <li class="nav-item"><a href="" class="nav-link">Kecamatan</a></li>
+          <li class="nav-item"><a href="" class="nav-link">Desa</a></li>
           <li class="nav-item"><a href="" class="nav-link">Kategori Komoditas</a></li>
           <li class="nav-item"><a href="" class="nav-link">Komoditas</a></li>
           <li class="nav-item"><a href="" class="nav-link">Sub Komoditas</a></li>
@@ -60,7 +60,7 @@
         </ul>
       </li>
       <li class="nav-item dropdown">
-        <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fa fa-cog"></i><span>Pengaturan</span></a>
+        <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-cog"></i><span>Pengaturan</span></a>
         <ul class="dropdown-menu">
           <li class="nav-item"><a href="" class="nav-link">Sistem</a></li>
           <li class="nav-item"><a href="" class="nav-link">Managemen Database</a></li>
