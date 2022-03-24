@@ -48,7 +48,7 @@
         <ul class="dropdown-menu">
           <li class="nav-item"><a href="" class="nav-link">Kecamatan</a></li>
           <li class="nav-item"><a href="" class="nav-link">Desa</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Kategori Komoditas</a></li>
+          <li class="nav-item"><a href="{{ route('master.kategori-komoditas.index') }}" class="nav-link">Kategori Komoditas</a></li>
           <li class="nav-item"><a href="" class="nav-link">Komoditas</a></li>
           <li class="nav-item"><a href="" class="nav-link">Sub Komoditas</a></li>
           <li class="nav-item"><a href="" class="nav-link">Produk</a></li>

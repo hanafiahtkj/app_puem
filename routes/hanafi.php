@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriKomoditasController;
 use App\Http\Controllers\InstansiPembinaController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\BadanUsahaController;
@@ -19,6 +20,10 @@ Route::group([
     'prefix'     => 'master',
     'as'         => 'master.',
     'middleware' => ['auth']], function () {
+
+    Route::get('kategori-komoditas/getDataTables', [KategoriKomoditasController::class, 'getDataTables'])->name('kategori-komoditas.getDataTables');
+
+    Route::resource('kategori-komoditas', KategoriKomoditasController::class);
 
     Route::get('instansi-pembina/getDataTables', [InstansiPembinaController::class, 'getDataTables'])->name('instansi-pembina.getDataTables');
 
