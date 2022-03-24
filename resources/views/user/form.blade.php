@@ -20,22 +20,22 @@
     <section class="section">
       <div class="section-header">
         <div class="section-header-back">
-          <a href="{{ route('users.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
+          <a href="{{ route('master.pengguna.index') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
         </div>
         <h1>{{ isset($user) ? 'EDIT PENGGUNA' : 'TAMBAH PENGGUNA' }}</h1>
         <div class="section-header-breadcrumb">
           <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>
-          <div class="breadcrumb-item"><a href="{{ route('users.index') }}">Pengguna</a></div>
+          <div class="breadcrumb-item"><a href="{{ route('master.pengguna.index') }}">Pengguna</a></div>
           <div class="breadcrumb-item">{{ isset($user) ? 'Edit Pengguna' : 'Tambah Pengguna' }}</div>
         </div>
       </div>
 
       <div class="section-body">
         @if(isset($user))
-          <form method="POST" action="{{ route('users.update', $user->id) }}" novalidate="" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('master.pengguna.update', $user->id) }}" novalidate="" enctype="multipart/form-data">
           @method('PATCH')
         @else
-          <form method="POST" action="{{ route('users.store') }}" novalidate="" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('master.pengguna.store') }}" novalidate="" enctype="multipart/form-data">
         @endif
         @csrf
         <div class="row">

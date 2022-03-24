@@ -14,7 +14,7 @@
       <div class="section-header">
         <h1>DATA PENGGUNA</h1>
         <div class="section-header-button">
-          <a href="{{ route('users.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> TAMBAH</a>
+          <a href="{{ route('master.pengguna.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> TAMBAH</a>
         </div>
         <div class="section-header-breadcrumb">
           <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>
@@ -84,7 +84,7 @@
       var dataTable = $('#table-users').DataTable({
         processing: true,
         ajax: {
-            url: '{{ route('users.getDataTables') }}',
+            url: '{{ route('master.pengguna.getDataTables') }}',
         },
         columns: [
           {data: 'id', "searchable": false},
@@ -114,7 +114,7 @@
             targets: 5,
             render: function ( data, type, row ) {
               var authid = '{{ Auth::User()->id }}';
-              var url = '{{ route("users.edit", ":id") }}';
+              var url = '{{ route("master.pengguna.edit", ":id") }}';
               url = url.replace(':id', row['id']);
               var btn = '<div class="buttons"><a href="'+url+'" class="btn btn-icon btn-sm btn-primary" style="width: 29px;"><i class="far fa-edit"></i></a>';
               if (authid != row['id'])
@@ -139,7 +139,7 @@
 
       $('#table-users tbody').on( 'click', '.btn-delete', function () {
         var id = $(this).data('id');
-        var url = '{{ route("users.destroy", ":id") }}';
+        var url = '{{ route("master.pengguna.destroy", ":id") }}';
         url = url.replace(':id', id);
         swal({
             title: 'Yakin ingin menghapus?',

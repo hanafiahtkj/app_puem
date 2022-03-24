@@ -52,11 +52,11 @@
           <li class="nav-item"><a href="" class="nav-link">Komoditas</a></li>
           <li class="nav-item"><a href="" class="nav-link">Sub Komoditas</a></li>
           <li class="nav-item"><a href="" class="nav-link">Produk</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Instansi Pembina</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Perizinan</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Badan Usaha</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Pendidikan</a></li>
-          <li class="nav-item"><a href="{{ route('users.index') }}" class="nav-link">Pengguna</a></li>
+          <li class="nav-item"><a href="{{ route('master.instansi-pembina.index') }}" class="nav-link">Instansi Pembina</a></li>
+          <li class="nav-item"><a href="{{ route('master.perizinan.index') }}" class="nav-link">Perizinan</a></li>
+          <li class="nav-item"><a href="{{ route('master.badan-usaha.index') }}" class="nav-link">Badan Usaha</a></li>
+          <li class="nav-item"><a href="{{ route('master.pendidikan.index') }}" class="nav-link">Pendidikan</a></li>
+          <li class="nav-item"><a href="{{ route('master.pengguna.index') }}" class="nav-link">Pengguna</a></li>
         </ul>
       </li>
       <li class="nav-item dropdown">
@@ -69,7 +69,7 @@
     </ul>
 
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-      <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
+      <a href="https://getstisla.com/docs" class="btn btn-outline-dark btn-lg btn-block btn-icon-split">
         <i class="fas fa-rocket"></i> Documentation
       </a>
     </div>

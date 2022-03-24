@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <x-slot name="title">Dasbor</x-slot>
+    <x-slot name="title">DASBOR</x-slot>
   
     <x-slot name="extra_css">
       <link rel="stylesheet" href="{{ asset('plugins/DataTables/datatables.min.css') }}">
