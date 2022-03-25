@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriKomoditasController;
+use App\Http\Controllers\KomoditasController;
+use App\Http\Controllers\SubKomoditasController;
 use App\Http\Controllers\InstansiPembinaController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\BadanUsahaController;
@@ -24,6 +26,16 @@ Route::group([
     Route::get('kategori-komoditas/getDataTables', [KategoriKomoditasController::class, 'getDataTables'])->name('kategori-komoditas.getDataTables');
 
     Route::resource('kategori-komoditas', KategoriKomoditasController::class);
+
+    Route::get('komoditas/get-komoditas/{id}', [KomoditasController::class, 'getKomoditas'])->name('komoditas.get-komoditas');
+
+    Route::get('komoditas/getDataTables', [KomoditasController::class, 'getDataTables'])->name('komoditas.getDataTables');
+
+    Route::resource('komoditas', KomoditasController::class);
+
+    Route::get('sub-komoditas/getDataTables', [SubKomoditasController::class, 'getDataTables'])->name('sub-komoditas.getDataTables');
+
+    Route::resource('sub-komoditas', SubKomoditasController::class);
 
     Route::get('instansi-pembina/getDataTables', [InstansiPembinaController::class, 'getDataTables'])->name('instansi-pembina.getDataTables');
 
