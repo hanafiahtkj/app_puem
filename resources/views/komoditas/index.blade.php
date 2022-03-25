@@ -32,7 +32,7 @@
                     <thead class="bg-primary">
                       <tr>
                         <th class="text-center" style="width: 30px;">
-                          #
+                          No
                         </th>
                         <th>Nama Kategori Komoditas</th>
                         <th>Nama Komoditas</th>

@@ -32,7 +32,7 @@
                     <thead class="bg-primary">
                       <tr>
                         <th class="text-center" style="width: 30px;">
-                          #
+                          No
                         </th>
                         <th>Nama Instansi Pembina</th>
                         <th>Singkatan</th>
