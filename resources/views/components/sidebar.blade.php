@@ -51,7 +51,7 @@
           <li class="nav-item"><a href="{{ route('master.kategori-komoditas.index') }}" class="nav-link">Kategori Komoditas</a></li>
           <li class="nav-item"><a href="{{ route('master.komoditas.index') }}" class="nav-link">Komoditas</a></li>
           <li class="nav-item"><a href="{{ route('master.sub-komoditas.index') }}" class="nav-link">Sub Komoditas</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Produk</a></li>
+          <li class="nav-item"><a href="{{ route('master.produk.index') }}" class="nav-link">Produk</a></li>
           <li class="nav-item"><a href="{{ route('master.instansi-pembina.index') }}" class="nav-link">Instansi Pembina</a></li>
           <li class="nav-item"><a href="{{ route('master.perizinan.index') }}" class="nav-link">Perizinan</a></li>
           <li class="nav-item"><a href="{{ route('master.badan-usaha.index') }}" class="nav-link">Badan Usaha</a></li>

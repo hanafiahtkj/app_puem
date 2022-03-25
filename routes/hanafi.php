@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KategoriKomoditasController;
 use App\Http\Controllers\KomoditasController;
 use App\Http\Controllers\SubKomoditasController;
+use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\InstansiPembinaController;
 use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\BadanUsahaController;
@@ -33,9 +34,15 @@ Route::group([
 
     Route::resource('komoditas', KomoditasController::class);
 
+    Route::get('sub-komoditas/get-sub-komoditas/{id}', [SubKomoditasController::class, 'getSubKomoditas'])->name('sub-komoditas.get-sub-komoditas');
+
     Route::get('sub-komoditas/getDataTables', [SubKomoditasController::class, 'getDataTables'])->name('sub-komoditas.getDataTables');
 
     Route::resource('sub-komoditas', SubKomoditasController::class);
+
+    Route::get('produk/getDataTables', [ProdukController::class, 'getDataTables'])->name('produk.getDataTables');
+
+    Route::resource('produk', ProdukController::class);
 
     Route::get('instansi-pembina/getDataTables', [InstansiPembinaController::class, 'getDataTables'])->name('instansi-pembina.getDataTables');
 

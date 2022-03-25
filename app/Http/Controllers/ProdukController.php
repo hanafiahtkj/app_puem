@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\KategoriKomoditas;
 use App\Models\Komoditas;
 use App\Models\SubKomoditas;
+use App\Models\Produk;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use DB;
 
-class SubKomoditasController extends Controller
+class ProdukController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +23,7 @@ class SubKomoditasController extends Controller
         $data = [
             'kategori_komoditas' => KategoriKomoditas::all(),
         ];
-        return view('sub-komoditas.index', $data);
+        return view('produk.index', $data);
     }
 
     /**
@@ -44,9 +45,10 @@ class SubKomoditasController extends Controller
     public function store(Request $request)
     {
         $validasi = [
-            'nama_sub_komoditas'    => 'required',
+            'nama_produk'           => 'required',
             'id_kategori_komoditas' => 'required',
             'id_komoditas'          => 'required',
+            'id_sub_komoditas'      => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);
@@ -61,10 +63,11 @@ class SubKomoditasController extends Controller
         try{
             DB::beginTransaction();
 
-            SubKomoditas::create([
-                'nama_sub_komoditas'    => $request->input('nama_sub_komoditas'),
+            Produk::create([
+                'nama_produk'           => $request->input('nama_produk'),
                 'id_kategori_komoditas' => $request->input('id_kategori_komoditas'),
                 'id_komoditas'          => $request->input('id_komoditas'),
+                'id_sub_komoditas'      => $request->input('id_sub_komoditas'),
             ]);
 
             DB::commit();
@@ -115,9 +118,10 @@ class SubKomoditasController extends Controller
     public function update(Request $request, $id)
     {
         $validasi = [
-            'nama_sub_komoditas'    => 'required',
+            'nama_produk'           => 'required',
             'id_kategori_komoditas' => 'required',
             'id_komoditas'          => 'required',
+            'id_sub_komoditas'      => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);
@@ -132,11 +136,12 @@ class SubKomoditasController extends Controller
         try{
             DB::beginTransaction();
 
-            $sub_komoditas = SubKomoditas::find($id);
-            $sub_komoditas->update([
-                'nama_sub_komoditas'    => $request->input('nama_sub_komoditas'),
+            $produk = Produk::find($id);
+            $produk->update([
+                'nama_produk'           => $request->input('nama_produk'),
                 'id_kategori_komoditas' => $request->input('id_kategori_komoditas'),
                 'id_komoditas'          => $request->input('id_komoditas'),
+                'id_sub_komoditas'      => $request->input('id_sub_komoditas'),
             ]);
 
             DB::commit();
@@ -163,25 +168,16 @@ class SubKomoditasController extends Controller
      */
     public function destroy($id)
     {
-        SubKomoditas::find($id)->delete();
+        Produk::find($id)->delete();
         return response()->json([
             'status' => true,
         ]);
     }
 
-    public function getSubKomoditas($id)
-    {
-        $sub_komoditas = [];
-        if ($id) {
-            $sub_komoditas = SubKomoditas::where('id_komoditas', $id)->get();
-        }
-        return response()->json(['data' => $sub_komoditas]);
-    }
-
     public function getDataTables(Request $request)
     {
-        $sub_komoditas = SubKomoditas::orderBy('id','DESC');
-        return Datatables::of($sub_komoditas)
+        $produk = Produk::orderBy('id','DESC');
+        return Datatables::of($produk)
             ->make(true);
     }
 }
