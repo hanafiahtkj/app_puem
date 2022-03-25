@@ -46,8 +46,8 @@
       <li class="nav-item dropdown">
         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Master Data</span></a>
         <ul class="dropdown-menu">
-          <li class="nav-item"><a href="" class="nav-link">Kecamatan</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Desa</a></li>
+          <li class="nav-item"><a href="{{ route('master.kecamatan.index') }}" class="nav-link">Kecamatan</a></li>
+          <li class="nav-item"><a href="{{ route('master.desa.index') }}" class="nav-link">Desa</a></li>
           <li class="nav-item"><a href="{{ route('master.kategori-komoditas.index') }}" class="nav-link">Kategori Komoditas</a></li>
           <li class="nav-item"><a href="{{ route('master.komoditas.index') }}" class="nav-link">Komoditas</a></li>
           <li class="nav-item"><a href="{{ route('master.sub-komoditas.index') }}" class="nav-link">Sub Komoditas</a></li>

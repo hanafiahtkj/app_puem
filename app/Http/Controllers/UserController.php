@@ -81,7 +81,7 @@ class UserController extends Controller
 
         $user->assignRole($request->level);
 
-        return redirect()->route('users.index')
+        return redirect()->route('master.pengguna.index')
             ->with('success','Pengguna berhasil ditambahkan!');
     }
 
@@ -159,7 +159,7 @@ class UserController extends Controller
         DB::table('model_has_roles')->where('model_id',$id)->delete();
         $user->assignRole($request->level);
     
-        return redirect()->route('users.index')
+        return redirect()->route('master.pengguna.index')
             ->with('success','Pengguna berhasil dirubah');
     }
 

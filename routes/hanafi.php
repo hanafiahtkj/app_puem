@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KategoriKomoditasController;
 use App\Http\Controllers\KomoditasController;
 use App\Http\Controllers\SubKomoditasController;
@@ -23,6 +25,14 @@ Route::group([
     'prefix'     => 'master',
     'as'         => 'master.',
     'middleware' => ['auth']], function () {
+
+    Route::get('desa/getDataTables', [DesaController::class, 'getDataTables'])->name('desa.getDataTables');
+
+    Route::resource('desa', DesaController::class);
+
+    Route::get('kecamatan/getDataTables', [KecamatanController::class, 'getDataTables'])->name('kecamatan.getDataTables');
+
+    Route::resource('kecamatan', KecamatanController::class);
 
     Route::get('kategori-komoditas/getDataTables', [KategoriKomoditasController::class, 'getDataTables'])->name('kategori-komoditas.getDataTables');
 
