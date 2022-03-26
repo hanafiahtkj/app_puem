@@ -120,9 +120,11 @@
                   </div>
                 </div>
               </div>
+              <div class="card-footer">
+                <input type="hidden" name="id" value="{{ @$individu->id }}"/>
+                <button type="submit" id="btn-store" class="btn btn-success btn-lg">SIMPAN</button>
+              </div>
             </div>
-            <input type="hidden" name="id" value="{{ @$individu->id }}"/>
-            <button type="submit" id="btn-store" class="btn btn-success btn-lg btn-block">SIMPAN</button>
           </div>
         </form>
       </div>
