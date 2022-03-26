@@ -27,6 +27,33 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
+              <!-- <div class="card-header">
+                <h4>Card Title</h4> 
+              </div> -->
+              <div class="card-body p-1">
+                <div class="m-0 p-4">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label" for="input-name">Kecamatan</label>
+                      <select class="form-control selectric" name="id_kecamatan" id="id_kecamatan">
+                        <option value="">Semua....</option>
+                        @foreach ($kecamatan as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <button type="button" id="button-filter" class="btn btn-primary pull-right mr-2 mb-2"><i class="fa fa-filter"></i> Filter</button>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-striped" id="dataTable" style="width: 100%;">
@@ -81,7 +108,10 @@
         var dataTable = $('#dataTable').DataTable({
           processing: true,
           ajax: {
-              url: "{{ route('master.desa.getDataTables') }}",
+            url: "{{ route('master.desa.getDataTables') }}",
+            data: function (d) {
+              d.id_kecamatan = $('#id_kecamatan').val();
+            }
           },
           columns: [
             {data: null},
@@ -225,6 +255,10 @@
         $(".colorpickerinput").colorpicker({
           format: 'hex',
           component: '.input-group-append',
+        });
+
+        $('#button-filter').on('click', function () {
+          dataTable.ajax.reload();
         });
       
       });

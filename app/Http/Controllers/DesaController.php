@@ -201,8 +201,15 @@ class DesaController extends Controller
 
     public function getDataTables(Request $request)
     {
-        $desa = Desa::orderBy('id','DESC');
-        return Datatables::of($desa)
+        $query = Desa::query();
+
+        if ($id_kecamatan = $request->get('id_kecamatan')) {
+            $query->where('id_kecamatan', $id_kecamatan);
+        }
+
+        $query->get();
+
+        return Datatables::of($query)
             ->make(true);
     }
 }
