@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IndividuController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KategoriKomoditasController;
@@ -19,6 +20,16 @@ Route::group(['middleware' => ['auth']], function ()
     Route::get('/', DashboardController::class);
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
+});
+
+Route::group([
+    'prefix'     => 'uem',
+    'as'         => 'uem.',
+    'middleware' => ['auth']], function () {
+
+    Route::get('individu/getDataTables', [IndividuController::class, 'getDataTables'])->name('individu.getDataTables');
+
+    Route::resource('individu', IndividuController::class);
 });
 
 Route::group([
