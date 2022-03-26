@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KategoriKomoditas;
-use App\Models\Komoditas;
-use App\Models\SubKomoditas;
+use App\Models\Kecamatan;
 use App\Models\Individu;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
@@ -20,9 +19,7 @@ class IndividuController extends Controller
      */
     public function index()
     {
-        $data = [
-            'kategori_komoditas' => KategoriKomoditas::all(),
-        ];
+        $data = [];
         return view('individu.index', $data);
     }
 
@@ -33,7 +30,11 @@ class IndividuController extends Controller
      */
     public function create()
     {
-        //
+        $data = [
+            'kecamatan' => Kecamatan::all(),
+            'kategori_komoditas' => KategoriKomoditas::all(),
+        ];
+        return view('individu.form', $data);
     }
 
     /**

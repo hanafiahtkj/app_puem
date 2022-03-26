@@ -37,13 +37,15 @@ Route::group([
     'as'         => 'master.',
     'middleware' => ['auth']], function () {
 
-    Route::get('desa/getDataTables', [DesaController::class, 'getDataTables'])->name('desa.getDataTables');
-
-    Route::resource('desa', DesaController::class);
-
     Route::get('kecamatan/getDataTables', [KecamatanController::class, 'getDataTables'])->name('kecamatan.getDataTables');
 
     Route::resource('kecamatan', KecamatanController::class);
+
+    Route::get('desa/get-desa/{id}', [DesaController::class, 'getDesa'])->name('desa.get-desa');
+
+    Route::get('desa/getDataTables', [DesaController::class, 'getDataTables'])->name('desa.getDataTables');
+
+    Route::resource('desa', DesaController::class);
 
     Route::get('kategori-komoditas/getDataTables', [KategoriKomoditasController::class, 'getDataTables'])->name('kategori-komoditas.getDataTables');
 

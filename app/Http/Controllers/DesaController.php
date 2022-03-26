@@ -208,6 +208,15 @@ class DesaController extends Controller
         ]);
     }
 
+    public function getDesa($id)
+    {
+        $desa = [];
+        if ($id) {
+            $desa = Desa::where('id_kecamatan', $id)->get();
+        }
+        return response()->json(['data' => $desa]);
+    }
+
     public function getDataTables(Request $request)
     {
         $query = Desa::query();

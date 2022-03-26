@@ -18,7 +18,7 @@
               <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
             @endforeach
           </select>
-          <div class="invalid-feedback">Kategori Komoditas wajib diisi.</div>
+          <div class="invalid-feedback">Kecamatan wajib diisi.</div>
         </div>
         <div class="form-group">
           <label for="title">Nama Desa</label>
