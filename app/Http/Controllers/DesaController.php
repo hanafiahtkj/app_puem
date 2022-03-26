@@ -65,18 +65,27 @@ class DesaController extends Controller
 
             $geojson = '';
             if($request->hasFile('geojson')) {
-                $upload_path = 'public/geojson';
-                $filename = time().'_'.$request->file('geojson')->getClientOriginalName();
-                $geojson  = $request->file('geojson')->storeAs(
-                    $upload_path, $filename
-                );
+                
+                // $upload_path = 'public/geojson';
+                // $filename = time().'_'.$request->file('geojson')->getClientOriginalName();
+                // $geojson  = $request->file('geojson')->storeAs(
+                //     $upload_path, $filename
+                // );
+
+                $file           = $request->file('geojson');
+                $fileName       = time().'_'.$request->file('geojson')->getClientOriginalName();
+                $pathToStore    = "/geojsonDesa/$fileName";
+                $file->move(public_path('storage/geojsonDesa'), $fileName);
+
+
+
             }
 
             Desa::create([
                 'id_kecamatan'   => $request->input('id_kecamatan'),
                 'nama_desa'      => $request->input('nama_desa'),
                 'status'         => $request->input('status'),
-                'geojson'        => $geojson,
+                'geojson'        => $pathToStore,
                 'warna'          => $request->input('warna'),
                 'garis'          => $request->input('garis'),
             ]);

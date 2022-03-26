@@ -63,17 +63,24 @@ class KecamatanController extends Controller
 
             $geojson = '';
             if($request->hasFile('geojson')) {
-                $upload_path = 'public/geojson';
-                $filename = time().'_'.$request->file('geojson')->getClientOriginalName();
-                $geojson  = $request->file('geojson')->storeAs(
-                    $upload_path, $filename
-                );
+                
+                // $upload_path = 'public/geojson';
+                // $filename = time().'_'.$request->file('geojson')->getClientOriginalName();
+                // $geojson  = $request->file('geojson')->storeAs(
+                //     $upload_path, $filename
+                // );
+
+                $file           = $request->file('geojson');
+                $fileName       = time().'_'.$request->file('geojson')->getClientOriginalName();
+                $pathToStore    = "/geojsonKecamatan/$fileName";
+                $file->move(public_path('storage/geojsonKecamatan'), $fileName);
+
             }
 
             Kecamatan::create([
                 'nama_kecamatan' => $request->input('nama_kecamatan'),
                 'kouta'          => $request->input('kouta'),
-                'geojson'        => $geojson,
+                'geojson'        => $pathToStore,
                 'warna'          => $request->input('warna'),
                 'garis'          => $request->input('garis'),
                 'latitude'       => $request->input('latitude'),
