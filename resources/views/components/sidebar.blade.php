@@ -63,7 +63,7 @@
         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-cog"></i><span>Pengaturan</span></a>
         <ul class="dropdown-menu">
           <li class="nav-item"><a href="" class="nav-link">Sistem</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Managemen Database</a></li>
+          <li class="nav-item"><a href="{{route('database-setting')}}" class="nav-link">Managemen Database</a></li>
         </ul>
       </li>
     </ul>
