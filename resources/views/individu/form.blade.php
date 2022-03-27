@@ -2,7 +2,9 @@
 
   <x-slot name="title">{{ isset($individu) ? 'EDIT DATA INDIVIDU' : 'TAMBAH DATA INDIVIDU' }}</x-slot>
 
-  <x-slot name="extra_css"></x-slot>
+  <x-slot name="extra_css">
+    <link rel="stylesheet" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
+  </x-slot>
 
   <!-- Main Content -->
   <div class="main-content">
@@ -41,10 +43,19 @@
                 </div>
                 <div class="form-group">
                     <label for="nik">NIK</label>
-                    <input id="nik" type="text" class="form-control" name="nik" value="{{ old('nik', @$individu->nik) }}" required autofocus>
+                    <input id="nik" type="text" class="form-control" name="nik" value="{{ old('nik', @$individu->nik) }}" required>
                     <div class="invalid-feedback">
                         NIK wajib diisi.
                     </div>
+                </div>
+                <div class="form-group">
+                  <label for="jenis_kelamin">Jenis Kelamin</label>
+                  <select id="jenis_kelamin" class="form-control selectric" name="jenis_kelamin" required>
+                    <option value="">Pilih....</option>
+                    <option value="Laki-Laki" {{ @$individu->jenis_kelamin == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
+                    <option value="Perempuan" {{ @$individu->jenis_kelamin == 'Perempuan' ? 'selected' : '' }}>Perempuan....</option>
+                  </select>
+                  <div class="invalid-feedback">Jenis Kelamin wajib diisi.</div>
                 </div>
                 <div class="form-group">
                   <label for="no_hp">No Hp</label>
@@ -72,7 +83,7 @@
                   <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required>
                     <option value="">Pilih....</option>
                     @foreach($kecamatan as $value)
-                      <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
+                      <option value="{{ $value->id }}" {{ @$individu->id_kecamatan == $value->id ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
                     @endforeach
                   </select>
                   <div class="invalid-feedback">Kecamatan wajib diisi.</div>
@@ -89,7 +100,7 @@
                   <select id="id_kategori_komoditas" onChange="getKomoditas(this.value);" class="form-control selectric" name="id_kategori_komoditas" required>
                     <option value="">Pilih....</option>
                     @foreach($kategori_komoditas as $value)
-                      <option value="{{ $value->id }}">{{ $value->nama_kategori_komoditas }}</option>
+                      <option value="{{ $value->id }}" {{ @$individu->id_kategori_komoditas == $value->id ? 'selected' : '' }}>{{ $value->nama_kategori_komoditas }}</option>
                     @endforeach
                   </select>
                   <div class="invalid-feedback">Kategori Komoditas wajib diisi.</div>
@@ -109,6 +120,34 @@
                   <div class="invalid-feedback">Sub Komoditas wajib diisi.</div>
                 </div>
                 <div class="form-group">
+                  <label for="id_pendidikan">Pendidikan Terakhir</label>
+                  <select id="id_pendidikan" class="form-control selectric" name="id_pendidikan" required>
+                    <option value="">Pilih....</option>
+                    @foreach($pendidikan as $value)
+                      <option value="{{ $value->id }}" {{ @$individu->id_pendidikan == $value->id ? 'selected' : '' }}>{{ $value->nama_pendidikan }}</option>
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">Pendidikan Terakhir wajib diisi.</div>
+                </div>
+                <div class="form-group">
+                  <label for="tahun_berdiri">Tahun Beridiri</label>
+                  <select id="tahun_berdiri" class="form-control selectric" name="tahun_berdiri" required>
+                    @for ($i = date('Y'); $i >= 1961; $i--)
+                      <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                  </select>
+                  <div class="invalid-feedback">
+                      Tahun Berdiri wajib diisi.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="">Status Kepemilikan Usaha</label>
+                  <select id="" class="form-control selectric" disabled>
+                    <option value="">Pilih....</option>
+                  </select>
+                  <div class="invalid-feedback">Status Kepemilikan Usaha wajib diisi.</div>
+                </div>
+                <div class="form-group">
                   <label>Status</label>
                   <select class="form-control selectric" name="status" required>
                       <option value="">Pilih...</option>
@@ -117,6 +156,13 @@
                   </select>
                   <div class="invalid-feedback">
                       Status wajib diisi.
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="tanggal_simpan">Tanggal Simpan</label>
+                  <input id="tanggal_simpan" type="text" class="form-control datepicker" name="tanggal_simpan" value="{{ @$individu->tanggal_simpan }}" required>
+                  <div class="invalid-feedback">
+                    Tanggal_simpan wajib diisi.
                   </div>
                 </div>
               </div>
@@ -133,6 +179,7 @@
 
   <x-slot name="extra_js">
     <script src="{{ asset('vendor/sweetalert/dist/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('vendor/daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script> 
 
@@ -179,6 +226,12 @@
     }
 
     $(function() {
+
+      @if (isset($individu))
+        getDesa('{{ $individu->id_kecamatan }}', '{{ $individu->id_desa }}');
+        getKomoditas('{{ $individu->id_kategori_komoditas }}', '{{ $individu->id_komoditas }}');
+        getSubKomoditas('{{ $individu->id_komoditas }}', '{{ $individu->id_sub_komoditas }}');
+      @endif
       
       $("#formInput").submit(function(e){
         e.preventDefault();

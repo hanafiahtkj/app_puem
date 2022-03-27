@@ -116,7 +116,7 @@
             {data: 'nama_pemilik'},
             {data: 'nik'},
             {data: 'jenis_kelamin'},
-            {data: 'alamat'},
+            {data: 'alamat_usaha'},
             {data: null},
             {data: 'tahun_berdiri'},
             {data: 'tanggal_simpan'},
@@ -136,7 +136,7 @@
               render: function ( data, type, row ) {
                 var url = '{{ route("uem.individu.edit", ":id") }}';
                 url = url.replace(':id', row['id']);
-                var btn = '<div class="buttons"><a href="javascript:void(0);" class="btn btn-icon btn-sm btn-primary btn-edit" style="width: 29px;"><i class="far fa-edit"></i></a>';
+                var btn = '<div class="buttons"><a href="'+url+'" class="btn btn-icon btn-sm btn-primary btn-edit" style="width: 29px;"><i class="far fa-edit"></i></a>';
                 btn += '<a href="javascript:void(0);" data-id="'+row['id']+'" class="btn btn-icon btn-sm btn-danger btn-delete" style="width: 29px;"><i class="fas fa-times"></i></a>';
                 btn += '</div>';
                 return btn;

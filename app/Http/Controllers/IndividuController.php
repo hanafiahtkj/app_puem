@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\KategoriKomoditas;
 use App\Models\Kecamatan;
+use App\Models\Pendidikan;
 use App\Models\Individu;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
@@ -31,7 +32,8 @@ class IndividuController extends Controller
     public function create()
     {
         $data = [
-            'kecamatan' => Kecamatan::all(),
+            'kecamatan'  => Kecamatan::all(),
+            'pendidikan' => Pendidikan::all(),
             'kategori_komoditas' => KategoriKomoditas::all(),
         ];
         return view('individu.form', $data);
@@ -46,10 +48,21 @@ class IndividuController extends Controller
     public function store(Request $request)
     {
         $validasi = [
-            'nama_individu'         => 'required',
+            'nama_pemilik'          => 'required',
+            'nik'                   => 'required',
+            'jenis_kelamin'         => 'required',
+            'no_hp'                 => 'required',
+            'nama_usaha'            => 'required',
+            'alamat_usaha'          => 'required',
+            'id_kecamatan'          => 'required',
+            'id_desa'               => 'required',
             'id_kategori_komoditas' => 'required',
             'id_komoditas'          => 'required',
             'id_sub_komoditas'      => 'required',
+            'id_pendidikan'         => 'required',
+            'tahun_berdiri'         => 'required',
+            'status'                => 'required',
+            'tanggal_simpan'        => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);
@@ -64,12 +77,8 @@ class IndividuController extends Controller
         try{
             DB::beginTransaction();
 
-            Individu::create([
-                'nama_individu'           => $request->input('nama_individu'),
-                'id_kategori_komoditas' => $request->input('id_kategori_komoditas'),
-                'id_komoditas'          => $request->input('id_komoditas'),
-                'id_sub_komoditas'      => $request->input('id_sub_komoditas'),
-            ]);
+            $input = $request->all();
+            Individu::create($input);
 
             DB::commit();
 
@@ -106,7 +115,13 @@ class IndividuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = [
+            'individu'   => Individu::find($id),
+            'kecamatan'  => Kecamatan::all(),
+            'pendidikan' => Pendidikan::all(),
+            'kategori_komoditas' => KategoriKomoditas::all(),
+        ];
+        return view('individu.form', $data);
     }
 
     /**
@@ -119,10 +134,21 @@ class IndividuController extends Controller
     public function update(Request $request, $id)
     {
         $validasi = [
-            'nama_individu'           => 'required',
+            'nama_pemilik'          => 'required',
+            'nik'                   => 'required',
+            'jenis_kelamin'         => 'required',
+            'no_hp'                 => 'required',
+            'nama_usaha'            => 'required',
+            'alamat_usaha'          => 'required',
+            'id_kecamatan'          => 'required',
+            'id_desa'               => 'required',
             'id_kategori_komoditas' => 'required',
             'id_komoditas'          => 'required',
             'id_sub_komoditas'      => 'required',
+            'id_pendidikan'         => 'required',
+            'tahun_berdiri'         => 'required',
+            'status'                => 'required',
+            'tanggal_simpan'        => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);
@@ -138,12 +164,8 @@ class IndividuController extends Controller
             DB::beginTransaction();
 
             $individu = Individu::find($id);
-            $individu->update([
-                'nama_individu'           => $request->input('nama_individu'),
-                'id_kategori_komoditas' => $request->input('id_kategori_komoditas'),
-                'id_komoditas'          => $request->input('id_komoditas'),
-                'id_sub_komoditas'      => $request->input('id_sub_komoditas'),
-            ]);
+            $input = $request->all();
+            $individu->update($input);
 
             DB::commit();
 
