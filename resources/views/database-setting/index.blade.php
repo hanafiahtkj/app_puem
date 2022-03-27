@@ -42,7 +42,7 @@
                             @endforeach
                         </select>
                       </div>
-                      <button type="button" id="" class="btn btn-primary" onclick="submit_backup()"><i class="fa fa-refresh"></i> Cadangkan</button>
+                      <button type="button" id="cadangkan" class="btn btn-primary" onclick="submit_backup()"><i class="fa fa-refresh"></i> Cadangkan</button>
                     </div>
                   </div>
                   </div>
@@ -62,11 +62,20 @@
                             No
                           </th>
                           <th>Nama File</th>
+                          <th>Nama Database</th>
                           <th>Tanggal di cadangkan</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
+                        @foreach ($data as $key => $item)
+                          <tr>
+                              <td>{{$key + 1}}</td>
+                              <td>{{$item->database_file}}</td>
+                              <td>{{$item->nama_database}}</td>
+                              <td>{{$item->tanggal_simpan}}</td>
+                            </tr>
+                          @endforeach
                       </tbody>
                     </table>
                   </div>
@@ -89,20 +98,20 @@
         <script>
             
             $(document).ready(function() {
-                $('.select_table').select2();
+                $('.select_table').select2()
             })
 
             function handle_select() {
                 
-                let optionSelectBackup = $('#select_backup').val();
+                let optionSelectBackup = $('#select_backup').val()
 
        
                 if (optionSelectBackup.length > 1) {
                     
                     if (optionSelectBackup.includes('semua')) {
   
-                        $('#select_backup').val(null).trigger('change');
-                        $('#select_backup').val(['semua']).trigger('change');
+                        $('#select_backup').val(null).trigger('change')
+                        $('#select_backup').val(['semua']).trigger('change')
                     }
 
 
@@ -112,15 +121,27 @@
 
             function submit_backup(){
 
-                let optionSelectBackup = $('#select_backup').val();
+                let optionSelectBackup = $('#select_backup').val()
 
                 if (optionSelectBackup  == null || optionSelectBackup == '') {
                     
-                    alert("Pilih data yang ingin di backup");
+                    alert("Pilih data yang ingin di backup")
+
+                }else{
+
+                    this.post_api(optionSelectBackup)
 
                 }
                 
-                fetch("/api/database-backup", {
+
+            }
+
+            function post_api(bodyObject){
+
+              $('#cadangkan').prop('disabled', true)
+              $('#cadangkan').html('sedang mencadangkan...')
+
+              fetch("/api/database-backup", {
                     headers: {
                         "Content-Type": "application/json",
                         "Accept": "application/json, text-plain, */*",
@@ -130,17 +151,21 @@
                     method: "post",
                     credentials: "same-origin",
                     body: JSON.stringify({
-                        data: optionSelectBackup
+                        data: bodyObject
                     })
                 })
                     .then((res) => {
+                    
                         return res.json()
                     })
                     .then((res) => {
-                        console.log(res);
+
+                      location.reload(true)
+                      console.log(res)
+
                     })
                     .catch((err) => {
-                        console.log(err);
+                        console.log(err)
                     })
                 
 

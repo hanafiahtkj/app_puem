@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Ifsnop\Mysqldump as IMysqldump;
+use App\Models\DatabaseSetting;
 
 class DatabaseSettingController extends Controller
 {
@@ -24,7 +26,9 @@ class DatabaseSettingController extends Controller
             return !in_array($item, $except_table);
         });
 
-        return view('database-setting.index', compact('tablesFilter'));
+        $data = DatabaseSetting::all();
+
+        return view('database-setting.index', compact('tablesFilter', 'data'));
     }
 
     public function backupDatabase(Request $request)
@@ -35,35 +39,56 @@ class DatabaseSettingController extends Controller
 
         if (in_array('semua', $data)) {
             
-           
-            
+            $fileName = $this->generateSqlFile(null);
 
+            DatabaseSetting::create([
+                'nama_database' => implode(",", $data),
+                'tanggal_simpan' => date('Y-m-d H:i:s'),
+                'database_file' => $fileName,
+            ]);
+            
         }else{
 
-            $this->generateSqlFile($data);
+            $fileName = $this->generateSqlFile($data);
+
+            DatabaseSetting::create([
+                'nama_database' => implode(",", $data),
+                'tanggal_simpan' => date('Y-m-d H:i:s'),
+                'database_file' => $fileName,
+            ]);
 
         }
 
-        return response()->json(['success' => 'Database backup success', 'data' => $data]);
+        return response()->json(['success' => 'Database backup success']);
 
     }
 
     public function generateSqlFile($dbname)
     {
 
-        // $fileName = "backup-". time().'_'. ".sql";
-        // $storageAt = storage_path() . "/app/backup/";
-        // $command = "".env('dump', 'dump')." --user=" . env('DB_USERNAME') ." --password=" . env('DB_PASSWORD') . " --host=" . env('DB_HOST') . " " . env('DB_DATABASE') . "  | gzip > " . $storageAt . $fileName;
+        try {
 
-        // $output = null;
-        // $returnVar = null;
-        // exec($command, $output, $returnVar);
-        // $file->move(public_path('storage/databaseBackup'), $fileName);
+            $dumpSetting = [];
+            $dumpSetting['include-tables'] = $dbname;
 
+            $fileName = "backup-". time().'_'. ".sql";
+            $path = public_path("storage/db/");
+            $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST').';dbname='
+                                        .env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'), $dbname ? $dumpSetting : []);
 
-        shell_exec('mysqldump -h 103.178.83.254 -u app_puem -p@puem_app --databases app_puem > cc.sql');
+            $dump->start($path . $fileName);
+            
+            return $fileName;
 
-        // exec('C:\laragon\bin\mysqlmysql-5.7.33-winx64\bin\mysqldump -user=app_puem --password=@puem_app --host=103.178.83.254 app_puem > file.sql');
+        } catch (\Exception $e) {
+
+            echo 'mysqldump-php error: ' . $e->getMessage();
+
+        }
+
+        // linux
+        // shell_exec('mysqldump -h {IP} -u {user} -p {pass} --databases app_puem > cc.sql');
+
 
     }
 }
