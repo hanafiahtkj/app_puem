@@ -20,7 +20,7 @@
           <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Data UEM</span></a>
           <ul class="dropdown-menu">
             <li class="nav-item"><a href="{{ route('uem.individu.index') }}" class="nav-link">Data Individu</a></li>
-            <li class="nav-item"><a href="" class="nav-link">Data Usaha</a></li>
+            <li class="nav-item"><a href="{{ route('uem.usaha.index') }}" class="nav-link">Data Usaha</a></li>
           </ul>
       </li>
       <li class="nav-item">

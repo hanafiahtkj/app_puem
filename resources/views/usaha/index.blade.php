@@ -1,6 +1,6 @@
 <x-app-layout>
 
-  <x-slot name="title">DATA INDIVIDU</x-slot>
+  <x-slot name="title">DATA USAHA</x-slot>
 
   <x-slot name="extra_css">
     <link rel="stylesheet" href="{{ asset('vendor/DataTables/datatables.min.css') }}">
@@ -12,13 +12,13 @@
   <div class="main-content">
     <section class="section">
       <div class="section-header">
-        <h1>DATA INDIVIDU</h1>
+        <h1>DATA USAHA</h1>
         <div class="section-header-button">
-          <a href="{{ route('uem.individu.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> TAMBAH</a>
+          <a href="{{ route('uem.usaha.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> TAMBAH</a>
         </div>
         <div class="section-header-breadcrumb">
           <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>
-          <div class="breadcrumb-item">Data Individu</div>
+          <div class="breadcrumb-item">Data Usaha</div>
         </div>
       </div>
 
@@ -109,7 +109,7 @@
         var dataTable = $('#dataTable').DataTable({
           processing: true,
           ajax: {
-              url: "{{ route('uem.individu.getDataTables') }}",
+              url: "{{ route('uem.usaha.getDataTables') }}",
           },
           columns: [
             {data: null},
@@ -134,7 +134,7 @@
               searchable: false, 
               orderable: false, 
               render: function ( data, type, row ) {
-                var url = '{{ route("uem.individu.edit", ":id") }}';
+                var url = '{{ route("uem.usaha.edit", ":id") }}';
                 url = url.replace(':id', row['id']);
                 var btn = '<div class="buttons"><a href="'+url+'" class="btn btn-icon btn-sm btn-primary btn-edit" style="width: 29px;"><i class="far fa-edit"></i></a>';
                 btn += '<a href="javascript:void(0);" data-id="'+row['id']+'" class="btn btn-icon btn-sm btn-danger btn-delete" style="width: 29px;"><i class="fas fa-times"></i></a>';
@@ -155,7 +155,7 @@
 
         $('#dataTable tbody').on( 'click', '.btn-delete', function () {
           var id = $(this).data('id');
-          var url = '{{ route("uem.individu.destroy", ":id") }}';
+          var url = '{{ route("uem.usaha.destroy", ":id") }}';
           url = url.replace(':id', id);
           swal({
               title: 'Yakin ingin menghapus?',
