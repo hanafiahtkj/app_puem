@@ -198,6 +198,7 @@
                       $('#dataTable').DataTable().ajax.reload()
                       $('#cadangkan').prop('disabled', false)
                       $('#cadangkan').html('Cadangkan')
+                      $('#select_backup').val(null).trigger('change')
                       alert("berhasil di cadangkan")
 
                     })
