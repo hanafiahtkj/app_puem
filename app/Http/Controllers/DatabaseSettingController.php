@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Ifsnop\Mysqldump as IMysqldump;
@@ -31,6 +32,27 @@ class DatabaseSettingController extends Controller
         return view('database-setting.index', compact('tablesFilter', 'data'));
     }
 
+    public function data_json()
+    {
+
+        $data = DatabaseSetting::all()->map(function($val, $key){
+            return [
+                'no'                => $key + 1,
+                'nama_database'     => $val->nama_database,
+                'tanggal_simpan'    => $val->tanggal_simpan,
+                'database_file'     => $val->database_file,
+            ];
+        });
+
+        return Datatables::of($data)
+                        ->addColumn('action', function ($row) {
+                            return '<a href="'.route('database-download', $row['database_file']).'" class="btn btn-primary btn-sm"><i class="fa fa-download"></i></a>
+                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>';                
+                        })
+                        ->rawColumns(['action'])
+                        ->make(true);
+    }
+
     public function backupDatabase(Request $request)
     {
         
@@ -49,7 +71,7 @@ class DatabaseSettingController extends Controller
             
         }else{
 
-            $fileName = $this->generateSqlFile($data);
+            $fileName = $this->_generateSqlFile($data);
 
             DatabaseSetting::create([
                 'nama_database' => implode(",", $data),
@@ -63,7 +85,24 @@ class DatabaseSettingController extends Controller
 
     }
 
-    public function generateSqlFile($dbname)
+    public function downloadSqlFile($sqlFile)
+    {
+
+        $headers = [
+            'Content-Type' => 'application/octet-stream',
+        ];
+
+        $file = $this->_getSqlFile($sqlFile);
+
+        return response()->download($file, $sqlFile, $headers);
+    }
+
+    private function _getSqlFile($file)
+    {
+        return public_path(). "/storage/db/$file";
+    }
+
+    private function _generateSqlFile($dbname)
     {
 
         try {

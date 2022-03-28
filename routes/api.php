@@ -19,3 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/database-backup', [DatabaseSettingController::class, 'backupDatabase']);
+Route::get('/database-json', [DatabaseSettingController::class, 'data_json'])->name('database-json');
+Route::get('/database-download/{sqlfile}', [DatabaseSettingController::class, 'downloadSqlFile'])->name('database-download');
