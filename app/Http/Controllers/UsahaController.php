@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\KategoriKomoditas;
 use App\Models\Kecamatan;
 use App\Models\Pendidikan;
-use App\Models\Individu;
+use App\Models\Usaha;
 use App\Models\InstansiPembina;
 use App\Models\Perizinan;
+use App\Models\DetailInstansiUsaha;
+use App\Models\DetailPerizinanUsaha;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use DB;
@@ -51,23 +53,7 @@ class UsahaController extends Controller
      */
     public function store(Request $request)
     {
-        $validasi = [
-            'nama_pemilik'          => 'required',
-            'nik'                   => 'required',
-            'jenis_kelamin'         => 'required',
-            'no_hp'                 => 'required',
-            'nama_usaha'            => 'required',
-            'alamat_usaha'          => 'required',
-            'id_kecamatan'          => 'required',
-            'id_desa'               => 'required',
-            'id_kategori_komoditas' => 'required',
-            'id_komoditas'          => 'required',
-            'id_sub_komoditas'      => 'required',
-            'id_pendidikan'         => 'required',
-            'tahun_berdiri'         => 'required',
-            'status'                => 'required',
-            'tanggal_simpan'        => 'required',
-        ];
+        $validasi = [];
 
         $validator = Validator::make($request->all(), $validasi);
 
@@ -82,7 +68,30 @@ class UsahaController extends Controller
             DB::beginTransaction();
 
             $input = $request->all();
-            Individu::create($input);
+            $usaha = Usaha::create($input);
+
+            if ($instansi_pembina = $request->input('instansi_pembina')) 
+            {
+                foreach ($instansi_pembina as $key => $value) 
+                {
+                    DetailInstansiUsaha::create([
+                        'id_usaha' => $usaha->id,
+                        'id_instansi_pembina' => $value,
+                    ]);
+                }
+            }
+
+            if ($perizinan = $request->input('perizinan')) 
+            {
+                foreach ($perizinan as $key => $value) 
+                {
+                    DetailPerizinanUsaha::create([
+                        'id_usaha'     => $usaha->id,
+                        'id_perizinan' => $value['id_perizinan'],
+                        'nomor'        => $value['no_izin'],
+                    ]);
+                }
+            }
 
             DB::commit();
 
@@ -120,7 +129,7 @@ class UsahaController extends Controller
     public function edit($id)
     {
         $data = [
-            'individu'   => Individu::find($id),
+            'usaha'      => Usaha::find($id),
             'kecamatan'  => Kecamatan::all(),
             'pendidikan' => Pendidikan::all(),
             'perizinan'  => Perizinan::all(),
@@ -169,7 +178,7 @@ class UsahaController extends Controller
         try{
             DB::beginTransaction();
 
-            $individu = Individu::find($id);
+            $individu = Usaha::find($id);
             $input = $request->all();
             $individu->update($input);
 
@@ -197,7 +206,7 @@ class UsahaController extends Controller
      */
     public function destroy($id)
     {
-        Individu::find($id)->delete();
+        Usaha::find($id)->delete();
         return response()->json([
             'status' => true,
         ]);
@@ -205,8 +214,8 @@ class UsahaController extends Controller
 
     public function getDataTables(Request $request)
     {
-        $individu = Individu::orderBy('id','DESC');
-        return Datatables::of($individu)
+        $usaha = Usaha::with('individu')->orderBy('id','DESC');
+        return Datatables::of($usaha)
             ->make(true);
     }
 }

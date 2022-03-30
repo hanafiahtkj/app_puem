@@ -117,7 +117,7 @@
             {data: 'nik'},
             {data: 'jenis_kelamin'},
             {data: 'alamat_usaha'},
-            {data: null},
+            {data: 'nama_badan_usaha'},
             {data: 'tahun_berdiri'},
             {data: 'tanggal_simpan'},
             {data: null},

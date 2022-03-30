@@ -222,6 +222,9 @@ body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu li a {
 body.sidebar-mini .main-sidebar .sidebar-menu > li ul.dropdown-menu {
     background-image: linear-gradient(to right, #9c27b0, #3f51b5);
 }
+body.sidebar-mini .main-sidebar:after {
+    background-image: linear-gradient(to right, #9c27b0, #3f51b5);
+}
 .dropdown-menu .dropdown-title {
     color: #fff!important;
 }

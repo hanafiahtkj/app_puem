@@ -206,7 +206,7 @@ class IndividuController extends Controller
     {
         $data = [];
         if ($id_desa = $request->input('id_desa')) {
-            $query = DB::table('individu')->where('id_desa', $id_desa);
+            $query = Individu::where('id_desa', $id_desa);
 
             if ($search = $request->input('search')) {
                 $query->where('nama_pemilik','LIKE','%'.$search.'%');
