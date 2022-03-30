@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <x-slot name="title">DATA DESA</x-slot>
+    <x-slot name="title">Setting Database</x-slot>
   
     <x-slot name="extra_css">
       <link rel="stylesheet" href="{{ asset('vendor/DataTables/datatables.min.css') }}">
@@ -26,9 +26,6 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <!-- <div class="card-header">
-                  <h4>Card Title</h4> 
-                </div> -->
                 <div class="card-body p-1">
                   <div class="m-0 p-4">
                   <div class="row">
@@ -68,14 +65,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach ($data as $key => $item)
+                        {{-- @foreach ($data as $key => $item)
                           <tr>
                               <td>{{$key + 1}}</td>
                               <td>{{$item->database_file}}</td>
                               <td>{{$item->nama_database}}</td>
                               <td>{{$item->tanggal_simpan}}</td>
                             </tr>
-                          @endforeach
+                          @endforeach --}}
                       </tbody>
                     </table>
                   </div>
@@ -99,6 +96,44 @@
             
             $(document).ready(function() {
                 $('.select_table').select2()
+            })
+
+            $(function() {
+              
+              var dt = $('#dataTable').DataTable({
+                          processing: true,
+                          serverSide: true,
+                          lengthMenu: [
+                            [10, 50, -1],
+                            [10, 50, "All"]
+                          ],
+                          ajax: '{{ route('database-json') }}',
+                          columns: [
+                            {
+                              data: 'no',
+                              name: 'no'
+                            },
+                            {
+                              data: 'database_file',
+                              name: 'database_file'
+                            },
+                            {
+                              data: 'nama_database',
+                              name: 'nama_database'
+                            },
+                            {
+                              data: 'tanggal_simpan',
+                              name: 'tanggal_simpan'
+                            },
+                            {
+                              data: 'action',
+                              name: 'action',
+                              orderable: false,
+                              searchable: false
+                            }
+                          ]
+                        });
+
             })
 
             function handle_select() {
@@ -160,8 +195,11 @@
                     })
                     .then((res) => {
 
-                      location.reload(true)
-                      console.log(res)
+                      $('#dataTable').DataTable().ajax.reload()
+                      $('#cadangkan').prop('disabled', false)
+                      $('#cadangkan').html('Cadangkan')
+                      $('#select_backup').val(null).trigger('change')
+                      alert("berhasil di cadangkan")
 
                     })
                     .catch((err) => {
