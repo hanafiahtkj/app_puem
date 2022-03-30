@@ -29,9 +29,9 @@
                 <div class="card-body p-1">
                   <div class="m-0 p-4">
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <div class="form-group">
-                        <label class="control-label" for="input-name">Pilih Tabel Yang ingin di backup</label>
+                        <label class="control-label" for="input-name">Pilih Tabel Yang ingin di backup</label> 
                         <select class="form-control selectric select_table" name="" id="select_backup" multiple="multiple" onchange="handle_select()">
                             <option value="semua">Semua....</option>
                             @foreach ($tablesFilter as $key => $value)
@@ -40,6 +40,16 @@
                         </select>
                       </div>
                       <button type="button" id="cadangkan" class="btn btn-primary" onclick="submit_backup()"><i class="fa fa-refresh"></i> Cadangkan</button>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label class="control-label" for="input-name">Pulihkan Database</label>
+                        <input type="file" class="form-control" name="" id="pulihkan">
+                      </div>
+                      <button type="button" id="cadangkan" class="btn btn-primary" onclick="submit_restore()"><i class="fa fa-database"></i> Pulihkan</button>
                     </div>
                   </div>
                   </div>
@@ -65,14 +75,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        {{-- @foreach ($data as $key => $item)
-                          <tr>
-                              <td>{{$key + 1}}</td>
-                              <td>{{$item->database_file}}</td>
-                              <td>{{$item->nama_database}}</td>
-                              <td>{{$item->tanggal_simpan}}</td>
-                            </tr>
-                          @endforeach --}}
+                     
                       </tbody>
                     </table>
                   </div>
@@ -164,14 +167,66 @@
 
                 }else{
 
-                    this.post_api(optionSelectBackup)
+                    this.post_api_backup(optionSelectBackup)
 
                 }
                 
 
             }
 
-            function post_api(bodyObject){
+            function submit_restore(){
+              
+                let fileSubmit = $('#pulihkan').val()
+                let Extension = fileSubmit.substring(fileSubmit.lastIndexOf('.') + 1).toLowerCase()
+
+                if (fileSubmit == null || fileSubmit == '') {
+                    
+                    alert("Pilih file yang ingin di restore")
+                  
+                }else{
+
+                  if (Extension == 'sql') {
+                    
+                    // console.log( $('#pulihkan').prop('files')[0] );
+
+                    this.post_api_restore( $('#pulihkan').prop('files')[0] )
+                    
+                  }else{
+
+                    alert("File yang di restore harus berformat .sql")
+
+
+                  }
+
+
+                }
+                
+
+            }
+            
+            function post_api_restore(file) {
+
+              const formData = new FormData();
+              formData.append('sqlFile', file);
+              
+              fetch("/api/database-restore", {
+                method: 'POST',
+                credentials: "same-origin",
+                headers: {
+                  "X-CSRF-Token": $('input[name="_token"]').val()
+                },
+                body: formData
+              })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+
+            }
+
+            function post_api_backup(bodyObject){
 
               $('#cadangkan').prop('disabled', true)
               $('#cadangkan').html('sedang mencadangkan...')
@@ -183,7 +238,7 @@
                         "X-Requested-With": "XMLHttpRequest",
                         "X-CSRF-Token": $('input[name="_token"]').val()
                     },
-                    method: "post",
+                    method: "POST",
                     credentials: "same-origin",
                     body: JSON.stringify({
                         data: bodyObject

@@ -85,6 +85,23 @@ class DatabaseSettingController extends Controller
 
     }
 
+    public function restoreDatabase(Request $request)
+    {
+
+        $file = $request->sqlFile;
+
+        $file->move(public_path('storage/geojsonDesa'), 'upload.sql');
+
+        $sqlFile = public_path('storage/geojsonDesa/upload.sql');
+
+        // restore database
+
+       // 
+
+        return response()->json(['success' => 'Database restore success']);
+        
+    }
+
     public function downloadSqlFile($sqlFile)
     {
 
@@ -109,6 +126,8 @@ class DatabaseSettingController extends Controller
 
             $dumpSetting = [];
             $dumpSetting['include-tables'] = $dbname;
+            $dumpSetting['databases']      = true;
+            $dumpSetting['add-drop-table'] = true;
 
             $fileName = "backup-". time().'_'. ".sql";
             $path = public_path("storage/db/");
