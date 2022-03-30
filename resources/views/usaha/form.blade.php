@@ -31,7 +31,7 @@
         @endif
         @csrf
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-7">
             <div class="card">
               <div class="card-header"><h4>Data Usaha</h4></div>
               <div class="card-body">
@@ -59,28 +59,40 @@
                   </select>
                   <div class="invalid-feedback">UKM wajib diisi.</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="detail-ukm" style="display: none;">
                   <label for="id_ukm">Detail UKM</label>
                   <div class="jumbotron p-4 m-0">
                     <table border="0" cellpadding="4" cellspacing="0">
                       <tbody>
                         <tr>
-                          <td>Nama Pemilik</td><td>:</td><td>Ari Widodo</td>
+                          <td>Nama Pemilik</td>
+                          <td>:</td>
+                          <td id="tb-nama-pemilik"></td>
                         </tr>
                         <tr>
-                          <td>NIK</td><td>:</td><td>6301101010700002</td>
+                          <td>NIK</td>
+                          <td>:</td>
+                          <td id="tb-nik"></td>
                         </tr>
                         <tr>
-                          <td>Jenis Kelamin</td><td>:</td><td>Laki-Laki</td>
+                          <td>Jenis Kelamin</td>
+                          <td>:</td>
+                          <td id="tb-jenis-kelamin"></td>
                         </tr>
                         <tr>
-                          <td>Alamat</td><td>:</td><td></td>
+                          <td>Alamat</td>
+                          <td>:</td>
+                          <td id="tb-alamat"></td>
                         </tr>
                         <tr>
-                          <td>Status Usaha</td><td>:</td><td>Perorangan</td>
+                          <td>Status Usaha</td>
+                          <td>:</td>
+                          <td id="tb-status"></td>
                         </tr>
                         <tr>
-                          <td>Tahun Berdiri</td><td>:</td><td>2008</td>
+                          <td>Tahun Berdiri</td>
+                          <td>:</td>
+                          <td>2008</td>
                         </tr>
                       </tbody>
                     </table>
@@ -127,7 +139,7 @@
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="nilai_asset">Nilai Investasi</label>
+                    <label for="nilai_asset">Nilai Asset</label>
                     <input id="nilai_asset" type="text" class="form-control currency" name="nilai_asset" value="{{ @$individu->nilai_asset }}" required>
                     <div class="invalid-feedback">
                       Nilai Asset wajib diisi.
@@ -137,7 +149,11 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="instansi_pembina">Instansi yang membina (sebutkan)</label>
-                    <select name="instansi_pembina[]" class="form-control" required="" multiple="multiple" id="instansi_pembina"></select>
+                    <select name="instansi_pembina[]" class="form-control select2" required="" multiple="multiple" id="instansi_pembina">
+                      @foreach($instansi_pembina as $value)
+                        <option value="{{ $value->id }}" {{ @$individu->id_badan_usaha == $value->id ? 'selected' : '' }}>{{ $value->nama_instansi_pembina }}</option>
+                      @endforeach
+                    </select>
                     <div class="invalid-feedback">
                       Instansi Pembina wajib diisi.
                     </div>
@@ -146,6 +162,9 @@
                     <label for="pernah_menerima_pembinaan">Pernah menerima pembinaan/pelatihan dari</label>
                     <select id="pernah_menerima_pembinaan" name="pernah_menerima_pembinaan" class="form-control" required>
                       <option value="">Pilih...</option>
+                      <option value="Pemerintah">Pemerintah</option>
+                      <option value="Swasta/LSM/Lainnya">Swasta/LSM/Lainnya</option>
+                      <option value="Belum Sama Sekali">Belum Sama Sekali</option>
                     </select>
                     <div class="invalid-feedback">
                       Pernah menerima pembinaan wajib diisi.
@@ -156,7 +175,10 @@
                   <div class="form-group col-md-6">
                     <label for="layanan_ukm">Kegiatan produksi/layanan ukm dalam 1 bulan</label>
                     <select id="layanan_ukm" name="layanan_ukm" class="form-control" required>
-                      <option value="" selected="selected"></option>
+                      <option value="">Pilih...</option>
+                      <option value="1-7 Kali">1-7 Kali</option>
+                      <option value="8-15 Kali">8-15 Kali</option>
+                      <option value="Setiap Hari">Setiap Hari</option>
                     </select>
                     <div class="invalid-feedback">
                       Layanan Ukm wajib diisi.
@@ -166,6 +188,9 @@
                     <label for="bantuan_alat">Sudah mendapatkan bantuan alat</label>
                     <select id="bantuan_alat" name="bantuan_alat" class="form-control" required>
                       <option value="">Pilih...</option>
+                      <option value="Pemerintah">Pemerintah</option>
+                      <option value="Swasta">Swasta</option>
+                      <option value="Belum Sama Sekali">Belum Sama Sekali</option>
                     </select>
                     <div class="invalid-feedback">
                       Bantuan Alat wajib diisi.
@@ -176,7 +201,10 @@
                   <div class="form-group col-md-6">
                     <label for="produk_dihasilkan">Produk dihasilkan</label>
                     <select id="produk_dihasilkan" name="produk_dihasilkan" class="form-control" required>
-                      <option value="" selected="selected"></option>
+                      <option value="">Pilih...</option>
+                      <option value="Bahan Baku">Bahan Baku</option>
+                      <option value="Barang Jadi">Barang Jadi</option>
+                      <option value="Layanan/Jasa">Layanan/Jasa</option>
                     </select>
                     <div class="invalid-feedback">
                       Produk dihasilkan wajib diisi.
@@ -186,6 +214,9 @@
                     <label for="terima_modal_dari">Pernah menerima bantuan modal dari</label>
                     <select id="terima_modal_dari" name="terima_modal_dari" class="form-control" required>
                       <option value="">Pilih...</option>
+                      <option value="Pemerintah">Pemerintah</option>
+                      <option value="Swasta">Swasta</option>
+                      <option value="Belum Sama Sekali">Belum Sama Sekali</option>
                     </select>
                     <div class="invalid-feedback">
                       Terima Modal dari wajib diisi.
@@ -197,6 +228,8 @@
                     <label for="apakah_sudah_dikemas">Apakah produk sudah dikemas</label>
                     <select id="apakah_sudah_dikemas" name="apakah_sudah_dikemas" class="form-control" required>
                       <option value="" selected="selected"></option>
+                      <option value="Ya">Ya</option>
+                      <option value="Tidak">Tidak</option>
                     </select>
                     <div class="invalid-feedback">
                       Apakah sudah dikemas wajib diisi.
@@ -206,6 +239,9 @@
                     <label for="teknik_pemasaran">Teknik pemasaran</label>
                     <select id="teknik_pemasaran" name="teknik_pemasaran" class="form-control" required>
                       <option value="">Pilih...</option>
+                      <option value="Tradisional">Tradisional</option>
+                      <option value="Modern (On Line)">Modern (On Line)</option>
+                      <option value="Campuran">Campuran</option>
                     </select>
                     <div class="invalid-feedback">
                       Teknik Pemasaran wajib diisi.
@@ -216,7 +252,11 @@
                   <div class="form-group col-md-6">
                     <label for="bahan_kemasan">Bahan Kemasan</label>
                     <select id="bahan_kemasan" name="bahan_kemasan" class="form-control" required>
-                      <option value="" selected="selected"></option>
+                      <option value="">Pilih</option>
+                      <option value="Plastik">Plastik</option>
+                      <option value="Kertas">Kertas</option>
+                      <option value="Lainnya">Lainnya</option>
+                      <option value="Tidak Dikemas">Tidak Dikemas</option>
                     </select>
                     <div class="invalid-feedback">
                       Bahan Kemasan wajib diisi.
@@ -226,6 +266,9 @@
                     <label for="asal_konsumen">Asal Konsumen</label>
                     <select id="asal_konsumen" name="asal_konsumen" class="form-control" required>
                       <option value="">Pilih...</option>
+                      <option value="Lokal">Lokal</option>
+                      <option value="Luar">Luar</option>
+                      <option value="Campuran">Campuran</option>
                     </select>
                     <div class="invalid-feedback">
                       Asal Konsumen wajib diisi.
@@ -236,7 +279,11 @@
                   <div class="form-group col-md-6">
                     <label for="cara_kemasan">Cara Kemasan</label>
                     <select id="cara_kemasan" name="cara_kemasan" class="form-control" required>
-                      <option value="" selected="selected"></option>
+                      <option value="">Pilih...</option>
+                      <option value="Modern">Modern</option>
+                      <option value="Tradisional">Tradisional</option>
+                      <option value="Campuran">Campuran</option>
+                      <option value="Tidak Dikemas">Tidak Dikemas</option>
                     </select>
                     <div class="invalid-feedback">
                       Cara Kemasan wajib diisi.
@@ -246,6 +293,9 @@
                     <label for="sarana_penunjang_produksi">Sarana penunjang produksi yang dimiliki</label>
                     <select id="sarana_penunjang_produksi" name="sarana_penunjang_produksi" class="form-control" required>
                       <option value="">Pilih...</option>
+                      <option value="Lengkap">Lengkap</option>
+                      <option value="Cukup">Cukup</option>
+                      <option value="Kurang">Kurang</option>
                     </select>
                     <div class="invalid-feedback">
                       Sarana penunjang produksi wajib diisi.
@@ -256,36 +306,46 @@
                   <div class="form-group col-md-6">
                     <label for="asal_bahan_baku">Asal bahan baku</label>
                     <select id="asal_bahan_baku" name="asal_bahan_baku" class="form-control" required>
-                      <option value="" selected="selected"></option>
+                      <option value="">Pilih...</option>
+                      <option value="Lokal">Lokal</option>
+                      <option value="Luar Desa">Luar Desa</option>
+                      <option value="Impor">Impor</option>
                     </select>
                     <div class="invalid-feedback">
                       Asal bahan baku wajib diisi.
                     </div>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="dampak_sosial_ekonomi">Dampak sosial ekonomi masyarakat setempat terhadap kegiatan UKM</label>
-                    <select id="dampak_sosial_ekonomi" name="dampak_sosial_ekonomi" class="form-control" required>
-                      <option value="">Pilih...</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Dampak sosial ekonomi wajib diisi.
-                    </div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
                     <label for="kondisi_bangunan">Kondisi bangunan</label>
                     <select id="kondisi_bangunan" name="kondisi_bangunan" class="form-control" required>
-                      <option value="" selected="selected"></option>
+                      <option value="">Pilih...</option>
+                      <option value="Permanen">Permanen</option>
+                      <option value="Semi Permanen">Semi Permanen</option>
+                      <option value="Sederhana">Sederhana</option>
+                      <option value="Tanpa Bangunan">Tanpa Bangunan</option>
                     </select>
                     <div class="invalid-feedback">
                       Kondisi bangunan wajib diisi.
                     </div>
                   </div>
                 </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="dampak_sosial_ekonomi">Dampak sosial ekonomi masyarakat setempat terhadap kegiatan UKM</label>
+                    <select id="dampak_sosial_ekonomi" name="dampak_sosial_ekonomi" class="form-control" required>
+                      <option value="">Pilih...</option>
+                      <option value="Sangat berpengaruh">Sangat berpengaruh</option>
+                      <option value="Berpengaruh">Berpengaruh</option>
+                      <option value="Tidak Berpengaruh">Tidak Berpengaruh</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Dampak sosial ekonomi wajib diisi.
+                    </div>
+                  </div>
+                </div>
                 <div class="form-group">
                   <label for="npwp">NPWP *Jika Ada*</label>
-                  <input id="npwp" type="text" class="form-control" name="keterangan" value="{{ @$individu->npwp }}" required>
+                  <input id="npwp" type="text" class="form-control" name="npwp" value="{{ @$individu->npwp }}">
                   <div class="invalid-feedback">
                     NPWP wajib diisi.
                   </div>
@@ -304,32 +364,68 @@
                     Tanggal_simpan wajib diisi.
                   </div>
                 </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="perizinan">Perizinan</label>
-                    <select id="perizinan" name="perizinan[]" multiple="multiple" class="form-control" required>
-                      <option value="" selected="selected"></option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Perizinan wajib diisi.
-                    </div>
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="no_izin">No Izin</label>
-                    <select id="no_izin" name="no_izin[]" class="form-control" required>
-                      <option value="">Pilih...</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      No Izin wajib diisi.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-footer">
-                <input type="hidden" name="id" value="{{ @$individu->id }}"/>
-                <button type="submit" id="btn-store" class="btn btn-success btn-lg">SIMPAN</button>
               </div>
             </div>
+          </div>
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-header"><h4>Data Perizinan</h4></div>
+                <div class="card-body">
+                  <template v-for="(izin, index) in perizinan">
+                    <div class="table-responsive" :key="index">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <th class="px-0 form-group" scope="col"><label>Perizinan/Legalitas</label></th>
+                            <th scope="col" class="px-2">
+                              <select id="perizinan" :name="'perizinan[' + index + '][id_perizinan]'" v-model="izin.id_perizinan" class="form-control" required>
+                                <option value="">Pilih...</option>
+                                @foreach($perizinan as $value)
+                                  <option value="{{ $value->id }}">{{ $value->singkatan }}</option>
+                                @endforeach
+                              </select>
+                            </th>
+                            <th scope="col" class="px-2"rowspan="2">
+                              <input type="hidden" :name="'perizinan[' + index + '][id]'" v-model="izin.id">
+                              <button type="button" class="btn btn-danger btn-icon" @click="deletePerizinan(index)"><i class="fas fa-times"></i></button></th>
+                          </tr>
+                          <tr>
+                            <th class="px-0 form-group" scope="col">No Izin</th>
+                            <td class="px-2"><input type="text" class="form-control" :name="'perizinan[' + index + '][no_izin]'" v-model="izin.nomor" required></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <hr>
+                    </div>
+                    {{-- <div class="form-row mb-2">
+                      <div class="form-group col-md-6">
+                        <label for="perizinan">Perizinan/Legalitas</label>
+                        <select id="perizinan" name="perizinan[]" class="form-control select2" required>
+                          <option value="">Pilih...</option>
+                          @foreach($perizinan as $value)
+                            <option value="{{ $value->id }}">{{ $value->nama_perizinan }}</option>
+                          @endforeach
+                        </select>
+                        <div class="invalid-feedback">
+                          Perizinan wajib diisi.
+                        </div>
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="no_izin">No Izin</label>
+                        <input id="no_izin" type="text" class="form-control" name="no_izin[]" value="" required>
+                        <div class="invalid-feedback">
+                          No Izin wajib diisi.
+                        </div>
+                      </div>
+                    </div> --}}
+                  </template>
+                  <button type="button" class="btn btn-primary" @click="tambahPerizinan()"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="text-right">
+            <input type="hidden" name="id" value="{{ @$individu->id }}"/>
+            <button type="submit" id="btn-store" class="btn btn-success btn-lg">SIMPAN</button>
+          </div>
           </div>
         </form>
       </div>
@@ -341,8 +437,40 @@
     <script src="{{ asset('vendor/daterangepicker/daterangepicker.js') }}"></script>
     <script src="{{ asset('vendor/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('vendor/select2-4.0.13/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('vendor/vuejs/vue.min.js') }}"></script>
+    <script src="{{ asset('js/format_number.min.js') }}"></script>
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script> 
+
+    let dataVue= {
+      perizinan : [{
+        id : '', 
+        id_perizinan : '',
+        nomor : '',
+      }],
+    };
+
+    var app = new Vue({
+      el: '#app',
+      data: dataVue,
+      mounted () {
+        //
+      },
+      methods: {
+        tambahPerizinan: function () 
+        {
+          this.perizinan.push({
+            id : '', 
+            id_perizinan : '',
+            nomor : '',
+          });
+        },
+        deletePerizinan: function (index) 
+        {
+          this.perizinan.splice(index, 1);
+        },
+      },
+    });
 
     function getDesa(id, id_desa = '') 
     {
@@ -419,8 +547,15 @@
       });
 
       $('.js-select2-id-ukm').on('select2:select', function (e) {
-        var data = e.params.data;
+        var data = e.params.data.ukm;
         console.log(data);
+        $('#detail-ukm').show();
+        $('#tb-nama-pemilik').text(data['nama_pemilik']);
+        $('#tb-nik').text(data['nik']);
+        $('#tb-jenis-kelamin').text(data['jenis_kelamin']);
+        $('#tb-alamat').text(data['alamat_usaha']);
+        $('#tb-status').text(data['nama_badan_usaha']);
+        $('#tb-tahun-berdiri').text(data['tahun_berdiri']);
         // app.getBook(data.id);
       });
       

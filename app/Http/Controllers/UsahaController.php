@@ -7,6 +7,8 @@ use App\Models\KategoriKomoditas;
 use App\Models\Kecamatan;
 use App\Models\Pendidikan;
 use App\Models\Individu;
+use App\Models\InstansiPembina;
+use App\Models\Perizinan;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use DB;
@@ -34,6 +36,8 @@ class UsahaController extends Controller
         $data = [
             'kecamatan'  => Kecamatan::all(),
             'pendidikan' => Pendidikan::all(),
+            'perizinan'  => Perizinan::all(),
+            'instansi_pembina'   => InstansiPembina::all(),
             'kategori_komoditas' => KategoriKomoditas::all(),
         ];
         return view('usaha.form', $data);
@@ -119,6 +123,8 @@ class UsahaController extends Controller
             'individu'   => Individu::find($id),
             'kecamatan'  => Kecamatan::all(),
             'pendidikan' => Pendidikan::all(),
+            'perizinan'  => Perizinan::all(),
+            'instansi_pembina'   => InstansiPembina::all(),
             'kategori_komoditas' => KategoriKomoditas::all(),
         ];
         return view('usaha.form', $data);

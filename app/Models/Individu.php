@@ -30,7 +30,7 @@ class Individu extends Model
         'tanggal_simpan',
     ];
 
-    protected $appends = ['nama_komoditas', 'nama_sub_komoditas'];
+    protected $appends = ['nama_komoditas', 'nama_sub_komoditas', 'nama_badan_usaha'];
 
     public function komoditas()
     {
@@ -42,6 +42,11 @@ class Individu extends Model
         return $this->belongsTo(SubKomoditas::class, 'id_sub_komoditas', 'id');
     }
 
+    public function badanUsaha()
+    {
+        return $this->belongsTo(BadanUsaha::class, 'id_badan_usaha', 'id');
+    }
+
     public function getNamaKomoditasAttribute()
     {
         return $this->komoditas()->first()->nama_komoditas;
@@ -50,5 +55,10 @@ class Individu extends Model
     public function getNamaSubKomoditasAttribute()
     {
         return $this->subKomoditas()->first()->nama_sub_komoditas;
+    }
+
+    public function getNamaBadanUsahaAttribute()
+    {
+        return $this->badanUsaha()->first()->nama_badan_usaha;
     }
 }
