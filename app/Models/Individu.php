@@ -24,6 +24,7 @@ class Individu extends Model
         'id_komoditas',
         'id_sub_komoditas',
         'id_pendidikan',
+        'id_badan_usaha',
         'tahun_berdiri',
         'status',
         'tanggal_simpan',

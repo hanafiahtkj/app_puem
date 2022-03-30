@@ -28,6 +28,8 @@ Route::group([
     'as'         => 'uem.',
     'middleware' => ['auth']], function () {
 
+    Route::get('individu/ajax-search', [IndividuController::class, 'ajaxSearch'])->name('individu.ajax-search');
+
     Route::get('individu/getDataTables', [IndividuController::class, 'getDataTables'])->name('individu.getDataTables');
 
     Route::resource('individu', IndividuController::class);

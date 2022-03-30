@@ -7,6 +7,7 @@ use App\Models\KategoriKomoditas;
 use App\Models\Kecamatan;
 use App\Models\Pendidikan;
 use App\Models\Individu;
+use App\Models\BadanUsaha;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use DB;
@@ -32,8 +33,9 @@ class IndividuController extends Controller
     public function create()
     {
         $data = [
-            'kecamatan'  => Kecamatan::all(),
-            'pendidikan' => Pendidikan::all(),
+            'kecamatan'   => Kecamatan::all(),
+            'pendidikan'  => Pendidikan::all(),
+            'badan_usaha' => BadanUsaha::all(),
             'kategori_komoditas' => KategoriKomoditas::all(),
         ];
         return view('individu.form', $data);
@@ -60,6 +62,7 @@ class IndividuController extends Controller
             'id_komoditas'          => 'required',
             'id_sub_komoditas'      => 'required',
             'id_pendidikan'         => 'required',
+            'id_badan_usaha'        => 'required',
             'tahun_berdiri'         => 'required',
             'status'                => 'required',
             'tanggal_simpan'        => 'required',
@@ -116,9 +119,10 @@ class IndividuController extends Controller
     public function edit($id)
     {
         $data = [
-            'individu'   => Individu::find($id),
-            'kecamatan'  => Kecamatan::all(),
-            'pendidikan' => Pendidikan::all(),
+            'individu'    => Individu::find($id),
+            'kecamatan'   => Kecamatan::all(),
+            'pendidikan'  => Pendidikan::all(),
+            'badan_usaha' => BadanUsaha::all(),
             'kategori_komoditas' => KategoriKomoditas::all(),
         ];
         return view('individu.form', $data);
@@ -146,6 +150,7 @@ class IndividuController extends Controller
             'id_komoditas'          => 'required',
             'id_sub_komoditas'      => 'required',
             'id_pendidikan'         => 'required',
+            'id_badan_usaha'        => 'required',
             'tahun_berdiri'         => 'required',
             'status'                => 'required',
             'tanggal_simpan'        => 'required',
@@ -195,6 +200,21 @@ class IndividuController extends Controller
         return response()->json([
             'status' => true,
         ]);
+    }
+
+    public function ajaxSearch(Request $request)
+    {
+        $data = [];
+        if ($id_desa = $request->input('id_desa')) {
+            $query = DB::table('individu')->where('id_desa', $id_desa);
+
+            if ($search = $request->input('search')) {
+                $query->where('nama_pemilik','LIKE','%'.$search.'%');
+            }
+
+            $data = $query->get();
+        }
+        return response()->json($data);
     }
 
     public function getDataTables(Request $request)

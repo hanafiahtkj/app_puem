@@ -36,10 +36,12 @@
                         </th>
                         <th>Nama Pemilik</th>
                         <th>Nik</th>
-                        <th>Jenis Kelamin</th>
+                        <th>Desa</th>
                         <th>Alamat</th>
-                        <th>Status Usaha</th>
                         <th>Tahun Berdiri</th>
+                        <th>Tenaga Kerja</th>
+                        <th>No Perizinan</th>
+                        <th>Keterangan</th>
                         <th>Tanggal Simpan</th>
                         <th>Aksi</th>
                       </tr>
@@ -115,10 +117,12 @@
             {data: null},
             {data: 'nama_pemilik'},
             {data: 'nik'},
-            {data: 'jenis_kelamin'},
-            {data: 'alamat_usaha'},
             {data: null},
+            {data: 'alamat_usaha'},
             {data: 'tahun_berdiri'},
+            {data: null},
+            {data: null},
+            {data: null},
             {data: 'tanggal_simpan'},
             {data: null},
           ],
@@ -130,15 +134,23 @@
               className: "text-center"
             },
             {
-              targets: 8,
+              targets: 10,
               searchable: false, 
               orderable: false, 
               render: function ( data, type, row ) {
                 var url = '{{ route("uem.usaha.edit", ":id") }}';
                 url = url.replace(':id', row['id']);
-                var btn = '<div class="buttons"><a href="'+url+'" class="btn btn-icon btn-sm btn-primary btn-edit" style="width: 29px;"><i class="far fa-edit"></i></a>';
-                btn += '<a href="javascript:void(0);" data-id="'+row['id']+'" class="btn btn-icon btn-sm btn-danger btn-delete" style="width: 29px;"><i class="fas fa-times"></i></a>';
-                btn += '</div>';
+                var item = 
+                  '<a class="dropdown-item btn-edit" href="'+url+'">Edit</a>'+
+                  '<a class="dropdown-item btn-delete" href="javascript:void(0);" data-id="'+row['id']+'">Hapus</a>';
+                btn = 
+                  '<div class="dropdown">' +
+                    '<button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Aksi</button>'+
+                    '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'+
+                      item
+                    '</div>'+
+                  '</div>';
+
                 return btn;
               },
             },

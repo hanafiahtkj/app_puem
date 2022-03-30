@@ -141,9 +141,12 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="">Status Kepemilikan Usaha</label>
-                  <select id="" class="form-control selectric" disabled>
+                  <label for="id_badan_usaha">Status Kepemilikan Usaha</label>
+                  <select id="id_badan_usaha" class="form-control selectric" name="id_badan_usaha" required>
                     <option value="">Pilih....</option>
+                    @foreach($badan_usaha as $value)
+                      <option value="{{ $value->id }}" {{ @$individu->id_badan_usaha == $value->id ? 'selected' : '' }}>{{ $value->nama_badan_usaha }}</option>
+                    @endforeach
                   </select>
                   <div class="invalid-feedback">Status Kepemilikan Usaha wajib diisi.</div>
                 </div>
