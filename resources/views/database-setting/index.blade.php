@@ -49,7 +49,7 @@
                         <label class="control-label" for="input-name">Pulihkan Database</label>
                         <input type="file" class="form-control" name="" id="pulihkan">
                       </div>
-                      <button type="button" id="cadangkan" class="btn btn-primary" onclick="submit_restore()"><i class="fa fa-database"></i> Pulihkan</button>
+                      <button type="button" id="btnpulihkan" class="btn btn-primary" onclick="submit_restore()"><i class="fa fa-database"></i> Pulihkan</button>
                     </div>
                   </div>
                   </div>
@@ -86,6 +86,9 @@
         </div>
       </section>
     </div>
+    <form method="POST" action="{{ route('logout') }}" style="display: none" id="logoutDBSetting">
+      @csrf
+    </form>
 
     <x-slot name="extra_js">
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -206,6 +209,9 @@
             
             function post_api_restore(file) {
 
+              $('#btnpulihkan').prop('disabled', true)
+              $('#btnpulihkan').html('<i class="fa fa-spinner fa-spin"></i> Sedang memulihkan')
+
               const formData = new FormData();
               formData.append('sqlFile', file);
               
@@ -219,6 +225,9 @@
               })
               .then((res) => {
                 console.log(res)
+                alert("Berhasil memulihkan database, logout dan login kembali untuk melihat perubahan")
+                $('#logoutDBSetting').submit()
+                
               })
               .catch((err) => {
                 console.log(err)

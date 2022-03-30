@@ -47,7 +47,7 @@ class DatabaseSettingController extends Controller
         return Datatables::of($data)
                         ->addColumn('action', function ($row) {
                             return '<a href="'.route('database-download', $row['database_file']).'" class="btn btn-primary btn-sm"><i class="fa fa-download"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>';                
+                                    <a href="" class="btn btn-danger btn-sm" onclick="return confirm_click()"><i class="fa fa-trash"></i></a>';                
                         })
                         ->rawColumns(['action'])
                         ->make(true);
@@ -61,7 +61,7 @@ class DatabaseSettingController extends Controller
 
         if (in_array('semua', $data)) {
             
-            $fileName = $this->generateSqlFile(null);
+            $fileName = $this->_generateSqlFile([]);
 
             DatabaseSetting::create([
                 'nama_database' => implode(",", $data),
@@ -90,13 +90,14 @@ class DatabaseSettingController extends Controller
 
         $file = $request->sqlFile;
 
-        $file->move(public_path('storage/geojsonDesa'), 'upload.sql');
+        try {
+            
+            DB::unprepared(file_get_contents($file));
 
-        $sqlFile = public_path('storage/geojsonDesa/upload.sql');
-
-        // restore database
-
-       // 
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json(['error' => 'Database restore failed']);
+        }
 
         return response()->json(['success' => 'Database restore success']);
         
@@ -132,7 +133,7 @@ class DatabaseSettingController extends Controller
             $fileName = "backup-". time().'_'. ".sql";
             $path = public_path("storage/db/");
             $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST').';dbname='
-                                        .env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'), $dbname ? $dumpSetting : []);
+                                        .env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'), $dumpSetting);
 
             $dump->start($path . $fileName);
             
