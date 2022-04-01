@@ -304,16 +304,18 @@ function populateForm($form, data)
 
     $.each(data, function(key, value)   // all json fields ordered by name
     {
-        //console.log("Data Element: " + key + " value: " + value );
+        // console.log("Data Element: " + key + " value: " + value );
         var $ctrls = $form.find('[name='+key+']');  //all form elements for a name. Multiple checkboxes can have the same name, but different values
 
-        //console.log("Number found elements: " + $ctrls.length );
+        // console.log("Number found elements: " + $ctrls.length );
 
         if ($ctrls.is('select')) //special form types
         {
             $('option', $ctrls).each(function() {
-                if (this.value == value)
+                if (this.value == value) {
                     this.selected = true;
+                    // alert('ok');
+                }
             });
         } 
         else if ($ctrls.is('textarea')) 

@@ -36,9 +36,9 @@ class UsahaController extends Controller
     public function create()
     {
         $data = [
-            'kecamatan'  => Kecamatan::all(),
-            'pendidikan' => Pendidikan::all(),
-            'perizinan'  => Perizinan::all(),
+            'kecamatan'          => Kecamatan::all(),
+            'pendidikan'         => Pendidikan::all(),
+            'perizinan'          => Perizinan::all(),
             'instansi_pembina'   => InstansiPembina::all(),
             'kategori_komoditas' => KategoriKomoditas::all(),
         ];
@@ -129,12 +129,13 @@ class UsahaController extends Controller
     public function edit($id)
     {
         $data = [
-            'usaha'      => Usaha::find($id),
-            'kecamatan'  => Kecamatan::all(),
-            'pendidikan' => Pendidikan::all(),
-            'perizinan'  => Perizinan::all(),
-            'instansi_pembina'   => InstansiPembina::all(),
-            'kategori_komoditas' => KategoriKomoditas::all(),
+            'usaha'                  => Usaha::find($id),
+            'kecamatan'              => Kecamatan::all(),
+            'pendidikan'             => Pendidikan::all(),
+            'perizinan'              => Perizinan::all(),
+            'instansi_pembina'       => InstansiPembina::all(),
+            'kategori_komoditas'     => KategoriKomoditas::all(),
+            'detail_perizinan_usaha' => DetailPerizinanUsaha::where('id_usaha', $id)->get(),
         ];
         return view('usaha.form', $data);
     }
@@ -216,6 +217,10 @@ class UsahaController extends Controller
     {
         $usaha = Usaha::with('individu')->orderBy('id','DESC');
         return Datatables::of($usaha)
+            ->addColumn('no_izin',function(Usaha $usaha){
+                $no_izin = DetailPerizinanUsaha::where('id_usaha', $usaha->id)->pluck('nomor')->toArray();
+                return implode(',', $no_izin);
+            })
             ->make(true);
     }
 }

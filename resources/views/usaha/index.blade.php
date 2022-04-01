@@ -121,7 +121,7 @@
             {data: 'individu.alamat_usaha'},
             {data: 'individu.tahun_berdiri'},
             {data: 'jumlah_tenaga_kerja'},
-            {data: null},
+            {data: 'no_izin'},
             {data: 'keterangan'},
             {data: 'tanggal_simpan'},
             {data: null},

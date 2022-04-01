@@ -421,13 +421,25 @@
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script> 
 
-    let dataVue= {
-      perizinan : [{
-        id : '', 
-        id_perizinan : '',
-        nomor : '',
-      }],
-    };
+    @if (isset($usaha))
+      
+      getDesa('{{ $usaha->id_kecamatan }}', '{{ $usaha->id_desa }}');
+      
+      let dataVue = {
+        perizinan : @json($detail_perizinan_usaha),
+      };
+    
+    @else
+
+      let dataVue = {
+        perizinan : [{
+          id : '', 
+          id_perizinan : '',
+          nomor : '',
+        }],
+      };
+
+    @endif
 
     var app = new Vue({
       el: '#app',
@@ -465,13 +477,8 @@
       });
     }
 
-    $(function() {
+    $(function() {    
 
-      @if (isset($usaha))
-        getDesa('{{ $usaha->id_kecamatan }}', '{{ $usaha->id_desa }}');
-      @endif
-
-      
       // Select2
       if(jQuery().select2) {
         $(".select2").select2();
@@ -548,6 +555,11 @@
             },
         });
       });
+
+      @if (isset($usaha))
+        let usaha = @json($usaha);
+        populateForm($('#formInput'), usaha);
+      @endif
 
     }); 
     </script>
