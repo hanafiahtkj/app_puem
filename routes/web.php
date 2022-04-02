@@ -13,12 +13,12 @@
 
 // URL::forceRootUrl(getenv('PROXY_URL'));
 
-// $app_url = config("app.url");
-// if (!empty($app_url)) {
-//     URL::forceRootUrl($app_url);
-//     $schema = explode(':', $app_url)[0];
-//     URL::forceScheme($schema);
-// }
+$app_url = config("app.url");
+if (!empty($app_url)) {
+    URL::forceRootUrl($app_url);
+    $schema = explode(':', $app_url)[0];
+    URL::forceScheme($schema);
+}
 
 
 use Illuminate\Support\Facades\Route;
