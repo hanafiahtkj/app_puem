@@ -129,13 +129,14 @@ class UsahaController extends Controller
     public function edit($id)
     {
         $data = [
-            'usaha'                  => Usaha::find($id),
             'kecamatan'              => Kecamatan::all(),
             'pendidikan'             => Pendidikan::all(),
             'perizinan'              => Perizinan::all(),
             'instansi_pembina'       => InstansiPembina::all(),
             'kategori_komoditas'     => KategoriKomoditas::all(),
+            'usaha'                  => Usaha::find($id),
             'detail_perizinan_usaha' => DetailPerizinanUsaha::where('id_usaha', $id)->get(),
+            'detail_instansi_usaha'  => DetailInstansiUsaha::where('id_usaha', $id)->pluck('id_instansi_pembina')->toArray(),
         ];
         return view('usaha.form', $data);
     }
@@ -149,23 +150,7 @@ class UsahaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validasi = [
-            'nama_pemilik'          => 'required',
-            'nik'                   => 'required',
-            'jenis_kelamin'         => 'required',
-            'no_hp'                 => 'required',
-            'nama_usaha'            => 'required',
-            'alamat_usaha'          => 'required',
-            'id_kecamatan'          => 'required',
-            'id_desa'               => 'required',
-            'id_kategori_komoditas' => 'required',
-            'id_komoditas'          => 'required',
-            'id_sub_komoditas'      => 'required',
-            'id_pendidikan'         => 'required',
-            'tahun_berdiri'         => 'required',
-            'status'                => 'required',
-            'tanggal_simpan'        => 'required',
-        ];
+        $validasi = [];
 
         $validator = Validator::make($request->all(), $validasi);
 

@@ -55,11 +55,15 @@
                 <div class="form-group">
                   <label for="id_ukm">UKM</label>
                   <select id="id_ukm" class="form-control selectric js-select2-id-ukm" name="id_ukm" required>
-                    <option value="">Pilih....</option>
+                    @if (isset($usaha))
+                      <option value="{{ $usaha->id_ukm }}" selected>{{ $usaha->ukm->nama_pemilik }}</option>
+                    @else
+                      <option value="">Pilih....</option>
+                    @endif
                   </select>
                   <div class="invalid-feedback">UKM wajib diisi.</div>
                 </div>
-                <div class="form-group" id="detail-ukm" style="display: none;">
+                <div class="form-group" id="detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
                   <label for="id_ukm">Detail UKM</label>
                   <div class="jumbotron p-4 m-0">
                     <table border="0" cellpadding="4" cellspacing="0">
@@ -67,32 +71,32 @@
                         <tr>
                           <td>Nama Pemilik</td>
                           <td>:</td>
-                          <td id="tb-nama-pemilik"></td>
+                          <td id="tb-nama-pemilik">{{ @$usaha->ukm->nama_pemilik }}</td>
                         </tr>
                         <tr>
                           <td>NIK</td>
                           <td>:</td>
-                          <td id="tb-nik"></td>
+                          <td id="tb-nik">{{ @$usaha->ukm->nik }}</td>
                         </tr>
                         <tr>
                           <td>Jenis Kelamin</td>
                           <td>:</td>
-                          <td id="tb-jenis-kelamin"></td>
+                          <td id="tb-jenis-kelamin">{{ @$usaha->ukm->jenis_kelamin }}</td>
                         </tr>
                         <tr>
                           <td>Alamat</td>
                           <td>:</td>
-                          <td id="tb-alamat"></td>
+                          <td id="tb-alamat">{{ @$usaha->ukm->alamat_usaha }}</td>
                         </tr>
                         <tr>
                           <td>Status Usaha</td>
                           <td>:</td>
-                          <td id="tb-status"></td>
+                          <td id="tb-status">{{ @$usaha->ukm->nama_badan_usaha }}</td>
                         </tr>
                         <tr>
                           <td>Tahun Berdiri</td>
                           <td>:</td>
-                          <td>2008</td>
+                          <td id="tb-tahun-berdiri">{{ @$usaha->ukm->tahun_berdiri }}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -321,7 +325,13 @@
                     <label for="instansi_pembina">Instansi yang membina (sebutkan)</label>
                     <select name="instansi_pembina[]" class="form-control select2" required="" multiple="multiple" id="instansi_pembina">
                       @foreach($instansi_pembina as $value)
-                        <option value="{{ $value->id }}" {{ @$usaha->id_badan_usaha == $value->id ? 'selected' : '' }}>{{ $value->nama_instansi_pembina }}</option>
+                        <option value="{{ $value->id }}" 
+                          @php
+                            if(isset($usaha)) { 
+                              echo (in_array($value->id, @$detail_instansi_usaha)) ? 'selected' : '';
+                            }; 
+                          @endphp>
+                          {{ $value->nama_instansi_pembina }}</option>
                       @endforeach
                     </select>
                     <div class="invalid-feedback">
