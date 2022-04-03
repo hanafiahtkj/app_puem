@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/DataTables/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/DataTables/DataTables-1.10.24/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/iziToast/dist/css/iziToast.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/select2-4.0.13/dist/css/select2.min.css') }}">
   </x-slot>
 
   <!-- Main Content -->
@@ -23,6 +24,44 @@
       </div>
 
       <div class="section-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body p-1">
+                <div class="m-0 p-4">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label" for="input-name">Kecamatan</label>
+                      <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" onChange="getDesa(this.value);">
+                        <option value="">Semua....</option>
+                        @foreach ($kecamatan as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="form-group">
+                      <label class="control-label" for="input-name">Desa</label>
+                      <select class="form-control select2" name="id_desa" id="id_desa">
+                        <option value="">Semua....</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <button type="button" id="button-filter" class="btn btn-primary pull-right mr-2 mb-2"><i class="fa fa-filter"></i> Filter</button>
+                    <button type="submit" target="_blank" name="extension" value="pdf" id="button-pdf" class="btn btn-dark pull-right mr-2 mb-2"><i class="fa fa-file-pdf"></i> Export PDF</button>
+                    <button type="submit" target="_blank" name="extension" value="excel" id="button-excel" class="btn btn-success pull-right mr-2 mb-2"><i class="fa fa-file-excel"></i> Export Excel</button>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -63,33 +102,20 @@
     <script src="{{ asset('vendor/DataTables/DataTables-1.10.24/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('vendor/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script src="{{ asset('vendor/iziToast/dist/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('vendor/select2-4.0.13/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script>
       
-      function getKomoditas(id, id_komoditas = '') 
+      function getDesa(id, id_desa = '') 
       {
         var id  = id;
-        var url = '{{ route("master.komoditas.get-komoditas", ":id") }}';
+        var url = '{{ route("master.desa.get-desa", ":id") }}';
         url = url.replace(':id', id);
-        $('#id_komoditas').html('');
-        $('#id_komoditas').append(new Option('Pilih.....', ''))
+        $('#id_desa').html('');
+        $('#id_desa').append(new Option('Semua.....', ''))
         $.get(url, function( response ) {
           $.each(response.data, function (key, value) {
-            $('#id_komoditas').append('<option value="'+value.id+'" '+ ((value.id == id_komoditas) ? 'selected' : '') +'>'+value.nama_komoditas+'</option>');
-          });
-        });
-      }
-
-      function getSubKomoditas(id, id_sub_komoditas = '') 
-      {
-        var id  = id;
-        var url = '{{ route("master.sub-komoditas.get-sub-komoditas", ":id") }}';
-        url = url.replace(':id', id);
-        $('#id_sub_komoditas').html('');
-        $('#id_sub_komoditas').append(new Option('Pilih.....', ''))
-        $.get(url, function( response ) {
-          $.each(response.data, function (key, value) {
-            $('#id_sub_komoditas').append('<option value="'+value.id+'" '+ ((value.id == id_sub_komoditas) ? 'selected' : '') +'>'+value.nama_sub_komoditas+'</option>');
+            $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
           });
         });
       }
@@ -110,8 +136,13 @@
         };
         var dataTable = $('#dataTable').DataTable({
           processing: true,
+          serverSide: true,
           ajax: {
-              url: "{{ route('uem.usaha.getDataTables') }}",
+            url: "{{ route('uem.usaha.getDataTables') }}",
+            data: function (d) {
+              d.id_kecamatan = $('#id_kecamatan').val();
+              d.id_desa = $('#id_desa').val();
+            }
           },
           columns: [
             {data: null},
@@ -165,6 +196,10 @@
           }
         });
 
+        $('#button-filter').on('click', function () {
+          dataTable.ajax.reload();
+        });
+
         $('#dataTable tbody').on( 'click', '.btn-delete', function () {
           var id = $(this).data('id');
           var url = '{{ route("uem.usaha.destroy", ":id") }}';
@@ -190,6 +225,11 @@
               }
             });
         });
+
+        // Select2
+        if(jQuery().select2) {
+          $(".select2").select2();
+        }
       
       });
     </script>

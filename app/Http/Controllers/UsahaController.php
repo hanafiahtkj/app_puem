@@ -24,7 +24,9 @@ class UsahaController extends Controller
      */
     public function index()
     {
-        $data = [];
+        $data = [
+            'kecamatan' => Kecamatan::all(),
+        ];
         return view('usaha.index', $data);
     }
 
@@ -200,8 +202,19 @@ class UsahaController extends Controller
 
     public function getDataTables(Request $request)
     {
-        $usaha = Usaha::with('individu')->orderBy('id','DESC');
-        return Datatables::of($usaha)
+        $query = Usaha::with('individu');
+
+        if ($id_kecamatan = $request->get('id_kecamatan')) {
+            $query->where('usaha.id_kecamatan', $id_kecamatan);
+        }
+
+        if ($id_desa = $request->get('id_desa')) {
+            $query->where('usaha.id_desa', $id_desa);
+        }
+
+        $query->orderBy('usaha.id','DESC')->get();
+
+        return Datatables::of($query)
             ->addColumn('no_izin',function(Usaha $usaha){
                 $no_izin = DetailPerizinanUsaha::where('id_usaha', $usaha->id)->pluck('nomor')->toArray();
                 return implode(',', $no_izin);

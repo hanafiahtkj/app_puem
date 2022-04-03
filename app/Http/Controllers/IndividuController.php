@@ -21,7 +21,9 @@ class IndividuController extends Controller
      */
     public function index()
     {
-        $data = [];
+        $data = [
+            'kecamatan' => Kecamatan::all(),
+        ];
         return view('individu.index', $data);
     }
 
@@ -219,8 +221,19 @@ class IndividuController extends Controller
 
     public function getDataTables(Request $request)
     {
-        $individu = Individu::orderBy('id','DESC');
-        return Datatables::of($individu)
+        $query = Individu::query();
+
+        if ($id_kecamatan = $request->get('id_kecamatan')) {
+            $query->where('id_kecamatan', $id_kecamatan);
+        }
+
+        if ($id_desa = $request->get('id_desa')) {
+            $query->where('id_desa', $id_desa);
+        }
+
+        $query->orderBy('id','DESC')->get();
+
+        return Datatables::of($query)
             ->make(true);
     }
 }
