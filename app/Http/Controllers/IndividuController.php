@@ -231,7 +231,7 @@ class IndividuController extends Controller
             $query->where('id_desa', $id_desa);
         }
 
-        $query->orderBy('id','DESC')->get();
+        $query = $query->orderBy('id','DESC')->get();
 
         return Datatables::of($query)
             ->make(true);

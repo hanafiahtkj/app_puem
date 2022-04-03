@@ -212,11 +212,11 @@ class UsahaController extends Controller
             $query->where('usaha.id_desa', $id_desa);
         }
 
-        $query->orderBy('usaha.id','DESC')->get();
+        $query = $query->orderBy('usaha.id','DESC')->get();
 
         return Datatables::of($query)
-            ->addColumn('no_izin',function(Usaha $usaha){
-                $no_izin = DetailPerizinanUsaha::where('id_usaha', $usaha->id)->pluck('nomor')->toArray();
+            ->addColumn('no_izin',function(Usaha $query){
+                $no_izin = DetailPerizinanUsaha::where('id_usaha', $query->id)->pluck('nomor')->toArray();
                 return implode(',', $no_izin);
             })
             ->make(true);
