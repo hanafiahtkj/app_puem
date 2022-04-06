@@ -23,6 +23,7 @@ if (!empty($app_url)) {
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseSettingController;
+use App\Http\Controllers\BumdesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,11 @@ use App\Http\Controllers\DatabaseSettingController;
 // susun kan aja kna route nya fi
 
 Route::get('/database-setting', [DatabaseSettingController::class, 'index'])->name('database-setting');
+Route::group([
+    'middleware' => ['auth']], function () {
+        Route::get('bumdes', [BumdesController::class, 'index'])->name('bumdes-index');
+        Route::get('bumdes/create', [BumdesController::class, 'create'])->name('bumdes-create');
+});
 
 
 require __DIR__.'/auth.php';
