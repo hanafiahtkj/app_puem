@@ -32,7 +32,7 @@
 
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2022 All rights reserved | Diskominfotik Kota Banjarmasin
+          Copyright &copy; 2022 All rights reserved | demo app
         </div>
       </footer>
 

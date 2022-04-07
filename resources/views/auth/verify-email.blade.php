@@ -50,7 +50,7 @@
               </div>
             </div>
             <div class="simple-footer">
-              Copyright &copy; 2022 All rights reserved | Diskominfotik Kota Banjarmasin
+              Copyright &copy; 2022 All rights reserved | demo app
             </div>
           </div>
         </div>

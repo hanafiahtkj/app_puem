@@ -179,7 +179,7 @@
         </div>
         <div class="container pt-3">
           <div class="text-center">
-            Copyright &copy; 2022 All rights reserved | Diskominfotik Kota Banjarmasin
+            Copyright &copy; 2022 All rights reserved | demo app
             <!-- <div class="bullet"></div>  -->
             <!-- Design By <a href="https://nauval.in/">Muhamad Nauval Azhar</a> -->
           </div>
