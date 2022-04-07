@@ -32,6 +32,8 @@ Route::group([
 
     Route::get('individu/getDataTables', [IndividuController::class, 'getDataTables'])->name('individu.getDataTables');
 
+    Route::get('individu/export', [IndividuController::class, 'export'])->name('individu.export');
+    
     Route::resource('individu', IndividuController::class);
 
     Route::get('usaha/getDataTables', [UsahaController::class, 'getDataTables'])->name('usaha.getDataTables');

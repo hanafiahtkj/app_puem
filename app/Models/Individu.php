@@ -30,7 +30,17 @@ class Individu extends Model
         'tanggal_simpan',
     ];
 
-    protected $appends = ['nama_komoditas', 'nama_sub_komoditas', 'nama_badan_usaha'];
+    protected $appends = ['nama_kecamatan', 'nama_desa', 'nama_komoditas', 'nama_sub_komoditas', 'nama_badan_usaha'];
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
+    }
+
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class, 'id_desa', 'id');
+    }
 
     public function komoditas()
     {
@@ -45,6 +55,16 @@ class Individu extends Model
     public function badanUsaha()
     {
         return $this->belongsTo(BadanUsaha::class, 'id_badan_usaha', 'id');
+    }
+
+    public function getNamaKecamatanAttribute()
+    {
+        return $this->kecamatan()->first()->nama_kecamatan;
+    }
+
+    public function getNamaDesaAttribute()
+    {
+        return $this->desa()->first()->nama_desa;
     }
 
     public function getNamaKomoditasAttribute()

@@ -10,6 +10,9 @@ use App\Models\Individu;
 use App\Models\BadanUsaha;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+use App\Exports\IndividuExport;
+use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 use DB;
 
 class IndividuController extends Controller
@@ -217,6 +220,42 @@ class IndividuController extends Controller
             $data = $query->get();
         }
         return response()->json($data);
+    }
+
+    public function export(Request $request)
+	{
+        $type = $request->get('type');
+        $extension = $request->get('extension');
+        $function  = '_rekap_'.$request->get('extension');
+        return $this->{$function}($request);
+    }
+
+    function _rekap_excel(Request $request)
+	{
+        $id_kecamatan = $request->get('id_kecamatan');
+        $id_desa      = $request->get('id_desa');
+        $type         = $request->get('type');;
+        return Excel::download(
+            new IndividuExport($id_kecamatan, $id_desa, $type), 
+            $type.'.xlsx'
+        );
+    }
+
+    function _rekap_pdf(Request $request)
+	{
+        $report = Individu::where('id_kecamatan', $request->get('id_kecamatan'));
+
+        if($request->get('type') == 'rekap_desa'){
+            $report->where('id_desa', $request->get('id_desa'));
+        }
+
+        $data = [
+            'kecamatan' => Kecamatan::find($request->get('id_kecamatan')),
+            'data'      => $report->get(),
+        ];
+        // return view('individu.pdf.rekap', $data);
+        $pdf = PDF::loadView('individu.pdf.rekap', $data)->setPaper('a4', 'landscape');
+        return $pdf->stream($request->get('type').'.pdf');
     }
 
     public function getDataTables(Request $request)

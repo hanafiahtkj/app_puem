@@ -24,44 +24,71 @@
       </div>
 
       <div class="section-body">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-body p-1">
-                <div class="m-0 p-4">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label class="control-label" for="input-name">Kecamatan</label>
-                      <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" onChange="getDesa(this.value);">
-                        <option value="">Semua....</option>
-                        @foreach ($kecamatan as $key => $value)
-                            <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
-                        @endforeach
-                      </select>
+        <form id="report" method="GET" action="{{ route('uem.individu.export') }}" target="_blank" class="needs-validation" novalidate>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body p-1">
+                  <div class="m-0 p-4">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label" for="input-name">Kecamatan</label>
+                          <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" onChange="getDesa(this.value);" required>
+                            <option value="">Semua....</option>
+                            @foreach ($kecamatan as $key => $value)
+                                <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
+                            @endforeach
+                          </select>
+                          <div class="invalid-feedback">
+                            Kecamatan wajib diisi.
+                        </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label" for="input-name">Desa</label>
+                          <select class="form-control select2" name="id_desa" id="id_desa">
+                            <option value="">Semua....</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            Desa wajib diisi.
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <button type="button" id="button-filter" class="btn btn-primary pull-right mr-2 mb-2"><i class="fa fa-filter"></i> Filter</button>
+                        <div class="btn-group mr-2 mb-2">
+                          <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-file-pdf"></i> Export PDF
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="pdf" href="javascript:void(0);">Rekap Desa</a>
+                            <a class="dropdown-item submit" data-type="rekap_kecamatan" data-extension="pdf" href="javascript:void(0);">Rekap Kecamatan</a>
+                          </div>
+                        </div>
+                        <div class="btn-group mr-2 mb-2">
+                          <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-file-excel"></i> Export Excel
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="excel" href="javascript:void(0);">Rekap Desa</a>
+                            <a class="dropdown-item submit" data-type="rekap_kecamatan" data-extension="excel" href="javascript:void(0);">Rekap Kecamatan</a>
+                          </div>
+                        </div>
+                        <input type="hidden" name="extension" id="extension">
+                        <input type="hidden" name="type" id="type">
+                        <div class="d-none"><input type="submit" id="btn-export"></div>
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <label class="control-label" for="input-name">Desa</label>
-                      <select class="form-control select2" name="id_desa" id="id_desa">
-                        <option value="">Semua....</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-sm-12">
-                    <button type="button" id="button-filter" class="btn btn-primary pull-right mr-2 mb-2"><i class="fa fa-filter"></i> Filter</button>
-                    <button type="submit" target="_blank" name="extension" value="pdf" id="button-pdf" class="btn btn-dark pull-right mr-2 mb-2"><i class="fa fa-file-pdf"></i> Export PDF</button>
-                    <button type="submit" target="_blank" name="extension" value="excel" id="button-excel" class="btn btn-success pull-right mr-2 mb-2"><i class="fa fa-file-excel"></i> Export Excel</button>
-                  </div>
-                </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -218,6 +245,20 @@
         if(jQuery().select2) {
           $(".select2").select2();
         }
+
+        $('.submit').on('click', function () {
+          $('#type').val($(this).data('type'));
+          $('#extension').val($(this).data('extension'));
+
+          if ($(this).data('type') == 'rekap_desa') {
+            $('#id_desa').prop('required', true);
+          }
+          else {
+            $('#id_desa').prop('required', false);
+          }
+
+          $('#btn-export').click();
+        });
       
       });
     </script>
