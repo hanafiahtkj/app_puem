@@ -15,7 +15,7 @@
       <div class="section-header">
         <h1>DATA BUMDES</h1>
         <div class="section-header-button">
-          <button class="btn btn-primary" id="btn-create"><i class="fa fa-plus"></i> TAMBAH</button>
+          <a href="{{ route('bumdes-create') }}" class="btn btn-primary"> <i class="fa fa-plus"> Tambah</i> </a>
         </div>
         <div class="section-header-breadcrumb">
           <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>

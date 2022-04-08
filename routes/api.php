@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseSettingController;
+use App\Http\Controllers\BumdesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +23,4 @@ Route::post('/database-backup', [DatabaseSettingController::class, 'backupDataba
 Route::post('/database-restore', [DatabaseSettingController::class, 'restoreDatabase']);
 Route::get('/database-json', [DatabaseSettingController::class, 'data_json'])->name('database-json');
 Route::get('/database-download/{sqlfile}', [DatabaseSettingController::class, 'downloadSqlFile'])->name('database-download');
+Route::post('/getdesabyidkecamatan', [BumdesController::class, 'getDesaByIdKecamatan']);

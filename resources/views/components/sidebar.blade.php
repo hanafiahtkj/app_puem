@@ -27,7 +27,7 @@
         <a href="" class="nav-link"><i class="fas fa-shopping-bag"></i><span>Pasar Desa</span></a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link"><i class="fas fa-umbrella"></i><span>BUMDES</span></a>
+        <a href="{{ route('bumdes-index') }}" class="nav-link"><i class="fas fa-umbrella"></i><span>BUMDES</span></a>
       </li>
       <li class="nav-item dropdown">
         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Data Ekonomi Desa</span></a>

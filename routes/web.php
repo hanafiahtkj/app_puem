@@ -44,6 +44,7 @@ Route::group([
     'middleware' => ['auth']], function () {
         Route::get('bumdes', [BumdesController::class, 'index'])->name('bumdes-index');
         Route::get('bumdes/create', [BumdesController::class, 'create'])->name('bumdes-create');
+        Route::post('bumdes/store', [BumdesController::class, 'store'])->name('bumdes-store');
 });
 
 
