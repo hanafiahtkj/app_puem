@@ -121,6 +121,10 @@
       }
 
       $(document).ready(function () {
+
+        $.extend($.fn.dataTable.defaults, {
+          language: { url: "{{ asset('vendor/DataTables/id.json') }}" }
+        });
         
         $.fn.dataTableExt.oApi.fnPagingInfo = function (oSettings)
         {
