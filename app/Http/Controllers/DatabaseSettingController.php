@@ -63,6 +63,9 @@ class DatabaseSettingController extends Controller
             
             $fileName = $this->_generateSqlFile([]);
 
+            // linux test
+            // $fileName = $this->_generateSqlFileLinux();
+
             DatabaseSetting::create([
                 'nama_database' => implode(",", $data),
                 'tanggal_simpan' => date('Y-m-d H:i:s'),
@@ -155,6 +158,7 @@ class DatabaseSettingController extends Controller
         try{
 
             shell_exec('mysqldump -h '.env('DB_HOST').' -u '.env('DB_USERNAME').' -p'.env('DB_PASSWORD').' --databases app_puem > '.$path.'backup-'.time().'.sql');
+            return 'ok';
 
         }catch(\Exception $e){
 
