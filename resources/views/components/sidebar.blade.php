@@ -41,7 +41,7 @@
         <a href="" class="nav-link"><i class="fas fa-chart-line"></i><span>Grafik</span></a>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link"><i class="fas fa-map-marker-alt"></i></i><span>Gis</span></a>
+        <a href="{{ route('gis.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i></i><span>Gis</span></a>
       </li>
       <li class="nav-item dropdown">
         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Master Data</span></a>

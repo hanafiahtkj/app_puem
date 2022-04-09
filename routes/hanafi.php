@@ -15,12 +15,15 @@ use App\Http\Controllers\PerizinanController;
 use App\Http\Controllers\BadanUsahaController;
 use App\Http\Controllers\PendidikanController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GisController;
 
 Route::group(['middleware' => ['auth']], function () 
 {    
     Route::get('/', DashboardController::class);
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
+
+    Route::get('gis', GisController::class)->name('gis.index');
 });
 
 Route::group([
