@@ -145,9 +145,22 @@ class DatabaseSettingController extends Controller
 
         }
 
-        // linux
-        // shell_exec('mysqldump -h {IP} -u {user} -p {pass} --databases app_puem > cc.sql');
+    }
 
+    private function _generateSqlFileLinux()
+    {
+
+        $path = public_path("storage/db/");
+
+        try{
+
+            shell_exec('mysqldump -h '.env('DB_HOST').' -u '.env('DB_USERNAME').' -p'.env('DB_PASSWORD').' --databases app_puem > '.$path.'backup-'.time().'.sql');
+
+        }catch(\Exception $e){
+
+            echo 'mysqldump-php error: ' . $e->getMessage();
+
+        }
 
     }
 }
