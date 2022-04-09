@@ -38,6 +38,8 @@ Route::group([
 
     Route::get('usaha/getDataTables', [UsahaController::class, 'getDataTables'])->name('usaha.getDataTables');
 
+    Route::get('usaha/export', [UsahaController::class, 'export'])->name('usaha.export');
+
     Route::resource('usaha', UsahaController::class);
 });
 

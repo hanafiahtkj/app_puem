@@ -13,6 +13,8 @@ use App\Models\DetailInstansiUsaha;
 use App\Models\DetailPerizinanUsaha;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+use App\Exports\UsahaExport;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 
 class UsahaController extends Controller
@@ -198,6 +200,25 @@ class UsahaController extends Controller
         return response()->json([
             'status' => true,
         ]);
+    }
+
+    public function export(Request $request)
+	{
+        $type = $request->get('type');
+        $extension = $request->get('extension');
+        $function  = '_rekap_'.$request->get('extension');
+        return $this->{$function}($request);
+    }
+
+    function _rekap_excel(Request $request)
+	{
+        $id_kecamatan = $request->get('id_kecamatan');
+        $id_desa      = $request->get('id_desa');
+        $type         = $request->get('type');;
+        return Excel::download(
+            new UsahaExport($id_kecamatan, $id_desa, $type), 
+            $type.'.xlsx'
+        );
     }
 
     public function getDataTables(Request $request)

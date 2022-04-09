@@ -42,7 +42,7 @@
                           </select>
                           <div class="invalid-feedback">
                             Kecamatan wajib diisi.
-                        </div>
+                          </div>
                         </div>
                       </div>
                       <div class="col-sm-6">
@@ -53,7 +53,7 @@
                           </select>
                           <div class="invalid-feedback">
                             Desa wajib diisi.
-                        </div>
+                          </div>
                         </div>
                       </div>
                     </div>
