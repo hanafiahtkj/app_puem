@@ -157,7 +157,7 @@ class DatabaseSettingController extends Controller
 
         try{
 
-            shell_exec('mysqldump -h '.env('DB_HOST').' -u '.env('DB_USERNAME').' -p'.env('DB_PASSWORD').' --databases app_puem > '.$path.'backup-'.time().'.sql');
+            exec('mysqldump -h '.env('DB_HOST').' -u '.env('DB_USERNAME').' -p'.env('DB_PASSWORD').' --databases app_puem > '.$path.'backup-'.time().'.sql');
             return 'ok';
 
         }catch(\Exception $e){
