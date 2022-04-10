@@ -1,6 +1,6 @@
 <x-app-layout>
 
-  <x-slot name="title">DATA KECAMATAN</x-slot>
+  <x-slot name="title">DATA BUMDES</x-slot>
 
   <x-slot name="extra_css">
     <link rel="stylesheet" href="{{ asset('vendor/DataTables/datatables.min.css') }}">
@@ -64,7 +64,31 @@
     <script src="{{ asset('vendor/bootstrap-colorpicker-3.2.0/dist/js/bootstrap-colorpicker.min.js') }}"></script>
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script>
-    
+     
+     $(document).ready(function() {
+
+      @if (Session::has('bumdes_sess'))
+        swal("Berhasil", '{{ Session::get('bumdes_sess') }}', "success");
+      @endif
+       
+     })
+
+      var table = $('#dataTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('bumdes-json') }}',
+        columns: [
+          { data: 'no', name: 'no'},
+          { data: 'kecamatan', name: 'kecamatan' },
+          { data: 'desa', name: 'desa' },
+          { data: 'nama_bumdes', name: 'nama_bumdes' },
+          { data: 'nama_direktur', name: 'nama_direktur' },
+          { data: 'no_perdes', name: 'no_perdes' },
+          { data: 'tahun', name: 'tahun' },
+          { data: 'action', name: 'action', orderable: false, searchable: false }
+        ]
+      });
+
     </script>
   </x-slot>
 
