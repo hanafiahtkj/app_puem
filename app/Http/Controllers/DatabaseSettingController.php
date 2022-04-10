@@ -135,9 +135,7 @@ class DatabaseSettingController extends Controller
 
             $fileName = "backup-". time().'_'. ".sql";
             $path = public_path("storage/db/");
-            $dump = new IMysqldump\Mysqldump('mysql:host='.env('DB_HOST').';dbname='
-                                        .env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'), $dumpSetting);
-
+            $dump = new IMysqldump\Mysqldump("mysql:host=".env('DB_HOST').";dbname=".env('DB_DATABASE'), env('DB_USERNAME'), env('DB_PASSWORD'), $dumpSetting);
             $dump->start($path . $fileName);
             
             return $fileName;
