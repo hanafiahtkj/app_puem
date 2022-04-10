@@ -24,6 +24,8 @@ Route::group(['middleware' => ['auth']], function ()
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     Route::get('gis', GisController::class)->name('gis.index');
+
+    Route::get('gis/loadmap', [GisController::class, 'loadmap'])->name('gis.loadmap');
 });
 
 Route::group([
