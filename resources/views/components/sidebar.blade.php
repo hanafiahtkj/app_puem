@@ -24,7 +24,7 @@
           </ul>
       </li>
       <li class="nav-item">
-        <a href="" class="nav-link"><i class="fas fa-shopping-bag"></i><span>Pasar Desa</span></a>
+        <a href="{{ route('pasar-desa.index') }}" class="nav-link"><i class="fas fa-shopping-bag"></i><span>Pasar Desa</span></a>
       </li>
       <li class="nav-item">
         <a href="{{ route('bumdes-index') }}" class="nav-link"><i class="fas fa-umbrella"></i><span>BUMDES</span></a>

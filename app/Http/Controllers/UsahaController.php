@@ -172,6 +172,31 @@ class UsahaController extends Controller
             $input = $request->all();
             $individu->update($input);
 
+            DetailInstansiUsaha::where('id_usaha', $id)->delete();
+            if ($instansi_pembina = $request->input('instansi_pembina')) 
+            {
+                foreach ($instansi_pembina as $key => $value) 
+                {
+                    DetailInstansiUsaha::create([
+                        'id_usaha' => $usaha->id,
+                        'id_instansi_pembina' => $value,
+                    ]);
+                }
+            }
+
+            DetailPerizinanUsaha::where('id_usaha', $id)->delete();
+            if ($perizinan = $request->input('perizinan')) 
+            {
+                foreach ($perizinan as $key => $value) 
+                {
+                    DetailPerizinanUsaha::create([
+                        'id_usaha'     => $usaha->id,
+                        'id_perizinan' => $value['id_perizinan'],
+                        'nomor'        => $value['no_izin'],
+                    ]);
+                }
+            }
+
             DB::commit();
 
         }catch(\Exception $e){

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PasarDesaController;
 use App\Http\Controllers\IndividuController;
 use App\Http\Controllers\UsahaController;
 use App\Http\Controllers\DesaController;
@@ -22,6 +23,10 @@ Route::group(['middleware' => ['auth']], function ()
     Route::get('/', DashboardController::class);
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
+
+    Route::get('pasar-desa/getDataTables', [PasarDesaController::class, 'getDataTables'])->name('pasar-desa.getDataTables');
+
+    Route::resource('pasar-desa', PasarDesaController::class);
 
     Route::get('gis', GisController::class)->name('gis.index');
 

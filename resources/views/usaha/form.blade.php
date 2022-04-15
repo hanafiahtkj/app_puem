@@ -47,7 +47,7 @@
                 </div>
                 <div class="form-group">
                   <label for="id_desa">Nama Desa</label>
-                  <select id="id_desa" class="form-control selectric" name="id_desa" required>
+                  <select id="id_desa" class="form-control selectric" name="id_desa" required disabled>
                     <option value="">Pilih....</option>
                   </select>
                   <div class="invalid-feedback">Desa wajib diisi.</div>
@@ -475,12 +475,14 @@
 
     function getDesa(id, id_desa = '') 
     {
+      $('#id_desa').prop('disabled', true);
       var id  = id;
       var url = '{{ route("master.desa.get-desa", ":id") }}';
       url = url.replace(':id', id);
-      $('#id_desa').html('');
-      $('#id_desa').append(new Option('Pilih.....', ''))
+      $('#id_desa').html(new Option('Mengambil Data.....', ''));
       $.get(url, function( response ) {
+        $('#id_desa').prop('disabled', false);
+        $('#id_desa').html(new Option('Pilih.....', ''));
         $.each(response.data, function (key, value) {
           $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
         });
