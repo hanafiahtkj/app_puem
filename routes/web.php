@@ -24,6 +24,7 @@ if (!empty($app_url)) {
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseSettingController;
 use App\Http\Controllers\BumdesController;
+use App\Http\Controllers\EkonomiDesaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,13 @@ Route::group([
         Route::get('bumdes/{uuid}/edit', [BumdesController::class, 'edit'])->name('bumdes-edit');
         Route::put('bumdes/{uuid}/update', [BumdesController::class, 'update'])->name('bumdes-update');
         Route::delete('bumdes/{uuid}/delete', [BumdesController::class, 'destroy'])->name('bumdes-delete');
+});
+
+Route::group([
+    'prefix'     => 'ekonomi-desa',
+    'middleware' => ['auth']], function () {
+        Route::get('format1', [EkonomiDesaController::class, 'format_1'])->name('ekonomi-desa-format1');
+        Route::get('format1/create', [EkonomiDesaController::class, 'create_format_1'])->name('ekonomi-desa-format1-create');
 });
 
 

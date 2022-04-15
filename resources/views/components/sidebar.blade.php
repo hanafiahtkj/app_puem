@@ -32,7 +32,7 @@
       <li class="nav-item dropdown">
         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Data Ekonomi Desa</span></a>
         <ul class="dropdown-menu">
-          <li class="nav-item"><a href="" class="nav-link">Profil Sumber Daya Alam</a></li>
+          <li class="nav-item"><a href="{{ route('ekonomi-desa-format1') }}" class="nav-link">Profil Sumber Daya Alam</a></li>
           <li class="nav-item"><a href="" class="nav-link">Profil Usaha Jasa</a></li>
           <li class="nav-item"><a href="" class="nav-link">Profil Usaha Produk</a></li>
         </ul>
