@@ -56,6 +56,7 @@ Route::group([
     'middleware' => ['auth']], function () {
         Route::get('format1', [EkonomiDesaController::class, 'format_1'])->name('ekonomi-desa-format1');
         Route::get('format1/create', [EkonomiDesaController::class, 'create_format_1'])->name('ekonomi-desa-format1-create');
+        Route::post('format1/store', [EkonomiDesaController::class, 'store_format_1'])->name('ekonomi-desa-format1-store');
 });
 
 

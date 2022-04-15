@@ -22,7 +22,7 @@
         </div>
   
         <div class="section-body">
-        <form method="POST" id="formInput" action="{{ route('uem.individu.store') }}" class="needs-validation" novalidate enctype="multipart/form-data">
+        <form method="POST" action="{{ route('ekonomi-desa-format1-store') }}">
           @csrf
           <div class="row">
             <div class="col-md-12">
@@ -47,7 +47,7 @@
                     </div>
                   <div class="form-group">
                       <label for="nik">Produk</label>
-                      <select name="" id="" class="form-control selectric" required>
+                      <select name="produk" id="" class="form-control selectric" required>
                         <option value="">Pilih....</option>
                         @foreach($produk as $value)
                           <option value="{{ $value->id }}">{{ $value->nama_produk }}</option>
@@ -108,6 +108,15 @@
                     <label for="">Pemasaran Hasil</label>
                     <input type="text" class="form-control" name="pemasaran_hasil" id="">
                  </div>
+                 <div class="form-group">
+                    <label for="">Tahun</label>
+                    <select name="tahun" id="" class="form-control" required>
+                        <option value="">Pilih....</option>
+                        @for($i = date('Y'); $i >= date('Y')-5; $i--)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
+                    </select>
+                 </div>
                  <button type="submit" id="btn-store" class="btn btn-success btn-lg">SIMPAN</button>
               </div>
             </div>
@@ -128,6 +137,7 @@
                 $( '#nilai_produk' ).mask('000.000.000', {reverse: true});
 
             })
+            
             function getDesaByIdKecamatan() {
 
                 const kecamatanId = $('#kecamatan').val()
