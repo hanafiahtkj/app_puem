@@ -15,7 +15,6 @@
         <div class="section-header">
           <h1>DATA FORMAT 1</h1>
           <div class="section-header-button">
-            <a href="{{ route('ekonomi-desa-format1-create') }}" class="btn btn-primary"> <i class="fa fa-plus"> Tambah</i> </a>
           </div>
           <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>

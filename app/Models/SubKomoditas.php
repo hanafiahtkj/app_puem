@@ -11,11 +11,13 @@ class SubKomoditas extends Model
 
     protected $table = 'sub_komoditas';
 
-    protected $fillable = [
-        'id_kategori_komoditas',
-        'id_komoditas',
-        'nama_sub_komoditas'
-    ];
+    // protected $fillable = [
+    //     'id_kategori_komoditas',
+    //     'id_komoditas',
+    //     'nama_sub_komoditas'
+    // ];
+
+    protected $guarded = [];
 
     protected $appends = ['nama_komoditas'];
 
