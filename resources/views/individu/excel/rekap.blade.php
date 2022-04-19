@@ -35,11 +35,11 @@
         <td>{{ $value->alamat_usaha }}</td>
         <td>{{ $value->nama_desa }}</td>
         <td>{{ $value->nama_kecamatan }}</td>
-        <td>?</td>
-        <td>?</td>
-        <td>?</td>
+        <td>{{ $value->nama_usaha }}</td>
+        <td>{{ $value->nama_sub_komoditas }}</td>
+        <td>{{ $value->produk_dihasilkan }}</td>
         <td>{{ $value->tahun_berdiri }}</td>
-        <td>?</td>
+        <td>{{ $value->jumlah_tenaga_kerja }}</td>
       </tr>
     @endforeach
   </tbody>

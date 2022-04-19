@@ -65,8 +65,8 @@
                             <i class="fa fa-file-pdf"></i> Export PDF
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="pdf" href="javascript:void(0);">Rekap Desa</a>
                             <a class="dropdown-item submit" data-type="rekap_kecamatan" data-extension="pdf" href="javascript:void(0);">Rekap Kecamatan</a>
+                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="pdf" href="javascript:void(0);">Rekap Desa</a>
                           </div>
                         </div>
                         <div class="btn-group mr-2 mb-2">
@@ -74,8 +74,8 @@
                             <i class="fa fa-file-excel"></i> Export Excel
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="excel" href="javascript:void(0);">Rekap Desa</a>
                             <a class="dropdown-item submit" data-type="rekap_kecamatan" data-extension="excel" href="javascript:void(0);">Rekap Kecamatan</a>
+                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="excel" href="javascript:void(0);">Rekap Desa</a>
                           </div>
                         </div>
                         <input type="hidden" name="extension" id="extension">

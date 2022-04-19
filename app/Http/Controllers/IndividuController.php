@@ -7,6 +7,7 @@ use App\Models\KategoriKomoditas;
 use App\Models\Kecamatan;
 use App\Models\Pendidikan;
 use App\Models\Individu;
+use App\Models\Usaha;
 use App\Models\BadanUsaha;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
@@ -243,11 +244,20 @@ class IndividuController extends Controller
 
     function _rekap_pdf(Request $request)
 	{
-        $report = Individu::where('id_kecamatan', $request->get('id_kecamatan'));
+        $report = Individu::query()
+            ->leftJoin('kecamatan', 'individu.id_kecamatan', '=', 'kecamatan.id')
+            ->leftJoin('desa', 'individu.id_desa', '=', 'desa.id')
+            ->leftJoin('sub_komoditas', 'individu.id_sub_komoditas', '=', 'sub_komoditas.id')
+            ->leftJoin('usaha', 'usaha.id_ukm', '=', 'individu.id')
+            ->where('individu.id_kecamatan', $request->get('id_kecamatan'));
 
         if($request->get('type') == 'rekap_desa'){
-            $report->where('id_desa', $request->get('id_desa'));
+            $report->where('individu.id_desa', $request->get('id_desa'));
         }
+
+        $report->select('individu.*', 'kecamatan.nama_kecamatan', 'desa.nama_desa', 'sub_komoditas.nama_sub_komoditas', 'usaha.produk_dihasilkan', 'usaha.jumlah_tenaga_kerja')
+            ->orderBy('individu.nama_pemilik', 'asc')
+            ->orderBy('individu.id', 'asc');
 
         $data = [
             'kecamatan' => Kecamatan::find($request->get('id_kecamatan')),

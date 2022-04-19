@@ -60,22 +60,13 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <button type="button" id="button-filter" class="btn btn-primary pull-right mr-2 mb-2"><i class="fa fa-filter"></i> Filter</button>
-                        {{-- <div class="btn-group mr-2 mb-2">
-                          <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-file-pdf"></i> Export PDF
-                          </button>
-                          <div class="dropdown-menu">
-                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="pdf" href="javascript:void(0);">Rekap Desa</a>
-                            <a class="dropdown-item submit" data-type="rekap_kecamatan" data-extension="pdf" href="javascript:void(0);">Rekap Kecamatan</a>
-                          </div>
-                        </div> --}}
                         <div class="btn-group mr-2 mb-2">
                           <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-file-excel"></i> Export Excel
                           </button>
                           <div class="dropdown-menu">
-                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="excel" href="javascript:void(0);">Rekap Desa</a>
                             <a class="dropdown-item submit" data-type="rekap_kecamatan" data-extension="excel" href="javascript:void(0);">Rekap Kecamatan</a>
+                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="excel" href="javascript:void(0);">Rekap Desa</a>
                           </div>
                         </div>
                         <input type="hidden" name="extension" id="extension">
