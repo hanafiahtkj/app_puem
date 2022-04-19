@@ -27,3 +27,4 @@ Route::get('/database-download/{sqlfile}', [DatabaseSettingController::class, 'd
 Route::post('/getdesabyidkecamatan', [BumdesController::class, 'getDesaByIdKecamatan']);
 Route::get('/bumdes-json', [BumdesController::class, 'data_json'])->name('bumdes-json');
 Route::post('/format1-json', [EkonomiDesaController::class, 'json_format_1'])->name('format1-json');
+Route::post('/format2-json', [EkonomiDesaController::class, 'json_format_2'])->name('format2-json');

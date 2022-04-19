@@ -8,6 +8,7 @@ use App\Models\Kecamatan;
 use App\Models\Desa;
 use App\Models\Produk;
 use App\Models\Format1;
+use App\Models\Format2;
 use App\Models\KategoriKomoditas;
 use App\Models\SubKomoditas;
 use App\Models\Komoditas;
@@ -81,7 +82,7 @@ class EkonomiDesaController extends Controller
 
        try {
         
-        $komoditas = Komoditas::all();
+        $komoditas = Komoditas::where('id_kategori_komoditas', 1)->get();
 
         foreach ($komoditas as $key1 => $value1) {
 
@@ -224,6 +225,196 @@ class EkonomiDesaController extends Controller
         $data->delete();
 
         return redirect()->route('ekonomi-desa-format1')->with('sukses_sess', 'Berhasil hapus data Format 1');
+    }
+
+    public function format_2()
+    {
+        $kecamatan = Kecamatan::all();
+        return view('ekonomi-desa.format2.index', compact('kecamatan'));
+    }
+
+    public function create_format_2($id_sub_komoditas, $id_kec_en, $id_des_en)
+    {
+        $id_sub = $this->_decrypt($id_sub_komoditas);
+        $id_kec = $this->_decrypt($id_kec_en);
+        $id_des = $this->_decrypt($id_des_en);
+
+        SubKomoditas::findOrFail($id_sub);
+        Kecamatan::findOrFail($id_kec);
+        Desa::findOrFail($id_des);
+        
+        $kecamatan = Kecamatan::all();
+        $produk = Produk::where('id_kategori_komoditas', 2)->get();
+        return view('ekonomi-desa.format2.create', compact('kecamatan', 'produk', 'id_sub_komoditas', 'id_kec_en', 'id_des_en'));
+    }
+
+    public function store_format_2(Request $request)
+    {
+
+        $id_sub = $this->_decrypt($request->id_sub_komoditas);
+        $id_kec = $this->_decrypt($request->id_kec_en);
+        $id_des = $this->_decrypt($request->id_des_en);
+
+        SubKomoditas::findOrFail($id_sub);
+        Kecamatan::findOrFail($id_kec);
+        Desa::findOrFail($id_des);
+
+        try {
+            
+            Format2::create([
+                'id_sub_komoditas'      => $id_sub,
+                'uuid'                  => (string) Str::uuid(),
+                'id_kecamatan'          => $id_kec,
+                'id_desa'               => $id_des,
+                'id_produk'             => $request->produk,
+                'jenis_usaha'           => $request->jenis_usaha,
+                'jumlah_orang'          => $request->jumlah_orang,
+                'jumlah_kegiatan'       => $request->jumlah_kegiatan,
+                'jumlah_pemilik'        => $request->jumlah_pemilik,
+                'jumlah_tenaga_kerja'   => $request->jumlah_tenaga_kerja,
+                'tahun'                 => $request->tahun
+            ]);
+
+            return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil menambahkan data Format 2');
+
+        } catch (\Throwable $th) {
+            
+            dd($th);
+
+        }
+    }
+
+    public function json_format_2(Request $request)
+    {
+        $html = '';
+
+        try {
+            
+            $komoditas = Komoditas::where('id_kategori_komoditas', 2)->get();
+
+            foreach ($komoditas as $key1 => $value1) {
+              
+                $sub_komoditas = SubKomoditas::where('id_komoditas', $value1->id)->groupBy('id_komoditas')->get();
+
+                foreach ($sub_komoditas as $key2 => $value2) {
+                    
+                    $sub = SubKomoditas::leftJoin('format2', function($join) use ($request){
+                        $join->on('sub_komoditas.id', '=', 'format2.id_sub_komoditas')
+                                ->where('format2.id_kecamatan', '=', $request->kec)
+                                ->where('format2.id_desa', '=', $request->des)
+                                ->where('format2.tahun', '=', $request->tahun)
+                                ->where('format2.deleted_at', null);
+                        })
+                        ->leftJoin('produk', function($join) {
+                            $join->on('format2.id_produk', '=', 'produk.id');
+                        })
+                        ->where('sub_komoditas.id_komoditas', $value1->id)
+                        
+                        ->select('sub_komoditas.id AS id_sub', 'sub_komoditas.nama_sub_komoditas', 'produk.nama_produk', 'format2.*')
+                        ->get();
+
+                    $html .= '<tr>';
+                    $html .= '<td>'.($key1 + 1).'</td>';
+                    $html .= '<td>'.$value1->nama_komoditas.'</td>';
+
+                    foreach ($sub as $key3 => $value3) {
+                        
+                        $html .= '<tr>';
+                        $html .= '<td></td>';
+                        $html .= '<td class="text-center">'.($value3->nama_sub_komoditas ? $value3->nama_sub_komoditas : '-').'</td>';
+                        $html .= '<td class="text-center">'.($value3->nama_produk ? $value3->nama_produk : '-').'</td>';
+                        $html .= '<td class="text-center">'.($value3->jenis_usaha ? $value3->jenis_usaha : '-').'</td>';
+                        $html .= '<td class="text-center">'.($value3->jumlah_orang ? $value3->jumlah_orang : '-').'</td>';
+                        $html .= '<td class="text-center">'.($value3->jumlah_kegiatan ? $value3->jumlah_kegiatan : '-').'</td>';
+                        $html .= '<td class="text-center">'.($value3->jumlah_pemilik ? $value3->jumlah_pemilik : '-').'</td>';
+                        $html .= '<td class="text-center">'.($value3->jumlah_tenaga_kerja ? $value3->jumlah_tenaga_kerja : '-').'</td>';
+
+                    if (!$value3->id_produk) {
+                        $html .= '<td class="text-center">';
+                        $html .= '<a href="'.route('ekonomi-desa-format2-create', ['id_sub_komoditas' => $this->_encrypt($value3->id_sub), 'id_kec' => $this->_encrypt($request->kec), 'id_des' => $this->_encrypt($request->des)] ).'" class="btn btn-primary btn-md"><i class="fa fa-plus"></i></a>';
+                        $html .= '</td>';   
+                    }else{
+                        $html .= '<td class="text-center">';
+                        $html .= '<div class="btn btn-group" role="group">';
+                        $html .= '<a href="'.route('ekonomi-desa-format2-edit', ['uuid' => $value3->uuid, 'id_sub_komoditas' => $this->_encrypt($value3->id_sub), 'id_kec' => $this->_encrypt($request->kec), 'id_des' => $this->_encrypt($request->des)] ).'" class="btn btn-warning btn-md"><i class="fa fa-edit"></i></a>';
+                        $html .= '<form method="POST" action="'.route('ekonomi-desa-format2-delete', $value3->uuid).'">';
+                        $html .= '<input type="hidden" name="_method" value="DELETE">';
+                        $html .= '<input type="hidden" name="_token" value="'.csrf_token().'">';
+                        $html .= '<button type="submit" onclick="return confirm(\'Hapus data ?\')" class="btn btn-danger btn-md"><i class="fa fa-trash"></i></button>';
+                        $html .= '</form>';
+                        $html .= '</div>';
+                        $html .= '</td>'; 
+                    }
+                      
+                    }
+
+                $html .= '</tr>';
+                $html .= '</tr>';
+                    
+                    
+                }
+
+            }            
+
+
+        } catch (\Throwable $th) {
+            
+            dd($th);
+
+        }
+
+        return response()->json(['html' => $html]);
+    }
+
+    public function edit_format_2($uuid, $id_sub_komoditas, $id_kec_en ,$id_des_en)
+    {
+        $id_sub = $this->_decrypt($id_sub_komoditas);
+        $id_kec = $this->_decrypt($id_kec_en);
+        $id_des = $this->_decrypt($id_des_en);
+
+        SubKomoditas::findOrFail($id_sub);
+        Kecamatan::findOrFail($id_kec);
+        Desa::findOrFail($id_des);
+
+        $data = Format2::where('uuid', $uuid)->first();
+        $produk = Produk::where('id_kategori_komoditas', 2)->get();
+
+        return view('ekonomi-desa.format2.edit', compact('data', 'id_sub_komoditas', 'id_kec_en', 'id_des_en', 'produk'));
+    }
+
+    public function update_format_2(Request $request, $uuid)
+    {
+        $id_sub = $this->_decrypt($request->id_sub_komoditas);
+        $id_kec = $this->_decrypt($request->id_kec_en);
+        $id_des = $this->_decrypt($request->id_des_en);
+
+        SubKomoditas::findOrFail($id_sub);
+        Kecamatan::findOrFail($id_kec);
+        Desa::findOrFail($id_des);
+
+        $data = Format2::where('uuid', $uuid)->first();
+
+        $data->update([
+            'id_sub_komoditas'      => $id_sub,
+            'id_kecamatan'          => $id_kec,
+            'id_desa'               => $id_des,
+            'id_produk'             => $request->produk,
+            'jenis_usaha'           => $request->jenis_usaha,
+            'jumlah_orang'          => $request->jumlah_orang,
+            'jumlah_kegiatan'       => $request->jumlah_kegiatan,
+            'jumlah_pemilik'        => $request->jumlah_pemilik,
+            'jumlah_tenaga_kerja'   => $request->jumlah_tenaga_kerja,
+        ]);
+
+        return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil update data Format 2');
+    }
+
+    public function delete_format_2($uuid)
+    {
+        $data = Format2::where('uuid', $uuid)->first();
+        $data->delete();
+
+        return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil hapus data Format 2');
     }
 
     private function _encrypt($string)

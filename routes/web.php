@@ -60,6 +60,15 @@ Route::group([
         Route::post('format1/store', [EkonomiDesaController::class, 'store_format_1'])->name('ekonomi-desa-format1-store');
         Route::put('format1/update/{uuid}', [EkonomiDesaController::class, 'update_format_1'])->name('ekonomi-desa-format1-update');
         Route::delete('format1/{uuid}/delete', [EkonomiDesaController::class, 'delete_format_1'])->name('ekonomi-desa-format1-delete');
+
+        Route::get('format2', [EkonomiDesaController::class, 'format_2'])->name('ekonomi-desa-format2');
+        Route::get('format2/create/{id_sub_komoditas}/{id_kec}/{id_des}', [EkonomiDesaController::class, 'create_format_2'])->name('ekonomi-desa-format2-create');
+        Route::get('format2/edit/{uuid}/{id_sub_komoditas}/{id_kec}/{id_des}', [EkonomiDesaController::class, 'edit_format_2'])->name('ekonomi-desa-format2-edit');
+        Route::post('format2/store', [EkonomiDesaController::class, 'store_format_2'])->name('ekonomi-desa-format2-store');
+        Route::put('format2/update/{uuid}', [EkonomiDesaController::class, 'update_format_2'])->name('ekonomi-desa-format2-update');
+        Route::delete('format2/{uuid}/delete', [EkonomiDesaController::class, 'delete_format_2'])->name('ekonomi-desa-format2-delete');
+
+
 });
 
 
