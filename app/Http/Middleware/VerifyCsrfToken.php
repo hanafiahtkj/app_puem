@@ -17,5 +17,7 @@ class VerifyCsrfToken extends Middleware
         'ekonomi-desa/format1/delete/*',
         'ekonomi-desa/format2/*/delete',
         'ekonomi-desa/format2/delete/*',
+        'ekonomi-desa/format3/*/delete',
+        'ekonomi-desa/format3/delete/*',
     ];
 }

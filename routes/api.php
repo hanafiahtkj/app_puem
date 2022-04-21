@@ -28,3 +28,4 @@ Route::post('/getdesabyidkecamatan', [BumdesController::class, 'getDesaByIdKecam
 Route::get('/bumdes-json', [BumdesController::class, 'data_json'])->name('bumdes-json');
 Route::post('/format1-json', [EkonomiDesaController::class, 'json_format_1'])->name('format1-json');
 Route::post('/format2-json', [EkonomiDesaController::class, 'json_format_2'])->name('format2-json');
+Route::post('/format3-json', [EkonomiDesaController::class, 'json_format_3'])->name('format3-json');

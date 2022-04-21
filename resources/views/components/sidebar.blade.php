@@ -32,7 +32,7 @@
         <ul class="dropdown-menu">
           <li class="nav-item"><a href="{{ route('ekonomi-desa-format1') }}" class="nav-link">Profil Sumber Daya Alam</a></li>
           <li class="nav-item"><a href="{{ route('ekonomi-desa-format2') }}" class="nav-link">Profil Usaha Jasa</a></li>
-          <li class="nav-item"><a href="" class="nav-link">Profil Usaha Produk</a></li>
+          <li class="nav-item"><a href="{{ route('ekonomi-desa-format3') }}" class="nav-link">Profil Usaha Produk</a></li>
         </ul>
       </li>
       <li class="nav-item">

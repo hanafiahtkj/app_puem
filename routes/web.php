@@ -37,9 +37,6 @@ use App\Http\Controllers\EkonomiDesaController;
 |
 */
 
-
-// susun kan aja kna route nya fi
-
 Route::get('/database-setting', [DatabaseSettingController::class, 'index'])->name('database-setting');
 Route::group([
     'middleware' => ['auth']], function () {
@@ -67,6 +64,13 @@ Route::group([
         Route::post('format2/store', [EkonomiDesaController::class, 'store_format_2'])->name('ekonomi-desa-format2-store');
         Route::put('format2/update/{uuid}', [EkonomiDesaController::class, 'update_format_2'])->name('ekonomi-desa-format2-update');
         Route::delete('format2/{uuid}/delete', [EkonomiDesaController::class, 'delete_format_2'])->name('ekonomi-desa-format2-delete');
+
+        Route::get('format3', [EkonomiDesaController::class, 'format_3'])->name('ekonomi-desa-format3');
+        Route::get('format3/create/{id_sub_komoditas}/{id_kec}/{id_des}', [EkonomiDesaController::class, 'create_format_3'])->name('ekonomi-desa-format3-create');
+        Route::post('format3/store', [EkonomiDesaController::class, 'store_format_3'])->name('ekonomi-desa-format3-store');
+        Route::get('format3/edit/{uuid}/{id_sub_komoditas}/{id_kec}/{id_des}', [EkonomiDesaController::class, 'edit_format_3'])->name('ekonomi-desa-format3-edit');
+        Route::put('format3/update/{uuid}', [EkonomiDesaController::class, 'update_format_3'])->name('ekonomi-desa-format3-update');
+        Route::delete('format3/{uuid}/delete', [EkonomiDesaController::class, 'delete_format_3'])->name('ekonomi-desa-format3-delete');
 
 
 });
