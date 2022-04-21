@@ -14,4 +14,9 @@ class DashboardController extends Controller
         $data = [];
         return view('dashboard', $data);
     }
+
+    public function landing_page()
+    {
+        return view('landing-page.index');
+    }
 }

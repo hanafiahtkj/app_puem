@@ -1,7 +1,7 @@
 <div class="main-sidebar bg-gradasi">
   <aside id="sidebar-wrapper" class="bg-gradasi">
     <div class="sidebar-brand">
-      <a href="{{ route('dashboard') }}">
+      <a href="{{ route('landing-page') }}">
         <img src="{{ asset('img/logo.png') }}" class="d-inline-block" alt="" style="height: 40px;"> PUEM
       </a>
     </div>

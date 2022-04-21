@@ -20,7 +20,7 @@ use App\Http\Controllers\GisController;
 
 Route::group(['middleware' => ['auth']], function () 
 {    
-    Route::get('/', DashboardController::class);
+    // Route::get('/', DashboardController::class);
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 

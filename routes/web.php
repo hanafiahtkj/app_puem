@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseSettingController;
 use App\Http\Controllers\BumdesController;
 use App\Http\Controllers\EkonomiDesaController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +37,8 @@ use App\Http\Controllers\EkonomiDesaController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/', [DashboardController::class, 'landing_page'])->name('landing-page');
 
 Route::get('/database-setting', [DatabaseSettingController::class, 'index'])->name('database-setting');
 Route::group([
