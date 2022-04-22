@@ -63,7 +63,7 @@
                   </select>
                   <div class="invalid-feedback">UKM wajib diisi.</div>
                 </div>
-                <div class="form-group" id="detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
+                <div class="form-group detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
                   <label for="id_ukm">Detail UKM</label>
                   <div class="jumbotron p-4 m-0">
                     <table border="0" cellpadding="4" cellspacing="0">
@@ -101,6 +101,26 @@
                       </tbody>
                     </table>
                   </div>
+                </div>
+                <div class="form-group detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
+                  <label for="id_produk">Nama/Jenis Produk</label>
+                  <select id="id_produk" class="form-control select2" name="id_produk" required>
+                    <option value="">Pilih....</option>
+                    @foreach($produk as $value)
+                      <option value="{{ $value->id }}" {{ @$usaha->id_produk == $value->id ? 'selected' : '' }}>{{ $value->nama_produk }}</option>
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">Produk wajib diisi.</div>
+                </div>
+                <div class="form-group detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
+                  <label for="jenis_uem">Jenis Uem</label>
+                  <select id="jenis_uem" class="form-control selectric" name="jenis_uem" required>
+                    <option value="">Pilih....</option>
+                    @foreach($badan_usaha as $value)
+                      <option value="{{ $value->id }}" {{ @$usaha->jenis_uem == $value->id ? 'selected' : '' }}>{{ $value->nama_badan_usaha }}</option>
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">Jenis Uem</div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
@@ -523,7 +543,7 @@
       $('.js-select2-id-ukm').on('select2:select', function (e) {
         var data = e.params.data.ukm;
         console.log(data);
-        $('#detail-ukm').show();
+        $('.detail-ukm').show();
         $('#tb-nama-pemilik').text(data['nama_pemilik']);
         $('#tb-nik').text(data['nik']);
         $('#tb-jenis-kelamin').text(data['jenis_kelamin']);

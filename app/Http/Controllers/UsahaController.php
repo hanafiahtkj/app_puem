@@ -10,6 +10,7 @@ use App\Models\Usaha;
 use App\Models\InstansiPembina;
 use App\Models\Perizinan;
 use App\Models\BadanUsaha;
+use App\Models\Produk;
 use App\Models\DetailInstansiUsaha;
 use App\Models\DetailPerizinanUsaha;
 use Illuminate\Support\Facades\Validator;
@@ -47,6 +48,8 @@ class UsahaController extends Controller
             'perizinan'          => Perizinan::all(),
             'instansi_pembina'   => InstansiPembina::all(),
             'kategori_komoditas' => KategoriKomoditas::all(),
+            'badan_usaha'        => BadanUsaha::all(),
+            'produk'             => Produk::all(),
         ];
         return view('usaha.form', $data);
     }
@@ -141,6 +144,8 @@ class UsahaController extends Controller
             'instansi_pembina'       => InstansiPembina::all(),
             'kategori_komoditas'     => KategoriKomoditas::all(),
             'usaha'                  => Usaha::find($id),
+            'badan_usaha'            => BadanUsaha::all(),
+            'produk'                 => Produk::all(),
             'detail_perizinan_usaha' => DetailPerizinanUsaha::where('id_usaha', $id)->get(),
             'detail_instansi_usaha'  => DetailInstansiUsaha::where('id_usaha', $id)->pluck('id_instansi_pembina')->toArray(),
         ];
@@ -258,6 +263,10 @@ class UsahaController extends Controller
 
         if ($id_desa = $request->get('id_desa')) {
             $query->where('usaha.id_desa', $id_desa);
+        }
+
+        if ($tahun = $request->get('tahun')) {
+            $query->whereYear('created_at', $tahun);
         }
 
         $query = $query->orderBy('usaha.id','DESC')->get();

@@ -58,6 +58,18 @@
                       </div>
                       <div class="col-sm-4">
                         <div class="form-group">
+                          <label class="control-label" for="tahun">Tahun</label>
+                          <select id="tahun" class="form-control selectric" name="tahun" required>
+                            @for ($i = date('Y'); $i >= 2019; $i--)
+                              <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
                           <label class="control-label" for="input-name">Berdasarkan</label>
                           <select class="form-control select2" onChange="getFilter(this.value);" name="berdasarkan" id="berdasarkan">
                             <option value="">Semua....</option>
@@ -67,8 +79,6 @@
                           </select>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label class="control-label" for="input-name">Filter</label>
@@ -224,6 +234,7 @@
             data: function (d) {
               d.id_kecamatan = $('#id_kecamatan').val();
               d.id_desa = $('#id_desa').val();
+              d.tahun = $('#tahun').val();
             }
           },
           columns: [
