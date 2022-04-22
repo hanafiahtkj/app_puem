@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Kecamatan;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 use Illuminate\Auth\Events\Registered;
@@ -34,6 +35,7 @@ class UserController extends Controller
     public function create()
     {
         $data = [
+            'kecamatan' => Kecamatan::all(),
             'roles' => Role::all(),
         ];
         return view('user.form', $data);
@@ -52,9 +54,17 @@ class UserController extends Controller
             'username'   => 'required|min:5|unique:users',
             'password'   => 'required|string|confirmed|min:8',
             'level'      => 'required',
-            'image'      => 'required|mimes:jpg,bmp,png',
+            'image'      => 'mimes:jpg,bmp,png',
             'status'     => 'required',
         ];
+
+        $level = $request->level;
+        if ($level == 'Admin Kecamatan') {
+            $validasi['id_kecamatan'] = 'required';
+        } else if ($level == 'Admin Desa') {
+            $validasi['id_kecamatan'] = 'required';
+            $validasi['id_desa'] = 'required';
+        }
 
         $request->validate($validasi);
 
@@ -67,19 +77,21 @@ class UserController extends Controller
             );
         }
 
-        $user = User::create([
+        $data = [
             'name'         => $request->name,
             'username'     => $request->username,
             'email'        => $request->username,
             'password'     => Hash::make($request->password),
+            'id_kecamatan' => $request->id_kecamatan,
+            'id_desa'      => $request->id_desa,
             'image'        => $path,
             'status'       => $request->status,
             'email_verified_at' => now()
-        ]);
+        ];
 
-        // event(new Registered($user));
+        $user = User::create($data);
 
-        $user->assignRole($request->level);
+        $user->assignRole($level);
 
         return redirect()->route('master.pengguna.index')
             ->with('success','Pengguna berhasil ditambahkan!');
@@ -112,6 +124,7 @@ class UserController extends Controller
             'user'      => $user,
             'roleName'  => $roleName,
             'roles'     => Role::all(),
+            'kecamatan' => Kecamatan::all(),
         ];
         return view('user.form', $data);
     }
@@ -133,6 +146,14 @@ class UserController extends Controller
             'image'      => 'mimes:jpg,bmp,png',
             'status'     => 'required',
         ];
+
+        $level = $request->level;
+        if ($level== 'Admin Kecamatan') {
+            $validasi['id_kecamatan'] = 'required';
+        } else if ($level == 'Admin Desa') {
+            $validasi['id_kecamatan'] = 'required';
+            $validasi['id_desa'] = 'required';
+        }
 
         $request->validate($validasi);
 
@@ -157,7 +178,7 @@ class UserController extends Controller
         $user->update($input);
 
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-        $user->assignRole($request->level);
+        $user->assignRole($level);
     
         return redirect()->route('master.pengguna.index')
             ->with('success','Pengguna berhasil dirubah');

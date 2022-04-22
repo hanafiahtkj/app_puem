@@ -9,6 +9,7 @@ use App\Models\Pendidikan;
 use App\Models\Usaha;
 use App\Models\InstansiPembina;
 use App\Models\Perizinan;
+use App\Models\BadanUsaha;
 use App\Models\DetailInstansiUsaha;
 use App\Models\DetailPerizinanUsaha;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,7 @@ class UsahaController extends Controller
     {
         $data = [
             'kecamatan' => Kecamatan::all(),
+            'badan_usaha' => BadanUsaha::all(),
         ];
         return view('usaha.index', $data);
     }

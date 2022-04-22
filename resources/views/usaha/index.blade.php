@@ -31,7 +31,7 @@
                 <div class="card-body p-1">
                   <div class="m-0 p-4">
                     <div class="row">
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <div class="form-group">
                           <label class="control-label" for="input-name">Kecamatan</label>
                           <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" onChange="getDesa(this.value);" required>
@@ -45,7 +45,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <div class="form-group">
                           <label class="control-label" for="input-name">Desa</label>
                           <select class="form-control select2" name="id_desa" id="id_desa">
@@ -54,6 +54,38 @@
                           <div class="invalid-feedback">
                             Desa wajib diisi.
                           </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label" for="input-name">Berdasarkan</label>
+                          <select class="form-control select2" onChange="getFilter(this.value);" name="berdasarkan" id="berdasarkan">
+                            <option value="">Semua....</option>
+                            <option value="Jenis UEM">Jenis UEM</option>
+                            <option value="Skala Usaha">Skala Usaha</option>
+                            <option value="Jenis Kelamin">Jenis Kelamin</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label" for="input-name">Filter</label>
+                          <select class="form-control select2" name="filter" id="filter">
+                            <option value="">Semua....</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            Desa wajib diisi.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="control-label" for="input-name">Subfilter</label>
+                          <select class="form-control select2" name="subfilter" id="subfilter">
+                            <option value="">Semua....</option>
+                          </select>
                         </div>
                       </div>
                     </div>
@@ -136,6 +168,34 @@
             $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
           });
         });
+      }
+
+      function getFilter(berdasarkan) 
+      {
+        switch (berdasarkan) {
+          case 'Jenis UEM':
+            $('#filter').html('');
+            $('#filter').append(new Option('Semua....', ''));
+            @foreach ($badan_usaha as $value)
+              $('#filter').append('<option value="{{ $value->id}}">{{ $value->nama_badan_usaha }}</option>');
+            @endforeach
+            break;
+          case 'Skala Usaha':
+            $('#filter').html('');
+            $('#filter').append(new Option('Semua....', ''));
+            $('#filter').append(new Option('Mikro', 'Mikro'));
+            $('#filter').append(new Option('Kecil', 'Kecil'));
+            $('#filter').append(new Option('Makro', 'Makro'));
+            break;
+          case 'Jenis Kelamin':
+            $('#filter').html('');
+            $('#filter').append(new Option('Semua....', ''));
+            $('#filter').append(new Option('Laki-Laki', 'Laki-Laki'));
+            $('#filter').append(new Option('Perempuan', 'Perempuan'));
+            break;
+          default:
+            // code block
+        }
       }
 
       $(document).ready(function () {

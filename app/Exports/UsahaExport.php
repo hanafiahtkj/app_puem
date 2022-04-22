@@ -21,7 +21,7 @@ class UsahaExport implements FromView, WithEvents, WithColumnWidths, ShouldAutoS
 {
     public function __construct($id_kecamatan, $id_desa, $type) 
     {
-        $this->rowCount  = 4;
+        $this->rowCount  = 6;
         $this->id_kecamatan  = $id_kecamatan;
         $this->id_desa       = $id_desa;
         $this->type          = $type;
@@ -49,18 +49,13 @@ class UsahaExport implements FromView, WithEvents, WithColumnWidths, ShouldAutoS
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:J2';
-                $event->sheet->getDelegate()->getStyle($cellRange)->getFont()
-                    ->setSize(12)
-                    ->setBold(true);
-
-                $cellRange = 'A1:J4';
+                $cellRange = 'A1:R6';
                 $event->sheet->getDelegate()->getStyle($cellRange)
                     ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER)
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 
-                $event->sheet->getStyle('A4:J'.$this->rowCount)->applyFromArray([
+                $event->sheet->getStyle('A5:R'.$this->rowCount)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

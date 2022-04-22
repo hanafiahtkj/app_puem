@@ -30,7 +30,7 @@ class Individu extends Model
         'tanggal_simpan',
     ];
 
-    protected $appends = ['nama_kecamatan', 'nama_desa', 'nama_komoditas', 'nama_sub_komoditas', 'nama_badan_usaha'];
+    protected $appends = ['nama_kecamatan', 'nama_desa', 'nama_komoditas', 'nama_sub_komoditas', 'nama_badan_usaha', 'nama_pendidikan'];
 
     public function kecamatan()
     {
@@ -57,6 +57,11 @@ class Individu extends Model
         return $this->belongsTo(BadanUsaha::class, 'id_badan_usaha', 'id');
     }
 
+    public function pendidikan()
+    {
+        return $this->belongsTo(Pendidikan::class, 'id_pendidikan', 'id');
+    }
+
     public function getNamaKecamatanAttribute()
     {
         return $this->kecamatan()->first()->nama_kecamatan;
@@ -80,5 +85,10 @@ class Individu extends Model
     public function getNamaBadanUsahaAttribute()
     {
         return $this->badanUsaha()->first()->nama_badan_usaha;
+    }
+
+    public function getNamaPendidikanAttribute()
+    {
+        return $this->pendidikan()->first()->nama_pendidikan;
     }
 }

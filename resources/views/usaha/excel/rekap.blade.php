@@ -1,10 +1,18 @@
 <table>
   <thead>
     <tr>
-      <th colspan="10">BPMPD KABUPATEN TANAH LAUT</th>
+      <th colspan="16">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
     </tr>
     <tr>
-      <th colspan="10">DATA PROFIL USAHA EKONOMI MASYARAKAT KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}</th>
+      <th colspan="16">REKAP PEMETAAN USAHA EKONOMI MASYARAKAT PEDESAAN</th>
+    </tr>
+    <tr>
+      <th colspan="16">
+        @if(isset($desa))
+        DESA {{ strtoupper($desa->nama_desa) }}
+        @endif 
+        KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}
+      </th>
     </tr>
   </thead>
 </table>
@@ -12,16 +20,42 @@
 <table>
   <thead>
     <tr>
-      <th><b>No.</b></th>
-      <th><b>Nama Pemilik Usaha</b></th>
-      <th><b>Alamat Usaha</b></th>
-      <th><b>Desa</b></th>
-      <th><b>Kecamatan</b></th>
-      <th><b>Nama Tempat Usaha</b></th>
-      <th><b>Jenis Komoditas</b></th>
-      <th><b>Produk yang dihasilkan</b></th>
-      <th><b>Tahun Berdiri</b></th>
-      <th><b>Jumlah TK</b></th>
+      <th>No.</th>
+      <th>Nama Pemilik Usaha</th>
+      <th>NIK</th>
+      <th>Jenis Kelamin</th>
+      <th>Pendidikan Tertinggi</th>
+      <th>Alamat Tempat Usaha</th>
+      <th>Nama Tempat Usaha</th>
+      <th>Jenis Komoditas</th>
+      <th>Jenis Sub Komoditas</th>
+      <th>Produk/Jenis Profesi</th>
+      <th>Tahun Berdiri</th>
+      <th>Jumlah Tenaga Kerja</th>
+      <th>Harga Jual/Jasa Perunit</th>
+      <th>Banyak Hari Kerja</th>
+      <th>Omset Per Hari</th>
+      <th>Skala Usaha</th>
+      <th>Skala Asset</th>
+      <th>Nilai Investasi</th>
+    </tr>
+    <tr>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+      <th>14</th>
+      <th>15</th>
+      <th>16</th>
     </tr>
   </thead>
   <tbody>
@@ -30,16 +64,24 @@
     @endphp
     @foreach ($data as $key => $value)
       <tr>
-        <td>{{ $loop->iteration }}</td>
-        <td>{{ $value->nama_pemilik }}</td>
-        <td>{{ $value->alamat_usaha }}</td>
-        <td>{{ $value->nama_desa }}</td>
-        <td>{{ $value->nama_kecamatan }}</td>
+        <td align="center">{{ $loop->iteration+1 }}</td>
+        <td>{{ $value->individu->nama_pemilik }}</td>
+        <td>{{ $value->individu->nik }}</td>
+        <td>{{ $value->individu->jenis_kelamin }}</td>
+        <td>{{ $value->individu->nama_pendidikan }}</td>
+        <td>{{ $value->individu->alamat_usaha }}</td>
+        <td>{{ $value->individu->nama_usaha }}</td>
+        <td>{{ $value->individu->nama_komoditas }}</td>
+        <td>{{ $value->individu->nama_sub_komoditas }}</td>
+        <td>?</td>
+        <td>{{ $value->individu->tahun_berdiri }}</td>
+        <td>{{ $value->jumlah_tenaga_kerja }}</td>
+        <td>{{ $value->harga_jual_produk }}</td>
+        <td>{{ $value->hari_kerja_sebulan }}</td>
+        <td>{{ $value->omzet_perhari }}</td>
         <td>?</td>
         <td>?</td>
-        <td>?</td>
-        <td>{{ $value->tahun_berdiri }}</td>
-        <td>?</td>
+        <td>{{ $value->nilai_investasi }}</td>
       </tr>
     @endforeach
   </tbody>

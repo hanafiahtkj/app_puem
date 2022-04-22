@@ -37,6 +37,8 @@
                         <th>Nama Lengkap</th>
                         <th>Nama Penggguna</th>
                         <th>Level</th>
+                        <th>Kecamatan</th>
+                        <th>Desa</th>
                         <th>Status</th>
                         <th>Aksi</th>
                       </tr>
@@ -95,13 +97,15 @@
           {data: 'name'},
           {data: 'username'},
           {data: 'role'},
+          {data: 'nama_kecamatan'},
+          {data: 'nama_desa'},
           {data: 'status'},
           {data: null, "searchable": false},
         ],
         columnDefs  : [
           { targets: [0], searchable: false, orderable: false, className: "text-center" },
           {
-              targets: 4,
+              targets: 6,
               render: function ( data, type, row ) {
                 var status = '';
                 switch(row['status']) {
@@ -115,7 +119,7 @@
               },
             },
           {
-            targets: 5,
+            targets: 7,
             render: function ( data, type, row ) {
               var authid = '{{ Auth::User()->id }}';
               var url = '{{ route("master.pengguna.edit", ":id") }}';

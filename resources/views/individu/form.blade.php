@@ -89,7 +89,7 @@
                   <div class="invalid-feedback">Kecamatan wajib diisi.</div>
                 </div>
                 <div class="form-group">
-                  <label for="title">Nama Desa</label>
+                  <label for="title">Desa</label>
                   <select id="id_desa" class="form-control selectric" name="id_desa" required disabled>
                     <option value="">Pilih....</option>
                   </select>

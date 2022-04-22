@@ -20,7 +20,7 @@ class Komoditas extends Model
 
     public function kategoriKomoditas()
     {
-        return $this->belongsTo(kategoriKomoditas::class, 'id_kategori_komoditas', 'id');
+        return $this->belongsTo(KategoriKomoditas::class, 'id_kategori_komoditas', 'id');
     }
 
     public function getNamaKategoriKomoditasAttribute()

@@ -25,6 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'email',
         'password',
+        'id_kecamatan',
+        'id_desa',
         'image',
         'status',
         'email_verified_at'
@@ -49,7 +51,29 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['storage_image'];
+    protected $appends = ['nama_kecamatan', 'nama_desa', 'storage_image'];
+
+    public function kecamatan()
+    {
+        return $this->belongsTo(Kecamatan::class, 'id_kecamatan', 'id');
+    }
+
+    public function desa()
+    {
+        return $this->belongsTo(Desa::class, 'id_desa', 'id');
+    }
+
+    public function getNamaKecamatanAttribute()
+    {
+        $row = $this->kecamatan()->first();
+        return isset($location) ? $row->nama_kecamatan : '-';
+    }
+
+    public function getNamaDesaAttribute()
+    {
+        $row = $this->desa()->first();
+        return isset($location) ? $row->nama_desa : '-';
+    }
 
     public function getStorageImageAttribute()
     {

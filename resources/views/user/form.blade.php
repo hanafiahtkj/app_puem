@@ -92,6 +92,31 @@
                     @endif
                     </div>
                 </div>
+                <div class="form-group row mb-4" id="form-kecamatan" style="display:none;">
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="id_kecamatan">Kecamatan</label>
+                  <div class="col-sm-12 col-md-7">
+                    <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control @if($errors->has('id_kecamatan')) is-invalid @endif" name="id_kecamatan" required>
+                      <option value="">Pilih....</option>
+                      @foreach($kecamatan as $value)
+                        <option value="{{ $value->id }}" {{ old('id_kecamatan', @$user->id_kecamatan) == $value->id ? "selected" : "" }}>{{ $value->nama_kecamatan }}</option>
+                      @endforeach
+                    </select>
+                    @if($errors->has('id_kecamatan'))
+                      <div class="invalid-feedback">Kecamatan wajib diisi.</div>
+                    @endif
+                  </div>
+                </div>
+                <div class="form-group row mb-4" id="form-desa" style="display:none;">
+                  <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3" for="id_desa">Desa</label>
+                  <div class="col-sm-12 col-md-7">
+                    <select id="id_desa" class="form-control @if($errors->has('id_desa')) is-invalid @endif" name="id_desa" required disabled>
+                      <option value="">Pilih....</option>
+                    </select>
+                    @if($errors->has('id_desa'))
+                      <div class="invalid-feedback">Desa wajib diisi.</div>
+                    @endif
+                  </div>
+                </div>
                 <div class="form-group row mb-4" id="form-foto">
                   <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Foto</label>
                   <div class="col-sm-12 col-md-7">
@@ -134,7 +159,45 @@
     <script src="{{ asset('js/plugin.js') }}"></script>
 
     <script> 
+
+    function getDesa(id, id_desa = '') 
+    {
+      var id_desa = '{{ old('id_desa', @$user->id_desa) }}';
+      $('#id_desa').prop('disabled', true);
+      var id  = id;
+      var url = '{{ route("master.desa.get-desa", ":id") }}';
+      url = url.replace(':id', id);
+      $('#id_desa').html(new Option('Mengambil Data.....', ''));
+      $.get(url, function( response ) {
+        $('#id_desa').prop('disabled', false);
+        $('#id_desa').html(new Option('Pilih.....', ''));
+        $.each(response.data, function (key, value) {
+          $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
+        });
+      });
+    }
+
     $(function() {
+      $('[name="level"]').on('change',  function() {
+        let value = $(this).val();
+        if (value == 'Admin Kecamatan') {
+          $('#form-kecamatan').show();
+          $('#form-desa').hide();
+          $('[name="id_desa"]').val('');
+        } else if (value == 'Admin Desa') {
+          $('#form-kecamatan').show();
+          $('#form-desa').show();
+        } else {
+          $('#form-kecamatan').hide();
+          $('#form-desa').hide();
+          $('[name="id_kecamatan"]').val('');
+          $('[name="id_desa"]').val('');
+        }
+      });
+
+      $('[name="level"]').change();
+      $('[name="id_kecamatan"]').change();
+
       $.uploadPreview({
         input_field: "#image-upload",
         preview_box: "#image-preview",
