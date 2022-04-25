@@ -40,10 +40,10 @@
     <tr class="bg-yellow">
       <th>No.</th>
       <th>Nama Pemilik Usaha</th>
-      <th>Alamat Usaha</th>
       <th>Desa</th>
       <th>Kecamatan</th>
       <th>Nama Tempat Usaha</th>
+      <th>Alamat Usaha</th>
       <th>Jenis Komoditas</th>
       <th>Produk yang dihasilkan</th>
       <th>Tahun Berdiri</th>
@@ -58,10 +58,10 @@
       <tr>
         <td align="center">{{ $loop->iteration }}</td>
         <td>{{ $value->nama_pemilik }}</td>
-        <td>{{ $value->alamat_usaha }}</td>
         <td>{{ $value->nama_desa }}</td>
         <td>{{ $value->nama_kecamatan }}</td>
         <td>{{ $value->nama_usaha }}</td>
+        <td>{{ $value->alamat_usaha }}</td>
         <td>{{ $value->nama_sub_komoditas }}</td>
         <td>{{ $value->produk_dihasilkan }}</td>
         <td>{{ $value->tahun_berdiri }}</td>

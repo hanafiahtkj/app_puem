@@ -29,18 +29,18 @@ class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAu
 
     public function view(): View
     {
-        $report = Individu::query()
+        $report = db::table('individu')
             ->leftJoin('kecamatan', 'individu.id_kecamatan', '=', 'kecamatan.id')
             ->leftJoin('desa', 'individu.id_desa', '=', 'desa.id')
-            ->leftJoin('sub_komoditas', 'individu.id_sub_komoditas', '=', 'sub_komoditas.id')
             ->leftJoin('usaha', 'usaha.id_ukm', '=', 'individu.id')
+            ->leftJoin('sub_komoditas', 'usaha.id_sub_komoditas', '=', 'sub_komoditas.id')
             ->where('individu.id_kecamatan', $this->id_kecamatan);
 
         if($this->type == 'rekap_desa'){
             $report->where('individu.id_desa', $this->id_desa);
         }
 
-        $report->select('individu.*', 'kecamatan.nama_kecamatan', 'desa.nama_desa', 'sub_komoditas.nama_sub_komoditas', 'usaha.produk_dihasilkan', 'usaha.jumlah_tenaga_kerja')
+        $report->select('individu.nama_pemilik', 'kecamatan.nama_kecamatan', 'desa.nama_desa', 'usaha.nama_usaha', 'usaha.alamat_usaha', 'sub_komoditas.nama_sub_komoditas', 'usaha.produk_dihasilkan', 'usaha.jumlah_tenaga_kerja', 'usaha.tahun_berdiri')
             ->orderBy('individu.nama_pemilik', 'asc')
             ->orderBy('individu.id', 'asc');
 
