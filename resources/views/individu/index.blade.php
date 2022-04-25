@@ -103,9 +103,6 @@
                         <th>Nama Pemilik</th>
                         <th>Nik</th>
                         <th>Jenis Kelamin</th>
-                        <th>Alamat</th>
-                        <th>Status Usaha</th>
-                        <th>Tahun Berdiri</th>
                         <th>Tanggal Simpan</th>
                         <th>Aksi</th>
                       </tr>
@@ -178,9 +175,6 @@
             {data: 'nama_pemilik'},
             {data: 'nik'},
             {data: 'jenis_kelamin'},
-            {data: 'alamat_usaha'},
-            {data: 'nama_badan_usaha'},
-            {data: 'tahun_berdiri'},
             {data: 'tanggal_simpan'},
             {data: null},
           ],
@@ -192,7 +186,7 @@
               className: "text-center"
             },
             {
-              targets: 8,
+              targets: 5,
               searchable: false, 
               orderable: false, 
               render: function ( data, type, row ) {

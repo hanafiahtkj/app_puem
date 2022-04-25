@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\KategoriKomoditas;
+use App\Models\Komoditas;
 use App\Models\Kecamatan;
 use App\Models\Pendidikan;
 use App\Models\Usaha;
@@ -47,7 +47,7 @@ class UsahaController extends Controller
             'pendidikan'         => Pendidikan::all(),
             'perizinan'          => Perizinan::all(),
             'instansi_pembina'   => InstansiPembina::all(),
-            'kategori_komoditas' => KategoriKomoditas::all(),
+            'komoditas'          => Komoditas::all(),
             'badan_usaha'        => BadanUsaha::all(),
             'produk'             => Produk::all(),
         ];
@@ -142,7 +142,7 @@ class UsahaController extends Controller
             'pendidikan'             => Pendidikan::all(),
             'perizinan'              => Perizinan::all(),
             'instansi_pembina'       => InstansiPembina::all(),
-            'kategori_komoditas'     => KategoriKomoditas::all(),
+            'komoditas'              => Komoditas::all(),
             'usaha'                  => Usaha::find($id),
             'badan_usaha'            => BadanUsaha::all(),
             'produk'                 => Produk::all(),

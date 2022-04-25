@@ -174,6 +174,21 @@ class ProdukController extends Controller
         ]);
     }
 
+    public function ajaxSearch(Request $request)
+    {
+        $data = [];
+        if ($id_sub_komoditas = $request->input('id_sub_komoditas')) {
+            $query = Produk::where('id_sub_komoditas', $id_sub_komoditas);
+
+            if ($search = $request->input('search')) {
+                $query->where('nama_produk','LIKE','%'.$search.'%');
+            }
+
+            $data = $query->get();
+        }
+        return response()->json($data);
+    }
+
     public function getDataTables(Request $request)
     {
         $produk = Produk::orderBy('id','DESC');

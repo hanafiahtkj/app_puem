@@ -84,6 +84,8 @@ Route::group([
 
     Route::resource('sub-komoditas', SubKomoditasController::class);
 
+    Route::get('produk/ajax-search', [ProdukController::class, 'ajaxSearch'])->name('produk.ajax-search');
+
     Route::get('produk/getDataTables', [ProdukController::class, 'getDataTables'])->name('produk.getDataTables');
 
     Route::resource('produk', ProdukController::class);

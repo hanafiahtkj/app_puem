@@ -90,14 +90,6 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-4">
-                        <div class="form-group">
-                          <label class="control-label" for="input-name">Subfilter</label>
-                          <select class="form-control select2" name="subfilter" id="subfilter">
-                            <option value="">Semua....</option>
-                          </select>
-                        </div>
-                      </div>
                     </div>
                     <div class="row">
                       <div class="col-sm-12">
@@ -242,8 +234,8 @@
             {data: 'individu.nama_pemilik'},
             {data: 'individu.nik'},
             {data: 'nama_desa'},
-            {data: 'individu.alamat_usaha'},
-            {data: 'individu.tahun_berdiri'},
+            {data: 'alamat_usaha'},
+            {data: 'tahun_berdiri'},
             {data: 'jumlah_tenaga_kerja'},
             {data: 'no_izin'},
             {data: 'keterangan'},

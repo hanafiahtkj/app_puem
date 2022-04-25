@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\KategoriKomoditas;
+use App\Models\Komoditas;
 use App\Models\Kecamatan;
 use App\Models\Pendidikan;
 use App\Models\Individu;
@@ -42,7 +42,6 @@ class IndividuController extends Controller
             'kecamatan'   => Kecamatan::all(),
             'pendidikan'  => Pendidikan::all(),
             'badan_usaha' => BadanUsaha::all(),
-            'kategori_komoditas' => KategoriKomoditas::all(),
         ];
         return view('individu.form', $data);
     }
@@ -55,24 +54,7 @@ class IndividuController extends Controller
      */
     public function store(Request $request)
     {
-        $validasi = [
-            'nama_pemilik'          => 'required',
-            'nik'                   => 'required',
-            'jenis_kelamin'         => 'required',
-            'no_hp'                 => 'required',
-            'nama_usaha'            => 'required',
-            'alamat_usaha'          => 'required',
-            'id_kecamatan'          => 'required',
-            'id_desa'               => 'required',
-            'id_kategori_komoditas' => 'required',
-            'id_komoditas'          => 'required',
-            'id_sub_komoditas'      => 'required',
-            'id_pendidikan'         => 'required',
-            'id_badan_usaha'        => 'required',
-            'tahun_berdiri'         => 'required',
-            'status'                => 'required',
-            'tanggal_simpan'        => 'required',
-        ];
+        $validasi = [];
 
         $validator = Validator::make($request->all(), $validasi);
 
@@ -129,7 +111,7 @@ class IndividuController extends Controller
             'kecamatan'   => Kecamatan::all(),
             'pendidikan'  => Pendidikan::all(),
             'badan_usaha' => BadanUsaha::all(),
-            'kategori_komoditas' => KategoriKomoditas::all(),
+            'komoditas'   => Komoditas::all(),
         ];
         return view('individu.form', $data);
     }
@@ -143,24 +125,7 @@ class IndividuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validasi = [
-            'nama_pemilik'          => 'required',
-            'nik'                   => 'required',
-            'jenis_kelamin'         => 'required',
-            'no_hp'                 => 'required',
-            'nama_usaha'            => 'required',
-            'alamat_usaha'          => 'required',
-            'id_kecamatan'          => 'required',
-            'id_desa'               => 'required',
-            'id_kategori_komoditas' => 'required',
-            'id_komoditas'          => 'required',
-            'id_sub_komoditas'      => 'required',
-            'id_pendidikan'         => 'required',
-            'id_badan_usaha'        => 'required',
-            'tahun_berdiri'         => 'required',
-            'status'                => 'required',
-            'tanggal_simpan'        => 'required',
-        ];
+        $validasi = [];
 
         $validator = Validator::make($request->all(), $validasi);
 

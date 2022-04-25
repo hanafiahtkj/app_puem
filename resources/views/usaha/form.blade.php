@@ -36,6 +36,31 @@
               <div class="card-header"><h4>Data Usaha</h4></div>
               <div class="card-body">
                 <div class="form-group">
+                  <label for="nama_usaha">Nama Usaha</label>
+                  <input id="nama_usaha" type="text" class="form-control" name="nama_usaha" value="{{ old('nama_usaha', @$individu->nama_usaha) }}" required>
+                  <div class="invalid-feedback">
+                      Nama Usaha wajib diisi.
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="alamat_usaha">Alamat Usaha</label>
+                    <input id="alamat_usaha" type="text" class="form-control" name="alamat_usaha" value="{{ old('alamat_usaha', @$individu->alamat_usaha) }}" required>
+                    <div class="invalid-feedback">
+                        Alamat Usaha wajib diisi.
+                    </div>
+                </div> 
+                <div class="form-group">
+                  <label for="tahun_berdiri">Tahun Beridiri</label>
+                  <select id="tahun_berdiri" class="form-control selectric" name="tahun_berdiri" required>
+                    @for ($i = date('Y'); $i >= 1961; $i--)
+                      <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                  </select>
+                  <div class="invalid-feedback">
+                      Tahun Berdiri wajib diisi.
+                  </div>
+                </div>
+                <div class="form-group">
                   <label for="id_kecamatan">Kecamatan</label>
                   <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required>
                     <option value="">Pilih....</option>
@@ -83,28 +108,30 @@
                           <td>:</td>
                           <td id="tb-jenis-kelamin">{{ @$usaha->ukm->jenis_kelamin }}</td>
                         </tr>
-                        <tr>
-                          <td>Alamat</td>
-                          <td>:</td>
-                          <td id="tb-alamat">{{ @$usaha->ukm->alamat_usaha }}</td>
-                        </tr>
-                        <tr>
-                          <td>Status Usaha</td>
-                          <td>:</td>
-                          <td id="tb-status">{{ @$usaha->ukm->nama_badan_usaha }}</td>
-                        </tr>
-                        <tr>
-                          <td>Tahun Berdiri</td>
-                          <td>:</td>
-                          <td id="tb-tahun-berdiri">{{ @$usaha->ukm->tahun_berdiri }}</td>
-                        </tr>
                       </tbody>
                     </table>
                   </div>
                 </div>
-                <div class="form-group detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
+                <div class="form-group">
+                  <label for="title">Komoditas</label>
+                  <select id="id_komoditas" onChange="getSubKomoditas(this.value);" class="form-control selectric" name="id_komoditas" required>
+                    <option value="">Pilih....</option>
+                    @foreach($komoditas as $value)
+                      <option value="{{ $value->id }}" {{ @$individu->id_komoditas == $value->id ? 'selected' : '' }}>{{ $value->nama_komoditas }}</option>
+                    @endforeach
+                  </select>
+                  <div class="invalid-feedback">Komoditas wajib diisi.</div>
+                </div>
+                <div class="form-group">
+                  <label for="title">Sub Komoditas</label>
+                  <select id="id_sub_komoditas" class="form-control selectric" name="id_sub_komoditas" required disabled>
+                    <option value="">Pilih....</option>
+                  </select>
+                  <div class="invalid-feedback">Sub Komoditas wajib diisi.</div>
+                </div>
+                <div class="form-group">
                   <label for="id_produk">Nama/Jenis Produk</label>
-                  <select id="id_produk" class="form-control select2" name="id_produk" required>
+                  <select id="id_produk" class="form-control js-select2-id-produk" name="id_produk" required>
                     <option value="">Pilih....</option>
                     @foreach($produk as $value)
                       <option value="{{ $value->id }}" {{ @$usaha->id_produk == $value->id ? 'selected' : '' }}>{{ $value->nama_produk }}</option>
@@ -112,7 +139,7 @@
                   </select>
                   <div class="invalid-feedback">Produk wajib diisi.</div>
                 </div>
-                <div class="form-group detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
+                <div class="form-group">
                   <label for="jenis_uem">Jenis Uem</label>
                   <select id="jenis_uem" class="form-control selectric" name="jenis_uem" required>
                     <option value="">Pilih....</option>
@@ -374,13 +401,6 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="npwp">NPWP *Jika Ada*</label>
-                  <input id="npwp" type="text" class="form-control" name="npwp" value="{{ @$usaha->npwp }}">
-                  <div class="invalid-feedback">
-                    NPWP wajib diisi.
-                  </div>
-                </div>
-                <div class="form-group">
                   <label for="keterangan">Keterangan</label>
                   <textarea id="keterangan" class="form-control" name="keterangan" required style="height: 100px;">{{ @$usaha->keterangan }}</textarea>
                   <div class="invalid-feedback">
@@ -454,6 +474,7 @@
     @if (isset($usaha))
       
       getDesa('{{ $usaha->id_kecamatan }}', '{{ $usaha->id_desa }}');
+      getSubKomoditas('{{ $usaha->id_komoditas }}', '{{ $usaha->id_sub_komoditas }}');
       
       let dataVue = {
         perizinan : @json($detail_perizinan_usaha),
@@ -509,6 +530,22 @@
       });
     }
 
+    function getSubKomoditas(id, id_sub_komoditas = '') 
+    {
+      $('#id_sub_komoditas').prop('disabled', true);
+      var id  = id;
+      var url = '{{ route("master.sub-komoditas.get-sub-komoditas", ":id") }}';
+      url = url.replace(':id', id);
+      $('#id_sub_komoditas').html(new Option('Mengambil Data.....', ''));
+      $.get(url, function( response ) {
+        $('#id_sub_komoditas').prop('disabled', false);
+        $('#id_sub_komoditas').html(new Option('Pilih.....', ''))
+        $.each(response.data, function (key, value) {
+          $('#id_sub_komoditas').append('<option value="'+value.id+'" '+ ((value.id == id_sub_komoditas) ? 'selected' : '') +'>'+value.nama_sub_komoditas+'</option>');
+        });
+      });
+    }
+
     $(function() {    
 
       // Select2
@@ -533,6 +570,30 @@
                             id: item.id,
                             text: item.nama_pemilik,
                             ukm : item
+                        }
+                    })
+                };
+            },
+        },
+      });
+
+      $('.js-select2-id-produk').select2({
+        ajax: {
+            url: "{{ route('master.produk.ajax-search') }}",
+            data: function (params) {
+                var query = {
+                  search: params.term,
+                  id_sub_komoditas: $('#id_sub_komoditas').val(),
+                }
+                return query;
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            id  : item.id,
+                            text: item.nama_produk,
+                            produk : item
                         }
                     })
                 };
