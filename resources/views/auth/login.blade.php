@@ -10,7 +10,9 @@
                 <a href="{{ url('') }}">
                   <img src="{{ asset('img/logo.png') }}" alt="logo" width="80" class="mb-4">
                 </a>
-                <h6>SISTEM INFORMASI PEMETAAN USAHA MASYARAKAT DESA</h6>
+                <h6 class="text-white">SISTEM INFORMASI</h6> 
+                <h6 class="text-white">PEMETAAN</h6> 
+                <h6 class="text-white">USAHA MASYARAKAT DESA</h6>
             </div>
 
             <div class="card card-grey mb-0">
@@ -52,7 +54,7 @@
 
               </div>
             </div>
-            <div class="simple-footer text-muted">
+            <div class="simple-footer text-white">
               Copyright &copy; 2022 All rights reserved | demo app
             </div>
           </div>
@@ -66,6 +68,9 @@
           background-image: url(img/bg.svg);
           background-position: top;
           background-repeat: no-repeat;
+        }
+        body {
+          background-color: #2196f3;
         }
       </style>
     </x-slot>

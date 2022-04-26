@@ -247,15 +247,15 @@ body.sidebar-mini .navbar {
         right: 0;
     }
 }
-/* .btn-primary, .btn-primary.disabled {
+.btn-primary, .btn-primary.disabled {
     box-shadow: 0 2px 6px #acb5f6;
-    background-color: #744fac;
-    border-color: #744fac;
+    background-color: #2196f3;
+    border-color: #2196f3;
 }
 .page-item.active .page-link {
-    background-color: #744fac;
-    border-color: #744fac;
-} */
+    background-color: #2196f3;
+    border-color: #2196f3;
+}
 .main-sidebar .sidebar-menu li.active a {
     color: #cbcbcb;
 }
