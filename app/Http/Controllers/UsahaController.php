@@ -175,9 +175,9 @@ class UsahaController extends Controller
         try{
             DB::beginTransaction();
 
-            $individu = Usaha::find($id);
+            $usaha = Usaha::find($id);
             $input = $request->all();
-            $individu->update($input);
+            $usaha->update($input);
 
             DetailInstansiUsaha::where('id_usaha', $id)->delete();
             if ($instansi_pembina = $request->input('instansi_pembina')) 

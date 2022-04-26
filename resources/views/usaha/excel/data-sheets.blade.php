@@ -78,7 +78,7 @@
         <td>{{ $value->jumlah_tenaga_kerja }}</td>
         <td>{{ $value->harga_jual_produk }}</td>
         <td>{{ $value->hari_kerja_sebulan }}</td>
-        <td>{{ $value->omzet_perhari }}</td>
+        <td>Rp. {{ number_format($value->omzet_perhari, 0, '.', ',') }}</td>
         <td>Mikro</td>
         <td>Mikro</td>
         <td>{{ $value->nilai_investasi }}</td>
