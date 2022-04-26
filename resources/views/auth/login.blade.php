@@ -1,6 +1,6 @@
 <x-auth-layout>
 
-    <x-slot name="title">Masuk</x-slot>
+    <x-slot name="title">Login</x-slot>
 
     <section class="section">
       <div class="container mt-5">

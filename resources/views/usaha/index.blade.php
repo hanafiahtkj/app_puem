@@ -227,12 +227,14 @@
               d.id_kecamatan = $('#id_kecamatan').val();
               d.id_desa = $('#id_desa').val();
               d.tahun = $('#tahun').val();
+              d.berdasarkan = $('#berdasarkan').val();
+              d.filter = $('#filter').val();
             }
           },
           columns: [
             {data: null},
-            {data: 'individu.nama_pemilik'},
-            {data: 'individu.nik'},
+            {data: 'nama_pemilik'},
+            {data: 'nik'},
             {data: 'nama_desa'},
             {data: 'alamat_usaha'},
             {data: 'tahun_berdiri'},

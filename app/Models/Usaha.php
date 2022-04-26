@@ -46,6 +46,11 @@ class Usaha extends Model
         return $this->belongsTo(SubKomoditas::class, 'id_sub_komoditas', 'id');
     }
 
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'id_produk', 'id');
+    }
+
     public function getNamaKecamatanAttribute()
     {
         return $this->kecamatan()->first()->nama_kecamatan;
@@ -64,6 +69,11 @@ class Usaha extends Model
     public function getNamaSubKomoditasAttribute()
     {
         return $this->subKomoditas()->first()->nama_sub_komoditas;
+    }
+
+    public function getNamaProdukAttribute()
+    {
+        return $this->produk()->first()->nama_produk;
     }
 
     public function getHargaJualProdukAttribute($value)

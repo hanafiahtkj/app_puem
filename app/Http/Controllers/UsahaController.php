@@ -246,16 +246,22 @@ class UsahaController extends Controller
 	{
         $id_kecamatan = $request->get('id_kecamatan');
         $id_desa      = $request->get('id_desa');
-        $type         = $request->get('type');;
+        $type         = $request->get('type');
+        $tahun        = $request->get('tahun');
+        $berdasarkan  = $request->get('berdasarkan');
+        $filter       = $request->get('filter');
         return Excel::download(
-            new UsahaExport($id_kecamatan, $id_desa, $type), 
-            $type.'.xlsx'
+            new UsahaExport($id_kecamatan, $id_desa, $type, $tahun, $berdasarkan, $filter), 
+            $type.(isset($filter) ? '-'.str_replace(' ', '_', $filter) : '').'.xlsx'
         );
     }
 
     public function getDataTables(Request $request)
     {
-        $query = Usaha::with('individu');
+        $query = db::table('usaha')
+            ->join('desa', 'usaha.id_desa', '=', 'desa.id')
+            ->join('kecamatan', 'desa.id_kecamatan', '=', 'kecamatan.id')
+            ->join('individu', 'usaha.id_ukm', '=', 'individu.id');
 
         if ($id_kecamatan = $request->get('id_kecamatan')) {
             $query->where('usaha.id_kecamatan', $id_kecamatan);
@@ -266,13 +272,30 @@ class UsahaController extends Controller
         }
 
         if ($tahun = $request->get('tahun')) {
-            $query->whereYear('created_at', $tahun);
+            $query->whereYear('usaha.tanggal_simpan', $tahun);
         }
 
-        $query = $query->orderBy('usaha.id','DESC')->get();
+        if ($berdasarkan = $request->get('berdasarkan')) {
+            if ($filter = $request->get('filter')) {   
+                switch ($berdasarkan) {
+                    case 'Jenis UEM':
+                        $query->where('usaha.jenis_uem', $filter);
+                        break;
+                    case 'Skala Usaha':
+                        //
+                        break;
+                    case 'Jenis Kelamin':
+                        $query->where('individu.jenis_kelamin', $filter);
+                        break;
+                }
+            }
+        }
+
+        $query->select('usaha.*', 'individu.nama_pemilik', 'individu.nik', 'desa.nama_desa')
+            ->orderBy('usaha.id','DESC')->get();
 
         return Datatables::of($query)
-            ->addColumn('no_izin',function(Usaha $query){
+            ->addColumn('no_izin',function($query){
                 $no_izin = DetailPerizinanUsaha::where('id_usaha', $query->id)->pluck('nomor')->toArray();
                 return implode(',', $no_izin);
             })

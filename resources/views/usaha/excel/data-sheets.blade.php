@@ -65,22 +65,22 @@
     @foreach ($data as $key => $value)
       <tr>
         <td align="center">{{ $loop->iteration+1 }}</td>
-        <td>{{ $value->individu->nama_pemilik }}</td>
-        <td>{{ $value->individu->nik }}</td>
-        <td>{{ $value->individu->jenis_kelamin }}</td>
-        <td>{{ $value->individu->nama_pendidikan }}</td>
-        <td>{{ $value->individu->alamat_usaha }}</td>
-        <td>{{ $value->individu->nama_usaha }}</td>
-        <td>{{ $value->individu->nama_komoditas }}</td>
-        <td>{{ $value->individu->nama_sub_komoditas }}</td>
-        <td>?</td>
-        <td>{{ $value->individu->tahun_berdiri }}</td>
+        <td>{{ $value->nama_pemilik }}</td>
+        <td>{{ $value->nik }}</td>
+        <td>{{ $value->jenis_kelamin }}</td>
+        <td>{{ $value->nama_pendidikan }}</td>
+        <td>{{ $value->alamat_usaha }}</td>
+        <td>{{ $value->nama_usaha }}</td>
+        <td>{{ $value->nama_komoditas }}</td>
+        <td>{{ $value->nama_sub_komoditas }}</td>
+        <td>{{ $value->nama_produk }}</td>
+        <td>{{ $value->tahun_berdiri }}</td>
         <td>{{ $value->jumlah_tenaga_kerja }}</td>
         <td>{{ $value->harga_jual_produk }}</td>
         <td>{{ $value->hari_kerja_sebulan }}</td>
         <td>{{ $value->omzet_perhari }}</td>
-        <td>?</td>
-        <td>?</td>
+        <td>Mikro</td>
+        <td>Mikro</td>
         <td>{{ $value->nilai_investasi }}</td>
       </tr>
     @endforeach
