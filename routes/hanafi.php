@@ -17,6 +17,7 @@ use App\Http\Controllers\BadanUsahaController;
 use App\Http\Controllers\PendidikanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GisController;
+use App\Http\Controllers\SettingController;
 
 Route::group(['middleware' => ['auth']], function () 
 {    
@@ -31,6 +32,8 @@ Route::group(['middleware' => ['auth']], function ()
     Route::get('gis', GisController::class)->name('gis.index');
 
     Route::get('gis/loadmap', [GisController::class, 'loadmap'])->name('gis.loadmap');
+
+    Route::resource('setting', SettingController::class);
 });
 
 Route::group([
@@ -109,4 +112,6 @@ Route::group([
     Route::get('pengguna/getDataTables', [UserController::class, 'getDataTables'])->name('pengguna.getDataTables');
 
     Route::resource('pengguna', UserController::class);
+
+    
 });
