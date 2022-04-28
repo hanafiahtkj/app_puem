@@ -15,10 +15,11 @@ use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\WithDrawings;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use Carbon\Carbon;
 use DB;
 
-class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldAutoSize
+class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldAutoSize, WithTitle
 {
     public function __construct($id_kecamatan, $id_desa, $type, $tahun, $berdasarkan, $filter) 
     {
@@ -44,12 +45,12 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
         ->where('usaha.id_kecamatan', $this->id_kecamatan);
 
         if($this->type == 'rekap_desa'){
-            $report->where('usaha.id_desa', $this->id_desa);
+            $report = $report->where('usaha.id_desa', $this->id_desa);
         }
 
         if ($this->tahun) 
         {
-            $report->whereYear('usaha.tanggal_simpan', $this->tahun);
+            $report = $report->whereYear('usaha.tanggal_simpan', $this->tahun);
         }
 
         if ($this->berdasarkan) 
@@ -58,19 +59,19 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
             {   
                 switch ($this->berdasarkan) {
                     case 'Jenis UEM':
-                        $report->where('usaha.jenis_uem', $this->filter);
+                        $report = $report->where('usaha.jenis_uem', $this->filter);
                         break;
                     case 'Skala Usaha':
                         //
                         break;
                     case 'Jenis Kelamin':
-                        $report->where('individu.jenis_kelamin', $this->filter);
+                        $report = $report->where('individu.jenis_kelamin', $this->filter);
                         break;
                 }
             }
         }
 
-        $report->select('usaha.*', 'individu.nama_pemilik', 'individu.nik', 'pendidikan.nama_pendidikan', 'individu.jenis_kelamin', 'komoditas.nama_komoditas', 'sub_komoditas.nama_sub_komoditas', 'produk.nama_produk', 'desa.nama_desa', 'kecamatan.nama_kecamatan')
+        $report = $report->select('usaha.*', 'individu.nama_pemilik', 'individu.nik', 'pendidikan.nama_pendidikan', 'individu.jenis_kelamin', 'komoditas.nama_komoditas', 'sub_komoditas.nama_sub_komoditas', 'produk.nama_produk', 'desa.nama_desa', 'kecamatan.nama_kecamatan')
             ->orderBy('individu.nama_pemilik','ASC')
             ->orderBy('individu.id','ASC');
 
@@ -110,5 +111,10 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
     public function columnWidths(): array
     {
         return [];
+    }
+
+    public function title(): string
+    {
+        return 'Data Usaha';
     }
 }

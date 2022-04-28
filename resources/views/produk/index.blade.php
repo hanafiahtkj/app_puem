@@ -64,12 +64,14 @@
       
       function getKomoditas(id, id_komoditas = '') 
       {
+        $('#id_komoditas').prop('disabled', true);
         var id  = id;
         var url = '{{ route("master.komoditas.get-komoditas", ":id") }}';
         url = url.replace(':id', id);
-        $('#id_komoditas').html('');
-        $('#id_komoditas').append(new Option('Pilih.....', ''))
+        $('#id_komoditas').html(new Option('Mengambil Data.....', ''));
         $.get(url, function( response ) {
+          $('#id_komoditas').prop('disabled', false);
+          $('#id_komoditas').html(new Option('Pilih.....', ''))
           $.each(response.data, function (key, value) {
             $('#id_komoditas').append('<option value="'+value.id+'" '+ ((value.id == id_komoditas) ? 'selected' : '') +'>'+value.nama_komoditas+'</option>');
           });
@@ -78,12 +80,14 @@
 
       function getSubKomoditas(id, id_sub_komoditas = '') 
       {
+        $('#id_sub_komoditas').prop('disabled', true);
         var id  = id;
         var url = '{{ route("master.sub-komoditas.get-sub-komoditas", ":id") }}';
         url = url.replace(':id', id);
-        $('#id_sub_komoditas').html('');
-        $('#id_sub_komoditas').append(new Option('Pilih.....', ''))
+        $('#id_sub_komoditas').html(new Option('Mengambil Data.....', ''));
         $.get(url, function( response ) {
+          $('#id_sub_komoditas').prop('disabled', false);
+          $('#id_sub_komoditas').html(new Option('Pilih.....', ''))
           $.each(response.data, function (key, value) {
             $('#id_sub_komoditas').append('<option value="'+value.id+'" '+ ((value.id == id_sub_komoditas) ? 'selected' : '') +'>'+value.nama_sub_komoditas+'</option>');
           });
