@@ -27,7 +27,7 @@
                     <h4>Data UEM</h4>
                   </div>
                   <div class="card-body">
-                    0
+                    {{ $total_uem }}
                   </div>
                 </div>
               </div>
@@ -42,7 +42,7 @@
                     <h4>Data Pasar Desa</h4>
                   </div>
                   <div class="card-body">
-                    0
+                    {{ $total_pasar }}
                   </div>
                 </div>
               </div>
