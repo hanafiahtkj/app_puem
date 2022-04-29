@@ -58,3 +58,26 @@
     @endfor
   </tbody>
 </table>
+
+<table>
+  <tbody>
+    <tr>
+      <td align="right" colspan="17">Pelaihari, {{ $tgl_sekarang }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="17">{{ $setting->mengetahui }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="17">Dinas PMD Kabupaten Tanah Laut,</td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+      <td align="right" colspan="17"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
+    </tr>
+    <tr>
+      <td align="right" colspan="17">NIP. {{ $setting->nip }}</td>
+    </tr>
+  </tbody>
+</table>

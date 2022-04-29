@@ -5,6 +5,7 @@ namespace App\Exports\Sheets;
 use App\Models\Usaha;
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use App\Models\Setting;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -78,10 +79,12 @@ class UsahaProdukSheets implements FromView, WithEvents, WithColumnWidths, Shoul
         $data = array_chunk($report, $size);
         //dd($data); die;
         $data = [
-            'kecamatan' => Kecamatan::find($this->id_kecamatan),
-            'desa'      => Desa::find($this->id_desa),
-            'data'      => $data,
-            'size'      => $size,
+            'tgl_sekarang' => Carbon::now()->isoFormat('Do MMMM YYYY'),
+            'kecamatan'    => Kecamatan::find($this->id_kecamatan),
+            'desa'         => Desa::find($this->id_desa),
+            'data'         => $data,
+            'size'         => $size,
+            'setting'      => Setting::first(),
         ];
         // echo view('usaha.excel.produk-sheets', $data); die();
         return view('usaha.excel.produk-sheets', $data);
