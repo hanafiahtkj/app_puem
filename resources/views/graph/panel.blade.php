@@ -51,7 +51,8 @@
                         <label class="control-label" for="input-name">Grafik</label>
                         <select class="form-control" name="id_kecamatan" id="graph_type" required>
                           <option value="">Pilih Grafik</option>
-                          <option value="1">Donat</option>
+                          <option value="doughnut">Donat</option>
+                          <option value="pie">Pie</option>
                         </select>
                       </div>
                     </div>
@@ -60,7 +61,8 @@
                         <label class="control-label" for="input-name">Jenis Data</label>
                         <select class="form-control" name="id_kecamatan" id="jenis_data" required>
                           <option value="">Pilih Jenis Data</option>
-                          <option value="1">Jumlah Usaha</option>
+                          <option value="jumlah_usaha">Jumlah Usaha</option>
+                          <option value="skala_usaha">Skala Usaha</option>
                         </select>
                       </div>
                     </div>
@@ -79,13 +81,11 @@
                       <div class="form-group">
                         <label class="control-label"> &nbsp;</label>
                         <input type="button" class="form-control btn btn-md btn-primary" value="Tampilkan" name="" id="tampilkan" onclick="showGraph()">
-                        <input type="button" class="form-control btn btn-md btn-danger" value="Reset" name="" id="hilangkan" style="display: none;" onClick="reset_input()">
-                        
                       </div>
                     </div>
                   </div>
                 </div>
-                <div>
+                <div id="graph-container">
                   <canvas id="myChart" width="400" height="400"></canvas>
                 </div>
               </div>
@@ -116,8 +116,11 @@
         formData.append('kec', id_kec);
         formData.append('des', id_desa);
         formData.append('tahun', tahun);
+        formData.append('jenis_data', jenis_data);
 
-        await fetch('{{ route("graph-json") }}', {
+        if (jenis_data == 'jumlah_usaha') {
+
+          await fetch('{{ route("graph-json") }}', {
             method: 'POST',
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -128,6 +131,21 @@
             return res.json()
           })
           .then((res) => {
+
+            $('#myChart').remove();
+            $('#graph-container').append('<canvas id="myChart" width="400" height="400"></canvas>');
+
+            const ctx = document.getElementById("myChart").getContext('2d');
+
+            let donutData = {
+              labels: label_data,
+              datasets: [
+                {
+                  data: datasets_data,
+                  backgroundColor : datasets_backgroundColor,
+                }
+              ]
+            }
                
             for (const iterator of res.data) {
               
@@ -136,23 +154,6 @@
               datasets_backgroundColor.push(iterator.random_color);
               total_center += iterator.total_produk
 
-            }           
-
-          })
-          .catch((err) => {
-            
-            swal('Ooops..', 'Data tidak ditemukan', 'error')
-
-          })
-
-          let donutData = {
-              labels: label_data,
-              datasets: [
-                {
-                  data: datasets_data,
-                  backgroundColor : datasets_backgroundColor,
-                }
-              ]
             }
 
             let options = {
@@ -185,9 +186,8 @@
                 }
             };
 
-            const ctx = document.getElementById("myChart").getContext('2d');
             const myChart = new Chart(ctx, {
-                type: 'doughnut',
+                type: graph_type,
                 data: donutData,
                 options: options,
                 plugins: [{
@@ -210,19 +210,129 @@
                   }
                 }]
             });
-              
-      }
 
-      function reset_input() {
-        $('#kecamatan').val('');
-        $('#desa').val('');
-        $('#tahun').val('');
-        $('#jenis_data').val('');
-        $('#grafik').val('');
-        $('#hilangkan').hide();
-        $('#tampilkan').show();
-        $('#myChart').hide();
-      }
+          })
+          .catch((err) => {
+            console.log(err);
+            swal('Ooops..', 'Data tidak ditemukan', 'error')
+
+          })
+                    
+        }
+        else if (jenis_data == 'skala_usaha') {
+
+          await fetch('{{ route("graph-json") }}', {
+            method: 'POST',
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            body: formData
+          })
+          .then((res) => {
+            return res.json()
+          })
+          .then((res) => {
+
+            $('#myChart').remove();
+            $('#graph-container').append('<canvas id="myChart" width="400" height="400"></canvas>');
+
+            const ctx = document.getElementById("myChart").getContext('2d');
+
+            let donutData = {
+              labels: [Object.keys(res.data)[0], Object.keys(res.data)[1], Object.keys(res.data)[2] ],
+              datasets: [
+                {
+                  data: [Object.values(res.data)[0], Object.values(res.data)[1], Object.values(res.data)[2] ],
+                  backgroundColor : ['#FF0000', '#00FF00', '#0000FF'],
+                }
+              ]
+            }
+
+           
+            // console.log(Object.keys(res.data)[0]);
+
+            // for (let index = 0; index < res.data.length; index++) {
+              
+            //   label_data.push(Object.keys(res.data[index]));
+            //   datasets_data.push(Object.values(res.data[index]));
+            //   datasets_backgroundColor.push(res.data[index].random_color);
+              
+            // }
+               
+            // for (const iterator of res.data) {
+              
+            //   label_data.push(Object.keys(iterator));
+            //   datasets_data.push(Object.values(iterator));
+            //   datasets_backgroundColor.push(iterator.random_color);
+            //   total_center += iterator
+
+            // }
+
+            let options = {
+                maintainAspectRatio : false,
+                responsive : true,
+                tooltips: {
+                    enabled: false
+                },
+                plugins: {
+                    datalabels: {
+                        formatter: (value, ctx) => {
+
+                            let sum = 0;
+                            let dataArr = ctx
+                                .chart
+                                .data
+                                .datasets[0]
+                                .data;
+                            dataArr.map(data => {
+                                sum += data;
+                            });
+
+                            let percentage = (value * 100 / sum).toFixed(2) + "%" + " (" + value + ") ";
+                            return percentage;
+
+                        },
+                        
+                        color: '#fff'
+                    }
+                }
+            };
+
+            const myChart = new Chart(ctx, {
+                type: graph_type,
+                data: donutData,
+                options: options,
+                plugins: [{
+                  id: 'text',
+                  beforeDraw: function(chart, a, b) {
+                    var width = chart.width,
+                      height = chart.height,
+                      ctx = chart.ctx;
+
+                    ctx.restore();
+                    var fontSize = 2;
+                    ctx.font = fontSize + "em sans-serif";
+
+                    var text = "100% (" + res.data.total + ")",
+                      textX = Math.round((width - ctx.measureText(text).width) / 2),
+                      textY = height / 2;
+
+                    ctx.fillText(text, textX, textY);
+                    ctx.save();
+                  }
+                }]
+            });
+
+          })
+          .catch((err) => {
+            console.log(err);
+            swal('Ooops..', 'Data tidak ditemukan', 'error')
+
+          })
+          
+        }
+          
+        }
 
       function showGraph() {
 
@@ -238,9 +348,6 @@
         }else{
 
           this.show_graph($('#kecamatan').val(), $('#desa').val(), $('#tahun').val(), $('#graph_type').val(), $('#jenis_data').val());
-          $('#hilangkan').show();
-          $('#tampilkan').hide();
-
         }
         
 
