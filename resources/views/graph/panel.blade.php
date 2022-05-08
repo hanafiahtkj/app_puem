@@ -221,7 +221,7 @@
         $('#grafik').val('');
         $('#hilangkan').hide();
         $('#tampilkan').show();
-        $('#myChart').hide();
+        $('#myChart').show();
       }
 
       function showGraph() {
