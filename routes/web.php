@@ -26,6 +26,7 @@ use App\Http\Controllers\DatabaseSettingController;
 use App\Http\Controllers\BumdesController;
 use App\Http\Controllers\EkonomiDesaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GraphController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,8 @@ Route::group([
         Route::get('bumdes/{uuid}/edit', [BumdesController::class, 'edit'])->name('bumdes-edit');
         Route::put('bumdes/{uuid}/update', [BumdesController::class, 'update'])->name('bumdes-update');
         Route::delete('bumdes/{uuid}/delete', [BumdesController::class, 'destroy'])->name('bumdes-delete');
+
+        Route::get('grafik/panel', [GraphController::class, 'grafik_panel'])->name('grafik-panel');
 });
 
 Route::group([

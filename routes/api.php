@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatabaseSettingController;
 use App\Http\Controllers\BumdesController;
 use App\Http\Controllers\EkonomiDesaController;
+use App\Http\Controllers\GraphController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,3 +30,4 @@ Route::get('/bumdes-json', [BumdesController::class, 'data_json'])->name('bumdes
 Route::post('/format1-json', [EkonomiDesaController::class, 'json_format_1'])->name('format1-json');
 Route::post('/format2-json', [EkonomiDesaController::class, 'json_format_2'])->name('format2-json');
 Route::post('/format3-json', [EkonomiDesaController::class, 'json_format_3'])->name('format3-json');
+Route::post('/graph-json', [GraphController::class, 'show_grafik'])->name('graph-json');
