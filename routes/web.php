@@ -27,6 +27,7 @@ use App\Http\Controllers\BumdesController;
 use App\Http\Controllers\EkonomiDesaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GraphController;
+use App\Http\Controllers\GisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ use App\Http\Controllers\GraphController;
 */
 
 Route::get('/', [DashboardController::class, 'landing_page'])->name('landing-page');
+Route::get('gis/loadmap', [GisController::class, 'loadmap'])->name('gis.loadmap');
 
 Route::get('/database-setting', [DatabaseSettingController::class, 'index'])->name('database-setting');
 Route::group([
