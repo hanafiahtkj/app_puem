@@ -126,6 +126,7 @@ async function show_graph(id_kec, id_desa, tahun, graph_type, jenis_data) {
       })
       .then((res) => {
 
+        $('#loading-graph').remove();
         $('#myChart').remove();
         $('#graph-container').append('<canvas id="myChart" width="400" height="400"></canvas>');
 
