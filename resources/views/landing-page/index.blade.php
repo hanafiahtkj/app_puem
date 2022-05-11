@@ -110,28 +110,19 @@
           
             <div class="row">
               <div class="col-md-12">
-                <table class="table table-responsive" id="table-bumdes">
+                <table class="table table-striped" id="dataTable" style="width: 100%;">
                   <thead>
                     <tr class="table-primary">
-                      <th scope="col">No</th>
-                      <th scope="col">Desa</th>
-                      <th scope="col">Tahun Berdiri</th>
-                      <th scope="col">Jumlah Bumdes</th>
+                      <th class="text-center" style="width: 30px;">
+                        No
+                      </th>
+                      <th>Kecamatan</th>
+                      <th>Desa</th>
+                      <th>Nama Bumdes</th>                
+                      <th>Tahun Berdiri</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Desa XXXX</td>
-                      <td>XXXX</td>
-                      <td>XXXX</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Desa XXXX</td>
-                      <td>XXXX</td>
-                      <td>XXXX</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -331,7 +322,20 @@
   <script src="{{ asset('vendor/grafik-dash.js') }}"></script>
   
   <script>
-     var table = $('#table-bumdes').DataTable();
+
+
+      var table = $('#dataTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ route('bumdes-json') }}',
+        columns: [
+          { data: 'no', name: 'no'},
+          { data: 'kecamatan', name: 'kecamatan' },
+          { data: 'desa', name: 'desa' },
+          { data: 'nama_bumdes', name: 'nama_bumdes' },
+          { data: 'tahun', name: 'tahun' }
+        ]
+      });
 
      function loadmap(){
       $id_kecamatan = $("[name=id_kecamatan]").val();
