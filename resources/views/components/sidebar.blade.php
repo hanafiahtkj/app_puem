@@ -41,6 +41,7 @@
       <li class="nav-item {{ (request()->routeIs('gis.index')) ? 'active' : '' }}">
         <a href="{{ route('gis.index') }}" class="nav-link"><i class="fas fa-map-marker-alt"></i></i><span>Gis</span></a>
       </li>
+      @role('Super Admin')
       <li class="nav-item dropdown {{ (request()->is('master*')) ? 'active' : '' }}">
         <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Master Data</span></a>
         <ul class="dropdown-menu">
@@ -64,6 +65,7 @@
           <li class="nav-item"><a href="{{route('database-setting')}}" class="nav-link">Managemen Database</a></li>
         </ul>
       </li>
+      @endrole
     </ul>
 
     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">

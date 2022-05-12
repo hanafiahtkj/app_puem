@@ -66,13 +66,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function getNamaKecamatanAttribute()
     {
         $row = $this->kecamatan()->first();
-        return isset($location) ? $row->nama_kecamatan : '-';
+        return isset($row) ? $row->nama_kecamatan : '-';
     }
 
     public function getNamaDesaAttribute()
     {
         $row = $this->desa()->first();
-        return isset($location) ? $row->nama_desa : '-';
+        return isset($row) ? $row->nama_desa : '-';
     }
 
     public function getStorageImageAttribute()

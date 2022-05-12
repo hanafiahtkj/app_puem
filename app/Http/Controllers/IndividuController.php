@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use App\Exports\IndividuExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 use DB;
 
@@ -200,7 +201,7 @@ class IndividuController extends Controller
 	{
         $id_kecamatan = $request->get('id_kecamatan');
         $id_desa      = $request->get('id_desa');
-        $type         = $request->get('type');;
+        $type         = $request->get('type');
         return Excel::download(
             new IndividuExport($id_kecamatan, $id_desa, $type), 
             $type.'.xlsx'
@@ -237,11 +238,11 @@ class IndividuController extends Controller
     {
         $query = Individu::query();
 
-        if ($id_kecamatan = $request->get('id_kecamatan')) {
+        if ($id_kecamatan = $request->get('id_kecamatan') || $id_kecamatan = Auth::user()->id_kecamatan) {
             $query->where('id_kecamatan', $id_kecamatan);
         }
 
-        if ($id_desa = $request->get('id_desa')) {
+        if ($id_desa = $request->get('id_desa') || $id_desa = Auth::user()->id_desa) {
             $query->where('id_desa', $id_desa);
         }
 

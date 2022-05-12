@@ -66,13 +66,16 @@
                 </div>
                 <div class="form-group">
                   <label for="title">Kecamatan</label>
-                  <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required>
+                  <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                     <option value="">Pilih....</option>
                     @foreach($kecamatan as $value)
-                      <option value="{{ $value->id }}" {{ @$individu->id_kecamatan == $value->id ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
+                      <option value="{{ $value->id }}" {{ (@$individu->id_kecamatan == $value->id || $value->id == Auth::user()->id_kecamatan) ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
                     @endforeach
                   </select>
                   <div class="invalid-feedback">Kecamatan wajib diisi.</div>
+                  @if(Auth::user()->id_kecamatan != null)
+                    <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                  @endif
                 </div>
                 <div class="form-group">
                   <label for="title">Desa</label>
@@ -136,6 +139,10 @@
 
     function getDesa(id, id_desa = '') 
     {
+      @if (Auth::user()->id_desa != null)
+        id_desa = '{{ Auth::user()->id_desa }}';
+      @endif
+      
       $('#id_desa').prop('disabled', true);
       var id  = id;
       var url = '{{ route("master.desa.get-desa", ":id") }}';
@@ -154,6 +161,8 @@
 
       @if (isset($individu))
         getDesa('{{ $individu->id_kecamatan }}', '{{ $individu->id_desa }}');
+      @elseif (Auth::user()->id_kecamatan != null)
+        getDesa('{{ Auth::user()->id_kecamatan }}');
       @endif
       
       $("#formInput").submit(function(e){

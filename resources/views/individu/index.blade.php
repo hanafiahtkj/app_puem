@@ -34,26 +34,32 @@
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label class="control-label" for="input-name">Kecamatan</label>
-                          <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" onChange="getDesa(this.value);" required>
+                          <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" onChange="getDesa(this.value);" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                             <option value="">Semua....</option>
                             @foreach ($kecamatan as $key => $value)
-                                <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
+                                <option value="{{ $value->id }}" {{ $value->id == Auth::user()->id_kecamatan ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
                             @endforeach
                           </select>
                           <div class="invalid-feedback">
                             Kecamatan wajib diisi.
                           </div>
+                          @if(Auth::user()->id_kecamatan != null)
+                            <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                          @endif
                         </div>
                       </div>
                       <div class="col-sm-6">
                         <div class="form-group">
                           <label class="control-label" for="input-name">Desa</label>
-                          <select class="form-control select2" name="id_desa" id="id_desa">
+                          <select class="form-control select2" name="id_desa" id="id_desa" @if(Auth::user()->id_desa != null) disabled @endif>
                             <option value="">Semua....</option>
                           </select>
                           <div class="invalid-feedback">
                             Desa wajib diisi.
                           </div>
+                          @if(Auth::user()->id_desa != null)
+                            <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
+                          @endif
                         </div>
                       </div>
                     </div>
@@ -238,6 +244,8 @@
               }
             });
         });
+
+        getDesa('{{ Auth::user()->id_kecamatan }}', '{{ Auth::user()->id_desa }}');
 
         // Select2
         if(jQuery().select2) {
