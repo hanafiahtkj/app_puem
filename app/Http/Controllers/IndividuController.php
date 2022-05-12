@@ -238,11 +238,11 @@ class IndividuController extends Controller
     {
         $query = Individu::query();
 
-        if ($id_kecamatan = $request->get('id_kecamatan') || $id_kecamatan = Auth::user()->id_kecamatan) {
+        if (($id_kecamatan = Auth::user()->id_kecamatan) || ($id_kecamatan = $request->get('id_kecamatan'))) {
             $query->where('id_kecamatan', $id_kecamatan);
         }
 
-        if ($id_desa = $request->get('id_desa') || $id_desa = Auth::user()->id_desa) {
+        if (($id_desa = Auth::user()->id_desa) || ($id_desa = $request->get('id_desa'))) {
             $query->where('id_desa', $id_desa);
         }
 

@@ -264,11 +264,11 @@ class UsahaController extends Controller
             ->join('kecamatan', 'desa.id_kecamatan', '=', 'kecamatan.id')
             ->join('individu', 'usaha.id_ukm', '=', 'individu.id');
 
-        if ($id_kecamatan = $request->get('id_kecamatan') || $id_kecamatan = Auth::user()->id_kecamatan) {
+        if (($id_kecamatan = Auth::user()->id_kecamatan) || ($id_kecamatan = $request->get('id_kecamatan'))) {
             $query->where('usaha.id_kecamatan', $id_kecamatan);
         }
 
-        if ($id_desa = $request->get('id_desa') || $id_desa = Auth::user()->id_desa) {
+        if (($id_desa = Auth::user()->id_desa) || ($id_desa = $request->get('id_desa'))) {
             $query->where('usaha.id_desa', $id_desa);
         }
 
