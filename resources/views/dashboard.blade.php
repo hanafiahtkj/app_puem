@@ -57,11 +57,56 @@
                     <h4>Data Bumdes</h4>
                   </div>
                   <div class="card-body">
-                    0
+                    {{ $total_bumdes }}
                   </div>
                 </div>
               </div>
-            </div>                  
+            </div>  
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-success text-white">
+                  <i class="fas fa-umbrella"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Data Format 1</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ $total_format1 }}
+                  </div>
+                </div>
+              </div>
+            </div>      
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-secondary text-white">
+                  <i class="fas fa-umbrella"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Data Format 2</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ $total_format2 }}
+                  </div>
+                </div>
+              </div>
+            </div>      
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+              <div class="card card-statistic-1">
+                <div class="card-icon bg-dark text-white">
+                  <i class="fas fa-umbrella"></i>
+                </div>
+                <div class="card-wrap">
+                  <div class="card-header">
+                    <h4>Data Format 3</h4>
+                  </div>
+                  <div class="card-body">
+                    {{ $total_format3 }}
+                  </div>
+                </div>
+              </div>
+            </div>      
           </div>
         </div>
       </section>
