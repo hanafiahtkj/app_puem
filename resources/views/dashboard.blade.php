@@ -50,7 +50,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-warning text-white">
-                  <i class="fas fa-umbrella"></i>
+                  <i class="fas fa-balance-scale"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
@@ -65,7 +65,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-success text-white">
-                  <i class="fas fa-umbrella"></i>
+                  <i class="fas fa-file-alt"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
@@ -80,7 +80,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-secondary text-white">
-                  <i class="fas fa-umbrella"></i>
+                  <i class="fas fa-file-alt"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
@@ -95,7 +95,7 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
               <div class="card card-statistic-1">
                 <div class="card-icon bg-dark text-white">
-                  <i class="fas fa-umbrella"></i>
+                  <i class="fas fa-file-alt"></i>
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">

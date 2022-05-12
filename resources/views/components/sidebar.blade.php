@@ -25,10 +25,10 @@
         <a href="{{ route('pasar-desa.index') }}" class="nav-link"><i class="fas fa-shopping-bag"></i><span>Pasar Desa</span></a>
       </li>
       <li class="nav-item">
-        <a href="{{ route('bumdes-index') }}" class="nav-link"><i class="fas fa-umbrella"></i><span>BUMDES</span></a>
+        <a href="{{ route('bumdes-index') }}" class="nav-link"><i class="fas fa-balance-scale"></i><span>BUMDES</span></a>
       </li>
       <li class="nav-item dropdown">
-        <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-folder"></i><span>Data Ekonomi Desa</span></a>
+        <a href="#" data-toggle="dropdown" class="nav-link has-dropdown" aria-expanded="false"><i class="fas fa-file-alt"></i><span>Data Ekonomi Desa</span></a>
         <ul class="dropdown-menu">
           <li class="nav-item"><a href="{{ route('ekonomi-desa-format1') }}" class="nav-link">Profil Sumber Daya Alam</a></li>
           <li class="nav-item"><a href="{{ route('ekonomi-desa-format2') }}" class="nav-link">Profil Usaha Jasa</a></li>
