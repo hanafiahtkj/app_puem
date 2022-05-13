@@ -194,9 +194,9 @@
                   <label for="jumlah_pelaku_usaha">Jumlah Pelaku Usaha</label>
                   <select id="jumlah_pelaku_usaha" name="jumlah_pelaku_usaha" class="form-control" required>
                     <option value="">Pilih...</option>
-                    <option value="<=Rp. 50Jt"><=Rp. 50Jt</option>
-                    <option value="Rp. 50jt - Rp. 200jt">Rp. 50jt - Rp. 200jt</option>
-                    <option value=">=Rp.200jt">>=Rp.200jt</option>
+                    <option value="<=100 Pedagang"><=100 Pedagang</option>
+                    <option value="100-200 Pedagang">100-200 Pedagang</option>
+                    <option value=">=200 Pedagang">>=200 Pedagang</option>
                   </select>
                   <div class="invalid-feedback">
                     Jumlah Pelaku Usaha wajib diisi.
