@@ -69,7 +69,7 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Data Format 1</h4>
+                    <h4>Profil Sumber Daya Alam</h4>
                   </div>
                   <div class="card-body">
                     {{ $total_format1 }}
@@ -84,7 +84,7 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Data Format 2</h4>
+                    <h4>Profil Usaha Jasa</h4>
                   </div>
                   <div class="card-body">
                     {{ $total_format2 }}
@@ -99,7 +99,7 @@
                 </div>
                 <div class="card-wrap">
                   <div class="card-header">
-                    <h4>Data Format 3</h4>
+                    <h4>Profil Usaha Produk</h4>
                   </div>
                   <div class="card-body">
                     {{ $total_format3 }}

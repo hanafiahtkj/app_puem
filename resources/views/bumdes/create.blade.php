@@ -39,12 +39,15 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <label for="">Kecamatan*</label>
-                                <select class="form-control" name="kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required>
+                                <select class="form-control" name="kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                                   <option value="">Pilih Kecamatan</option>
                                   @foreach ($kecamatan as $item)
-                                    <option value="{{$item->id}}">{{$item->nama_kecamatan}}</option>
+                                    <option value="{{$item->id}}" {{ ($item->id == Auth::user()->id_kecamatan) ? 'selected' : '' }}>{{$item->nama_kecamatan}}</option>
                                   @endforeach
                                 </select>
+                                @if(Auth::user()->id_kecamatan != null)
+                                  <input type="hidden" name="kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                                @endif
                               </div>
                               <div class="form-group">
                                 <label for="">Desa*</label>
@@ -199,9 +202,17 @@
       <script> 
         $(document).ready(function() {
           $('#tgl_simpan').datepicker("setDate", new Date());
+
+          @if (Auth::user()->id_kecamatan != null)
+            getDesaByIdKecamatan();
+          @endif
         })
 
         function getDesaByIdKecamatan() {
+          var id_desa = '';
+          @if (Auth::user()->id_desa != null)
+            id_desa = '{{ Auth::user()->id_desa }}';
+          @endif
 
           const kecamatanId = $('#kecamatan').val()
 
@@ -236,7 +247,7 @@
               
               for (const iterator of res.data) {
                 
-                $('#desa').append(`<option value="${iterator.id}">${iterator.nama_desa}</option>`);
+                $('#desa').append('<option value="'+iterator.id+'" '+ ((iterator.id == id_desa) ? 'selected' : '') +'>'+iterator.nama_desa+'</option>');
 
               }
 
