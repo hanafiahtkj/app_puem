@@ -35,32 +35,7 @@
             <div class="card">
               <div class="card-header"><h4>Data Usaha</h4></div>
               <div class="card-body">
-                <div class="form-group">
-                  <label for="nama_usaha">Nama Usaha</label>
-                  <input id="nama_usaha" type="text" class="form-control" name="nama_usaha" value="{{ old('nama_usaha', @$individu->nama_usaha) }}" required>
-                  <div class="invalid-feedback">
-                      Nama Usaha wajib diisi.
-                  </div>
-                </div>
-                <div class="form-group">
-                    <label for="alamat_usaha">Alamat Usaha</label>
-                    <input id="alamat_usaha" type="text" class="form-control" name="alamat_usaha" value="{{ old('alamat_usaha', @$individu->alamat_usaha) }}" required>
-                    <div class="invalid-feedback">
-                        Alamat Usaha wajib diisi.
-                    </div>
-                </div> 
-                <div class="form-group">
-                  <label for="tahun_berdiri">Tahun Beridiri</label>
-                  <select id="tahun_berdiri" class="form-control selectric" name="tahun_berdiri" required>
-                    @for ($i = date('Y'); $i >= 1961; $i--)
-                      <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
-                  </select>
-                  <div class="invalid-feedback">
-                      Tahun Berdiri wajib diisi.
-                  </div>
-                </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="id_kecamatan">Kecamatan</label>
                   <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                     <option value="">Pilih....</option>
@@ -73,15 +48,15 @@
                     <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
                   @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="id_desa">Desa</label>
                   <select id="id_desa" class="form-control selectric" name="id_desa" required disabled>
                     <option value="">Pilih....</option>
                   </select>
                   <div class="invalid-feedback">Desa wajib diisi.</div>
                 </div>
-                <div class="form-group">
-                  <label for="id_ukm">UKM</label>
+                <div class="form-group required">
+                  <label for="id_ukm">Pemilik</label>
                   <select id="id_ukm" class="form-control selectric js-select2-id-ukm" name="id_ukm" required>
                     @if (isset($usaha))
                       <option value="{{ $usaha->id_ukm }}" selected>{{ $usaha->ukm->nama_pemilik }}</option>
@@ -89,10 +64,10 @@
                       <option value="">Pilih....</option>
                     @endif
                   </select>
-                  <div class="invalid-feedback">UKM wajib diisi.</div>
+                  <div class="invalid-feedback">Pemilik wajib diisi.</div>
                 </div>
                 <div class="form-group detail-ukm" @if(!isset($usaha)) style="display: none;" @endif>
-                  <label for="id_ukm">Detail UKM</label>
+                  <label for="id_ukm">Detail Pemilik</label>
                   <div class="jumbotron p-4 m-0">
                     <table border="0" cellpadding="4" cellspacing="0">
                       <tbody>
@@ -115,7 +90,32 @@
                     </table>
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
+                  <label for="nama_usaha">Nama Usaha</label>
+                  <input id="nama_usaha" type="text" class="form-control" name="nama_usaha" value="{{ old('nama_usaha', @$individu->nama_usaha) }}" required>
+                  <div class="invalid-feedback">
+                      Nama Usaha wajib diisi.
+                  </div>
+                </div>
+                <div class="form-group required">
+                    <label for="alamat_usaha">Alamat Usaha</label>
+                    <input id="alamat_usaha" type="text" class="form-control" name="alamat_usaha" value="{{ old('alamat_usaha', @$individu->alamat_usaha) }}" required>
+                    <div class="invalid-feedback">
+                        Alamat Usaha wajib diisi.
+                    </div>
+                </div> 
+                <div class="form-group required">
+                  <label for="tahun_berdiri">Tahun Beridiri</label>
+                  <select id="tahun_berdiri" class="form-control selectric" name="tahun_berdiri" required>
+                    @for ($i = date('Y'); $i >= 1961; $i--)
+                      <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+                  </select>
+                  <div class="invalid-feedback">
+                      Tahun Berdiri wajib diisi.
+                  </div>
+                </div>
+                <div class="form-group required">
                   <label for="title">Komoditas</label>
                   <select id="id_komoditas" onChange="getSubKomoditas(this.value);" class="form-control selectric" name="id_komoditas" required>
                     <option value="">Pilih....</option>
@@ -125,14 +125,14 @@
                   </select>
                   <div class="invalid-feedback">Komoditas wajib diisi.</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="title">Sub Komoditas</label>
                   <select id="id_sub_komoditas" class="form-control selectric" name="id_sub_komoditas" required disabled>
                     <option value="">Pilih....</option>
                   </select>
                   <div class="invalid-feedback">Sub Komoditas wajib diisi.</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="id_produk">Nama/Jenis Produk</label>
                   <select id="id_produk" class="form-control js-select2-id-produk" name="id_produk" required>
                     <option value="">Pilih....</option>
@@ -144,7 +144,7 @@
                 </div>
                 <div class="form-group">
                   <label for="jenis_uem">Jenis Uem</label>
-                  <select id="jenis_uem" class="form-control selectric" name="jenis_uem" required>
+                  <select id="jenis_uem" class="form-control selectric" name="jenis_uem">
                     <option value="">Pilih....</option>
                     @foreach($badan_usaha as $value)
                       <option value="{{ $value->id }}" {{ @$usaha->jenis_uem == $value->id ? 'selected' : '' }}>{{ $value->nama_badan_usaha }}</option>
@@ -155,14 +155,14 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="jumlah_tenaga_kerja">Jumlah Tenaga Kerja</label>
-                    <input id="jumlah_tenaga_kerja" type="text" class="form-control numeric" name="jumlah_tenaga_kerja" value="{{ @$usaha->jumlah_tenaga_kerja }}" required>
+                    <input id="jumlah_tenaga_kerja" type="text" class="form-control numeric" name="jumlah_tenaga_kerja" value="{{ @$usaha->jumlah_tenaga_kerja }}">
                     <div class="invalid-feedback">
                       Jumlah Tenaga Kerja wajib diisi.
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="harga_jual_produk">Harga Jual Produk</label>
-                    <input id="harga_jual_produk" type="text" class="form-control currency" name="harga_jual_produk" value="{{ @$usaha->harga_jual_produk }}" required>
+                    <input id="harga_jual_produk" type="text" class="form-control currency" name="harga_jual_produk" value="{{ @$usaha->harga_jual_produk }}">
                     <div class="invalid-feedback">
                       Harga Jual Produk wajib diisi.
                     </div>
@@ -171,14 +171,14 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="hari_kerja_sebulan">Rata-rata hari kerja sebulan</label>
-                    <input id="hari_kerja_sebulan" type="text" class="form-control numeric" name="hari_kerja_sebulan" value="{{ @$usaha->hari_kerja_sebulan }}" required>
+                    <input id="hari_kerja_sebulan" type="text" class="form-control numeric" name="hari_kerja_sebulan" value="{{ @$usaha->hari_kerja_sebulan }}">
                     <div class="invalid-feedback">
                       Rata-rata hari kerja sebulan wajib diisi.
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="nilai_investasi">Nilai Investasi</label>
-                    <input id="nilai_investasi" type="text" class="form-control currency" name="nilai_investasi" value="{{ @$usaha->nilai_investasi }}" required>
+                    <input id="nilai_investasi" type="text" class="form-control currency" name="nilai_investasi" value="{{ @$usaha->nilai_investasi }}">
                     <div class="invalid-feedback">
                       Nilai Investasi wajib diisi.
                     </div>
@@ -187,14 +187,14 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="omzet_perhari">Omzet Perhari</label>
-                    <input id="omzet_perhari" type="text" class="form-control currency" name="omzet_perhari" value="{{ @$usaha->omzet_perhari }}" required>
+                    <input id="omzet_perhari" type="text" class="form-control currency" name="omzet_perhari" value="{{ @$usaha->omzet_perhari }}">
                     <div class="invalid-feedback">
                       Omzet Perhari wajib diisi.
                     </div>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="nilai_asset">Nilai Asset</label>
-                    <input id="nilai_asset" type="text" class="form-control currency" name="nilai_asset" value="{{ @$usaha->nilai_asset }}" required>
+                    <input id="nilai_asset" type="text" class="form-control currency" name="nilai_asset" value="{{ @$usaha->nilai_asset }}">
                     <div class="invalid-feedback">
                       Nilai Asset wajib diisi.
                     </div>
@@ -203,7 +203,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="layanan_ukm">Kegiatan produksi/layanan ukm dalam 1 bulan</label>
-                    <select id="layanan_ukm" name="layanan_ukm" class="form-control" required>
+                    <select id="layanan_ukm" name="layanan_ukm" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="1-7 Kali">1-7 Kali</option>
                       <option value="8-15 Kali">8-15 Kali</option>
@@ -215,7 +215,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="bantuan_alat">Sudah mendapatkan bantuan alat</label>
-                    <select id="bantuan_alat" name="bantuan_alat" class="form-control" required>
+                    <select id="bantuan_alat" name="bantuan_alat" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Pemerintah">Pemerintah</option>
                       <option value="Swasta">Swasta</option>
@@ -229,7 +229,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="produk_dihasilkan">Produk dihasilkan</label>
-                    <select id="produk_dihasilkan" name="produk_dihasilkan" class="form-control" required>
+                    <select id="produk_dihasilkan" name="produk_dihasilkan" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Bahan Baku">Bahan Baku</option>
                       <option value="Barang Jadi">Barang Jadi</option>
@@ -241,7 +241,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="terima_modal_dari">Pernah menerima bantuan modal dari</label>
-                    <select id="terima_modal_dari" name="terima_modal_dari" class="form-control" required>
+                    <select id="terima_modal_dari" name="terima_modal_dari" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Pemerintah">Pemerintah</option>
                       <option value="Swasta">Swasta</option>
@@ -255,7 +255,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="apakah_sudah_dikemas">Apakah produk sudah dikemas</label>
-                    <select id="apakah_sudah_dikemas" name="apakah_sudah_dikemas" class="form-control" required>
+                    <select id="apakah_sudah_dikemas" name="apakah_sudah_dikemas" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Ya">Ya</option>
                       <option value="Tidak">Tidak</option>
@@ -266,7 +266,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="teknik_pemasaran">Teknik pemasaran</label>
-                    <select id="teknik_pemasaran" name="teknik_pemasaran" class="form-control" required>
+                    <select id="teknik_pemasaran" name="teknik_pemasaran" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Tradisional">Tradisional</option>
                       <option value="Modern (On Line)">Modern (On Line)</option>
@@ -280,7 +280,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="bahan_kemasan">Bahan Kemasan</label>
-                    <select id="bahan_kemasan" name="bahan_kemasan" class="form-control" required>
+                    <select id="bahan_kemasan" name="bahan_kemasan" class="form-control">
                       <option value="">Pilih</option>
                       <option value="Plastik">Plastik</option>
                       <option value="Kertas">Kertas</option>
@@ -293,7 +293,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="asal_konsumen">Asal Konsumen</label>
-                    <select id="asal_konsumen" name="asal_konsumen" class="form-control" required>
+                    <select id="asal_konsumen" name="asal_konsumen" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Lokal">Lokal</option>
                       <option value="Luar">Luar</option>
@@ -307,7 +307,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="cara_kemasan">Cara Kemasan</label>
-                    <select id="cara_kemasan" name="cara_kemasan" class="form-control" required>
+                    <select id="cara_kemasan" name="cara_kemasan" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Modern">Modern</option>
                       <option value="Tradisional">Tradisional</option>
@@ -320,7 +320,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="sarana_penunjang_produksi">Sarana penunjang produksi yang dimiliki</label>
-                    <select id="sarana_penunjang_produksi" name="sarana_penunjang_produksi" class="form-control" required>
+                    <select id="sarana_penunjang_produksi" name="sarana_penunjang_produksi" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Lengkap">Lengkap</option>
                       <option value="Cukup">Cukup</option>
@@ -334,7 +334,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="asal_bahan_baku">Asal bahan baku</label>
-                    <select id="asal_bahan_baku" name="asal_bahan_baku" class="form-control" required>
+                    <select id="asal_bahan_baku" name="asal_bahan_baku" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Lokal">Lokal</option>
                       <option value="Luar Desa">Luar Desa</option>
@@ -346,7 +346,7 @@
                   </div>
                   <div class="form-group col-md-6">
                     <label for="kondisi_bangunan">Kondisi bangunan</label>
-                    <select id="kondisi_bangunan" name="kondisi_bangunan" class="form-control" required>
+                    <select id="kondisi_bangunan" name="kondisi_bangunan" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Permanen">Permanen</option>
                       <option value="Semi Permanen">Semi Permanen</option>
@@ -361,7 +361,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="pernah_menerima_pembinaan">Pernah menerima pembinaan/pelatihan dari</label>
-                    <select id="pernah_menerima_pembinaan" name="pernah_menerima_pembinaan" class="form-control" required>
+                    <select id="pernah_menerima_pembinaan" name="pernah_menerima_pembinaan" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Pemerintah">Pemerintah</option>
                       <option value="Swasta/LSM/Lainnya">Swasta/LSM/Lainnya</option>
@@ -373,7 +373,7 @@
                   </div>
                   <div class="form-group col-md-12">
                     <label for="instansi_pembina">Instansi yang membina (sebutkan)</label>
-                    <select name="instansi_pembina[]" class="form-control select2" required="" multiple="multiple" id="instansi_pembina">
+                    <select name="instansi_pembina[]" class="form-control select2" multiple="multiple" id="instansi_pembina">
                       @foreach($instansi_pembina as $value)
                         <option value="{{ $value->id }}" 
                           @php
@@ -392,7 +392,7 @@
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <label for="dampak_sosial_ekonomi">Dampak sosial ekonomi masyarakat setempat terhadap kegiatan UKM</label>
-                    <select id="dampak_sosial_ekonomi" name="dampak_sosial_ekonomi" class="form-control" required>
+                    <select id="dampak_sosial_ekonomi" name="dampak_sosial_ekonomi" class="form-control">
                       <option value="">Pilih...</option>
                       <option value="Sangat berpengaruh">Sangat berpengaruh</option>
                       <option value="Berpengaruh">Berpengaruh</option>
@@ -405,14 +405,14 @@
                 </div>
                 <div class="form-group">
                   <label for="keterangan">Keterangan</label>
-                  <textarea id="keterangan" class="form-control" name="keterangan" required style="height: 100px;">{{ @$usaha->keterangan }}</textarea>
+                  <textarea id="keterangan" class="form-control" name="keterangan" style="height: 100px;">{{ @$usaha->keterangan }}</textarea>
                   <div class="invalid-feedback">
                     Keterangan wajib diisi.
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="tanggal_simpan">Tanggal Simpan</label>
-                  <input id="tanggal_simpan" type="text" class="form-control datepicker" name="tanggal_simpan" value="{{ @$usaha->tanggal_simpan }}" required>
+                  <input id="tanggal_simpan" type="text" class="form-control datepicker" name="tanggal_simpan" value="{{ @$usaha->tanggal_simpan }}">
                   <div class="invalid-feedback">
                     Tanggal_simpan wajib diisi.
                   </div>
@@ -431,7 +431,7 @@
                           <tr>
                             <th class="px-0 form-group" scope="col"><label>Perizinan/Legalitas</label></th>
                             <th scope="col" class="px-2">
-                              <select id="perizinan" :name="'perizinan[' + index + '][id_perizinan]'" v-model="izin.id_perizinan" class="form-control" required>
+                              <select id="perizinan" :name="'perizinan[' + index + '][id_perizinan]'" v-model="izin.id_perizinan" class="form-control">
                                 <option value="">Pilih...</option>
                                 @foreach($perizinan as $value)
                                   <option value="{{ $value->id }}">{{ $value->singkatan }}</option>
@@ -444,7 +444,7 @@
                           </tr>
                           <tr>
                             <th class="px-0 form-group" scope="col"><label>No Izin</label></th>
-                            <td class="px-2"><input type="text" class="form-control" :name="'perizinan[' + index + '][no_izin]'" v-model="izin.nomor" required></td>
+                            <td class="px-2"><input type="text" class="form-control" :name="'perizinan[' + index + '][no_izin]'" v-model="izin.nomor"></td>
                           </tr>
                         </tbody>
                       </table>

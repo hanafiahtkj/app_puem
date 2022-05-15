@@ -32,7 +32,7 @@
 
       <footer class="main-footer">
         <div class="footer-left">
-          Copyright &copy; 2022 All rights reserved | demo app
+          Copyright &copy; 2022 All rights reserved | Dinas Pemberdayaan Masyarakat dan Desa Kabupaten Tanah Laut
         </div>
       </footer>
 

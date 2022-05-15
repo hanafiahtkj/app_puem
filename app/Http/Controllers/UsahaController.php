@@ -95,11 +95,13 @@ class UsahaController extends Controller
             {
                 foreach ($perizinan as $key => $value) 
                 {
-                    DetailPerizinanUsaha::create([
-                        'id_usaha'     => $usaha->id,
-                        'id_perizinan' => $value['id_perizinan'],
-                        'nomor'        => $value['no_izin'],
-                    ]);
+                    if ($value['no_izin'] != '') {
+                        DetailPerizinanUsaha::create([
+                            'id_usaha'     => $usaha->id,
+                            'id_perizinan' => $value['id_perizinan'],
+                            'nomor'        => $value['no_izin'],
+                        ]);
+                    }
                 }
             }
 
@@ -197,11 +199,13 @@ class UsahaController extends Controller
             {
                 foreach ($perizinan as $key => $value) 
                 {
-                    DetailPerizinanUsaha::create([
-                        'id_usaha'     => $usaha->id,
-                        'id_perizinan' => $value['id_perizinan'],
-                        'nomor'        => $value['no_izin'],
-                    ]);
+                    if ($value['no_izin'] != '') {
+                        DetailPerizinanUsaha::create([
+                            'id_usaha'     => $usaha->id,
+                            'id_perizinan' => $value['id_perizinan'],
+                            'nomor'        => $value['no_izin'],
+                        ]);
+                    }
                 }
             }
 
