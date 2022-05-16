@@ -33,7 +33,7 @@ class EkonomiDesaController extends Controller
         Desa::findOrFail($id_des);
         
         $kecamatan = Kecamatan::all();
-        $produk = Produk::where('id_kategori_komoditas', 1)->get();
+        $produk = Produk::where('id_kategori_komoditas', 1)->where('id_sub_komoditas', $id_sub)->get();
         return view('ekonomi-desa.format1.create', compact('kecamatan', 'produk', 'id_sub_komoditas', 'id_kec_en', 'id_des_en'));
     }
 
@@ -250,7 +250,7 @@ class EkonomiDesaController extends Controller
         Desa::findOrFail($id_des);
         
         $kecamatan = Kecamatan::all();
-        $produk = Produk::where('id_kategori_komoditas', 2)->get();
+        $produk = Produk::where('id_kategori_komoditas', 2)->where('id_sub_komoditas', $id_sub)->get();
         return view('ekonomi-desa.format2.create', compact('kecamatan', 'produk', 'id_sub_komoditas', 'id_kec_en', 'id_des_en'));
     }
 
