@@ -229,8 +229,8 @@ class EkonomiDesaController extends Controller
         $data = Format1::where('uuid', $uuid)->first();
         $data->delete();
         return redirect()->route('ekonomi-desa-format1')->with('sukses_sess', 
-        ['pesan' => 'Data berhasil dihapus', 
-            'index_data_kec' => $data->id_kecamatan, 'index_data_des' => $data->id_desa, 'index_data_tahun' => $data->tahun ]);
+            ['pesan' => 'Data berhasil dihapus', 
+                'index_data_kec' => $data->id_kecamatan, 'index_data_des' => $data->id_desa, 'index_data_tahun' => $data->tahun ]);
     }
 
     public function format_2()
@@ -281,8 +281,9 @@ class EkonomiDesaController extends Controller
                 'tahun'                 => $request->tahun
             ]);
 
-            // return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil menambahkan data Format 2');
-            return redirect()->back()->with('sukses_sess', 'Berhasil menambah Data Sumber Daya Alam');
+            return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 
+                ['pesan' => 'Data berhasil tambahkan', 
+                    'index_data_kec' => $id_kec, 'index_data_des' => $id_des, 'index_data_tahun' => $request->tahun ]);
 
         } catch (\Throwable $th) {
             
@@ -413,8 +414,9 @@ class EkonomiDesaController extends Controller
             'jumlah_tenaga_kerja'   => $request->jumlah_tenaga_kerja,
         ]);
 
-        // return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil update data Format 2');
-        return redirect()->back()->with('sukses_sess', 'Berhasil update Data Sumber Daya Alam');  
+        return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 
+        ['pesan' => 'Data berhasil tambahkan', 
+            'index_data_kec' => $id_kec, 'index_data_des' => $id_des, 'index_data_tahun' => $request->tahun ]);  
     }
 
     public function delete_format_2($uuid)
@@ -422,8 +424,9 @@ class EkonomiDesaController extends Controller
         $data = Format2::where('uuid', $uuid)->first();
         $data->delete();
 
-        // return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil hapus data Format 2');
-        return view('ekonomi-desa.del');
+        return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 
+            ['pesan' => 'Data berhasil dihapus', 
+                'index_data_kec' => $data->id_kecamatan, 'index_data_des' => $data->id_desa, 'index_data_tahun' => $data->tahun ]);
     }
 
     public function format_3()
@@ -572,8 +575,9 @@ class EkonomiDesaController extends Controller
                 'tahun'                     => $request->tahun
             ]);
 
-            // return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil menambahkan data Format 3');
-            return redirect()->back()->with('sukses_sess', 'Berhasil menambah Data Sumber Daya Alam');
+            return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 
+            ['pesan' => 'Data berhasil tambahkan', 
+                'index_data_kec' => $id_kec, 'index_data_des' => $id_des, 'index_data_tahun' => $request->tahun ]); 
 
         } catch (\Throwable $th) {
             
@@ -625,8 +629,9 @@ class EkonomiDesaController extends Controller
             'tahun'                     => $request->tahun
         ]);
 
-        // return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil update data Format 3');
-        return redirect()->back()->with('sukses_sess', 'Berhasil update Data Sumber Daya Alam');  
+        return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 
+        ['pesan' => 'Data berhasil tambahkan', 
+            'index_data_kec' => $id_kec, 'index_data_des' => $id_des, 'index_data_tahun' => $request->tahun ]);   
     }
 
     public function delete_format_3($uuid)
@@ -634,8 +639,9 @@ class EkonomiDesaController extends Controller
         $data = Format3::where('uuid', $uuid)->first();
         $data->delete();
 
-        // return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil hapus data Format 3');
-        return view('ekonomi-desa.del');
+        return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 
+        ['pesan' => 'Data berhasil dihapus', 
+            'index_data_kec' => $data->id_kecamatan, 'index_data_des' => $data->id_desa, 'index_data_tahun' => $data->tahun ]);
     }
 
     private function _encrypt($string)

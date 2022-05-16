@@ -35,7 +35,15 @@
                               <select class="form-control select2" name="id_kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                                 <option value="">Pilih</option>
                                 @foreach($kecamatan as $value)
-                                  <option value="{{ $value->id }}" {{ $value->id == Auth::user()->id_kecamatan ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
+                                  @if (Session::has('sukses_sess'))
+                                    @if (Session::get('sukses_sess.index_data_kec') == $value->id)
+                                      <option value="{{ $value->id }}" selected>{{ $value->nama_kecamatan }}</option>
+                                    @else
+                                      <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
+                                    @endif
+                                  @else
+                                    <option value="{{ $value->id }}" {{ $value->id == Auth::user()->id_kecamatan ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
+                                  @endif
                                 @endforeach
                               </select>
                               @if(Auth::user()->id_kecamatan != null)
@@ -59,7 +67,13 @@
                                @php
                                 $tahun = date('Y');
                                 for($i = $tahun; $i >= $tahun-5; $i--){
-                                  echo "<option value='$i'>$i</option>";
+                                  
+                                  if (Session::has('sukses_sess.index_data_tahun')) {
+                                    echo '<option value="'.$i.'" '.($i == Session::get('sukses_sess.index_data_tahun') ? 'selected' : '').'>'.$i.'</option>';
+                                  }else{
+                                    echo '<option value="'.$i.'">'.$i.'</option>';
+                                  }
+
                                 }
                                @endphp
                               </select>
@@ -150,20 +164,15 @@
       <script src="{{ asset('vendor/bootstrap-colorpicker-3.2.0/dist/js/bootstrap-colorpicker.min.js') }}"></script>
       <script src="{{ asset('js/plugin.js') }}"></script>
       <script>
-
-        $(window).bind("pageshow", function(event) {
-          if (event.originalEvent.persisted) {
-            $("#tampilkan").trigger("click");
-            swal("Berhasil", '', "success");
-          }
-        });
-        
+     
         $(document).ready(function() {
           
-          @if (Session::has('refresh_sess'))
-              $("#tampilkan").trigger("click");
-              swal("Berhasil", '', "success");
-              // swal("Berhasil", '{{ Session::get('sukses_sess') }}', "success");
+          @if(Session::has('sukses_sess.index_data_kec'))
+            getdesabyidkecamatan_sess()
+          @endif
+         
+          @if (Session::has('sukses_sess'))
+              swal("Berhasil", '{{ Session::get('sukses_sess.pesan') }}', "success");
           @endif
 
           @if (Auth::user()->id_kecamatan != null)
@@ -209,6 +218,78 @@
           })
 
         }
+
+        function getdesabyidkecamatan_sess() {
+
+            var id_desa = '';
+            var sess_id_desa = '';
+            var sess_tahun = '';
+
+
+            @if (Auth::user()->id_desa != null)
+              id_desa = '{{ Auth::user()->id_desa }}';
+            @endif
+
+            @if (Session::has('sukses_sess.index_data_des'))
+              sess_id_desa = '{{ Session::get('sukses_sess.index_data_des') }}';
+            @endif
+
+            @if (Session::has('sukses_sess.index_data_tahun'))
+              sess_tahun = '{{ Session::get('sukses_sess.index_data_tahun') }}';
+            @endif
+
+            let id_kec = $('#kecamatan').val()
+            const formData = new FormData();
+            formData.append('id_kecamatan', id_kec);
+
+            fetch("/api/getdesabyidkecamatan", {
+                      headers: {
+                          "X-CSRF-Token": $('input[name="_token"]').val()
+                      },
+                      method: "POST",
+                      credentials: "same-origin",
+                      body: formData
+              })
+              .then((res) => {
+                  return res.json()
+              })
+              .then((res) => {
+
+                  $('#desa').empty();
+                  $('#desa').prop('disabled', false);
+                  $('#desa').append('<option value="">Pilih Desa</option>');
+                  
+                  for (const iterator of res.data) {
+
+                    @if(Session::has('sukses_sess.index_data_des'))
+                      if (sess_id_desa == iterator.id) {
+                        $('#desa').append('<option value="'+iterator.id+'" selected>'+iterator.nama_desa+'</option>');
+                      } else {
+                        $('#desa').append('<option value="'+iterator.id+'">'+iterator.nama_desa+'</option>');
+                      }
+                    @else
+                    $('#desa').append('<option value="'+iterator.id+'" '+ ((iterator.id == id_desa) ? 'selected' : '') +'>'+iterator.nama_desa+'</option>');
+                    @endif
+                  
+
+                  }
+
+                  if (id_desa != '') {
+                    ketDesa();
+                    $('#desa').prop('disabled', true);
+                  }
+
+                  $('#des_ket').html( $('#desa option:selected').text() )
+                  $('#pemetaan_tahun').html('PEMETAAN USAHA EKONOMI DESA ' + sess_tahun)
+                  $('#kec_ket').html( $('#kecamatan option:selected').text() ) 
+                  tampilkan()
+
+              })
+              .catch((err) => {
+                  console.log(err);
+              })
+
+            }
 
         function getDesaByIdKecamatan() {
 

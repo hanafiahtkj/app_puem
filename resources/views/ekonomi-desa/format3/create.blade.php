@@ -115,7 +115,11 @@
                     <select name="tahun" id="" class="form-control" required>
                         <option value="">Pilih....</option>
                         @for($i = date('Y'); $i >= date('Y')-5; $i--)
-                            <option value="{{ $i }}">{{ $i }}</option>
+                          @if ($i == date('Y'))
+                          <option value="{{ $i }}" selected>{{ $i }}</option>
+                          @else
+                              <option value="{{ $i }}">{{ $i }}</option>
+                          @endif
                         @endfor
                     </select>
                  </div>

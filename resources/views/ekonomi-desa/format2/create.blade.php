@@ -63,7 +63,11 @@
                     <select name="tahun" id="" class="form-control" required>
                         <option value="">Pilih....</option>
                         @for($i = date('Y'); $i >= date('Y')-5; $i--)
-                            <option value="{{ $i }}">{{ $i }}</option>
+                          @if ($i == date('Y'))
+                              <option value="{{ $i }}" selected>{{ $i }}</option>
+                          @else
+                              <option value="{{ $i }}">{{ $i }}</option>
+                          @endif
                         @endfor
                     </select>
                  </div>
@@ -84,10 +88,6 @@
       <script src="{{ asset('vendor/daterangepicker/daterangepicker.js') }}"></script>
       <script src="{{ asset('js/plugin.js') }}"></script>
       <script> 
-
-            @if (Session::has('sukses_sess'))
-              history.back();
-            @endif
 
             $(document).ready(function(){
 
