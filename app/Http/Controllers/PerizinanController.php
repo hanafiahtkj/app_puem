@@ -110,7 +110,7 @@ class PerizinanController extends Controller
     {
         $validasi = [
             'nama_perizinan' => 'required',
-            'singkatan'      => 'singkatan',
+            'singkatan'      => 'required'
         ];
 
         $validator = Validator::make($request->all(), $validasi);
