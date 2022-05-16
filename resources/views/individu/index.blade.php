@@ -134,7 +134,7 @@
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script>
     
-      function getDesa(id, id_desa = '') 
+      function getDesa(id, id_desa = '', disabled = false) 
       {
         var id  = id;
         var url = '{{ route("master.desa.get-desa", ":id") }}';
@@ -145,6 +145,10 @@
           $.each(response.data, function (key, value) {
             $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
           });
+
+          if (id_desa != '') {
+            $('#id_desa').prop('disabled', disabled);
+          }
         });
       }
 
@@ -252,7 +256,9 @@
             });
         });
 
-        getDesa('{{ Auth::user()->id_kecamatan }}', '{{ Auth::user()->id_desa }}');
+        @if (Auth::user()->id_kecamatan != null)
+          getDesa('{{ Auth::user()->id_kecamatan }}', '{{ Auth::user()->id_desa }}', true);
+        @endif
 
         // Select2
         if(jQuery().select2) {

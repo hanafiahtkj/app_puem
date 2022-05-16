@@ -37,18 +37,24 @@
               <div class="card-body"> 
                 <div class="form-group">
                   <label>Kecamatan</label>
-                  <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required>
+                  <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                     <option value="">Pilih....</option>
                     @foreach($kecamatan as $value)
-                      <option value="{{ $value->id }}" {{ @$pasardesa->id_kecamatan == $value->id ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
+                      <option value="{{ $value->id }}" {{ (@$pasardesa->id_kecamatan == $value->id || $value->id == Auth::user()->id_kecamatan) ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
                     @endforeach
                   </select>
                   <div class="invalid-feedback">Kecamatan wajib diisi.</div>
+                  @if(Auth::user()->id_kecamatan != null)
+                    <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                  @endif
                 </div>
                 <div class="form-group">
                   <label>Desa</label>
                   <select id="id_desa" class="form-control selectric" name="id_desa" required disabled></select>
                   <div class="invalid-feedback">Desa wajib diisi.</div>
+                  @if(Auth::user()->id_desa != null)
+                    <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
+                  @endif
                 </div>
                 <div class="form-group">
                   <label for="tahun_berdiri">Tahun Berdiri</label>
@@ -262,7 +268,7 @@
       getDesa('{{ $pasardesa->id_kecamatan }}', '{{ $pasardesa->id_desa }}');
     @endif
 
-    function getDesa(id, id_desa = '') 
+    function getDesa(id, id_desa = '', disabled = false) 
     {
       $('#id_desa').prop('disabled', true);
       var id  = id;
@@ -275,10 +281,18 @@
         $.each(response.data, function (key, value) {
           $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
         });
+
+        if (id_desa != '') {
+          $('#id_desa').prop('disabled', disabled);
+        }
       });
     }
 
     $(function() {
+
+      @if (Auth::user()->id_kecamatan != null)
+        getDesa('{{ Auth::user()->id_kecamatan }}', '{{ Auth::user()->id_desa }}', true);
+      @endif
 
       // Select2
       if(jQuery().select2) {

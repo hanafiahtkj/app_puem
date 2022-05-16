@@ -357,7 +357,7 @@
       }
       
 
-      function getDesaByIdKecamatan() {
+      function getDesaByIdKecamatan(disabled = false) {
 
         var id_desa = '';
         @if (Auth::user()->id_desa != null)
@@ -399,6 +399,10 @@
             
             $('#desa').append('<option value="'+iterator.id+'" '+ ((iterator.id == id_desa) ? 'selected' : '') +'>'+iterator.nama_desa+'</option>');
 
+          }
+
+          if (id_desa != '') {
+            $('#desa').prop('disabled', true);
           }
 
         })

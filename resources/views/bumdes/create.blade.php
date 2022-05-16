@@ -53,6 +53,9 @@
                                 <label for="">Desa*</label>
                                 <select class="form-control" name="desa" id="desa" required disabled>
                                 </select>
+                                @if(Auth::user()->id_desa != null)
+                                  <input type="hidden" name="desa" value="{{ Auth::user()->id_desa }}">
+                                @endif
                               </div>
                               <div class="form-group">
                                 <label for="">Nama BUMDES*</label>
@@ -204,11 +207,11 @@
           $('#tgl_simpan').datepicker("setDate", new Date());
 
           @if (Auth::user()->id_kecamatan != null)
-            getDesaByIdKecamatan();
+            getDesaByIdKecamatan(true);
           @endif
         })
 
-        function getDesaByIdKecamatan() {
+        function getDesaByIdKecamatan(disabled = false) {
           var id_desa = '';
           @if (Auth::user()->id_desa != null)
             id_desa = '{{ Auth::user()->id_desa }}';
@@ -249,6 +252,10 @@
                 
                 $('#desa').append('<option value="'+iterator.id+'" '+ ((iterator.id == id_desa) ? 'selected' : '') +'>'+iterator.nama_desa+'</option>');
 
+              }
+
+              if (id_desa != '') {
+                $('#desa').prop('disabled', disabled);
               }
 
             })

@@ -54,6 +54,9 @@
                     <option value="">Pilih....</option>
                   </select>
                   <div class="invalid-feedback">Desa wajib diisi.</div>
+                  @if(Auth::user()->id_desa != null)
+                    <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
+                  @endif
                 </div>
                 <div class="form-group required">
                   <label for="id_ukm">Pemilik</label>
@@ -482,7 +485,7 @@
       };
     @else
       @if (Auth::user()->id_kecamatan != null)
-        getDesa('{{ Auth::user()->id_kecamatan }}');
+        getDesa('{{ Auth::user()->id_kecamatan }}', '{{ Auth::user()->id_desa }}', true);
       @endif
       
       let dataVue = {
@@ -516,7 +519,7 @@
       },
     });
 
-    function getDesa(id, id_desa = '') 
+    function getDesa(id, id_desa = '', disabled = false) 
     {
       @if (Auth::user()->id_desa != null)
         id_desa = '{{ Auth::user()->id_desa }}';
@@ -533,6 +536,9 @@
         $.each(response.data, function (key, value) {
           $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
         });
+        if (id_desa != '') {
+          $('#id_desa').prop('disabled', disabled);
+        }
       });
     }
 
