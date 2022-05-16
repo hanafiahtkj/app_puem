@@ -87,9 +87,9 @@
                     <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
                   @endif
                 </div>
-                <div class="form-group required">
+                <div class="form-group">
                   <label for="id_pendidikan">Pendidikan Terakhir</label>
-                  <select id="id_pendidikan" class="form-control selectric" name="id_pendidikan" required>
+                  <select id="id_pendidikan" class="form-control selectric" name="id_pendidikan">
                     <option value="">Pilih....</option>
                     @foreach($pendidikan as $value)
                       <option value="{{ $value->id }}" {{ @$individu->id_pendidikan == $value->id ? 'selected' : '' }}>{{ $value->nama_pendidikan }}</option>

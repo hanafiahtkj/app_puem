@@ -42,6 +42,7 @@ class Individu extends Model
 
     public function getNamaPendidikanAttribute()
     {
-        return $this->pendidikan()->first()->nama_pendidikan;
+        $row = $this->pendidikan()->first();
+        return isset($row) ? $row->nama_pendidikan : '-';
     }
 }
