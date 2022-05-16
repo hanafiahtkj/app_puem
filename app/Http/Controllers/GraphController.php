@@ -21,49 +21,66 @@ class GraphController extends Controller
     {
 
         $arr = [];
-
+        
         try {
             
             if ($request->jenis_data == 'jumlah_usaha') {
+                    
+                $total_usaha = Usaha::Query();
                 
-                $total_usaha = Usaha::where(DB::raw('YEAR(created_at)'), $request->tahun)
-                ->where('id_kecamatan', $request->kec)
-                ->where('id_desa', $request->des)
-                ->count();
+                if ($request->kec !== 'all') {
+                    $total_usaha->where('id_kecamatan', $request->kec);
+                }
+
+                if ($request->des !== 'all') {
+                    $total_usaha->where('id_desa', $request->des);
+                }
+
+                $total_usaha->where(DB::raw('YEAR(created_at)'), $request->tahun);
+                $usaha_data = $total_usaha->get();
+                $total_usaha = $total_usaha->count();
         
                 $produk = Produk::all();
-        
+                 
                 foreach ($produk as $key => $value) {
         
                     $new_array = [
                         'nama_produk'   => $value->nama_produk,
-                        'total_produk'  => Usaha::where('id_produk', $value->id)->count(),
-                        'persentase'    => round(( Usaha::where('id_produk', $value->id)->count() / $total_usaha) * 100, 2),
+                        'total_produk'  => $usaha_data->where('id_produk', $value->id)->count(),
+                        'persentase'    => round(( $usaha_data->where('id_produk', $value->id)->count() / $total_usaha) * 100, 2),
                         'random_color'  => '#' . substr(md5(rand()), 0, 6) 
                     ];
         
                     $arr[] = $new_array;
         
                 }
-        
+
                 $new_array = collect($arr)->filter(function ($value, $key) {
                     return $value['total_produk'] > 0;
                 });
-        
+            
                 return response()->json([
                     'status' => 'success',
-                    'data' => $new_array
+                    'data' => $arr
                 ]);
 
 
             }else if ($request->jenis_data == 'skala_usaha') {
 
                 $mikro = 0;
+                
+                $data_usaha = Usaha::Query();
 
-                $data_usaha = Usaha::where(DB::raw('YEAR(created_at)'), $request->tahun)
-                ->where('id_kecamatan', $request->kec)
-                ->where('id_desa', $request->des)
-                ->get();
+                if ($request->kec !== 'all') {
+                    $data_usaha->where('id_kecamatan', $request->kec);
+                }
+
+                if ($request->des !== 'all') {
+                    $data_usaha->where('id_desa', $request->des);
+                }
+
+                $data_usaha->where(DB::raw('YEAR(created_at)'), $request->tahun);
+                $data_usaha = $data_usaha->get();
 
                 foreach ($data_usaha as $key => $value) {
                     

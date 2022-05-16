@@ -67,7 +67,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="">Tahun Berdiri*</label>
-                                <input type="text" class="form-control" name="tahun_bumdes" id="" required>
+                                <input type="text" class="form-control" name="tahun_bumdes" id="">
                               </div>
                               <div class="form-group">
                                 <label for="">Keterangan</label>
@@ -75,7 +75,7 @@
                               </div>
                               <div class="form-group">
                                 <label for="">Jumlah Karyawan*</label>
-                                <input type="text" class="form-control" name="karyawan_bumdes" id="" required>
+                                <input type="text" class="form-control" name="karyawan_bumdes" id="">
                               </div>
                               <div class="form-group">
                                 <label for="">Tanggal Simpan*</label>
@@ -96,7 +96,7 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <label for="">Nama Direktur*</label>
-                                <input type="text" class="form-control" name="direktur" id="" required>
+                                <input type="text" class="form-control" name="direktur" id="">
                               </div>
                               <div class="form-group">
                                 <label for="">HP / Telpon Direktur</label>
@@ -127,11 +127,11 @@
                                 <input type="text" class="form-control" name="tlp_ketuapengawas" id="">
                               </div>
                               <div class="form-group">
-                                <label for="">Nama Sekretaris Pengawas</label>
+                                <label for="">Nama Anggota Pengawas 1</label>
                                 <input type="text" class="form-control" name="sekretaris_pengawas" id="">
                               </div>
                               <div class="form-group">
-                                <label for="">Nama Anggota Pengawas</label>
+                                <label for="">Nama Anggota Pengawas 2</label>
                                 <input type="text" class="form-control" name="anggota_pengawas" id="">
                               </div>
                             </div>
@@ -149,7 +149,7 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <label for="">NO Perdes*</label>
-                                <input type="text" class="form-control" name="no_perdes" id="" required>
+                                <input type="text" class="form-control" name="no_perdes" id="">
                               </div>
                               <div class="form-group">
                                 <label for="">NO AD/ART</label>

@@ -40,14 +40,15 @@ async function show_graph(id_kec, id_desa, tahun, graph_type, jenis_data) {
           ]
         }
            
-        for (const iterator of res.data) {
-          
-          label_data.push(iterator.nama_produk);
-          datasets_data.push(iterator.total_produk);
-          datasets_backgroundColor.push(iterator.random_color);
-          total_center += iterator.total_produk
-
-        }
+        res.data.filter((item) => {
+          console.log(item);
+          if (item.total_produk > 0) {
+            label_data.push(item.nama_produk)
+            datasets_data.push(item.total_produk)
+            datasets_backgroundColor.push(item.random_color)
+            total_center += item.total_produk
+          }
+        })
 
         let options = {
             maintainAspectRatio : false,
@@ -280,6 +281,7 @@ async function show_graph(id_kec, id_desa, tahun, graph_type, jenis_data) {
       $('#desa').empty();
       $('#desa').prop('disabled', false);
       $('#desa').append('<option value="">Pilih Desa</option>');
+      $('#desa').append('<option value="all">Semua</option>');
       
       for (const iterator of res.data) {
         

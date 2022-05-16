@@ -32,6 +32,7 @@
                         <label class="control-label" for="input-name">Kecamatan</label>
                         <select class="form-control" name="id_kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                           <option value="">Pilih Kecamatan</option>
+                            <option value="all">Semua</option>
                           @foreach ($kecamatan as $item)
                             <option value="{{$item->id}}" {{ $item->id == Auth::user()->id_kecamatan ? 'selected' : '' }}>{{$item->nama_kecamatan}}</option>
                           @endforeach
@@ -149,15 +150,17 @@
                 }
               ]
             }
-               
-            for (const iterator of res.data) {
-              
-              label_data.push(iterator.nama_produk);
-              datasets_data.push(iterator.total_produk);
-              datasets_backgroundColor.push(iterator.random_color);
-              total_center += iterator.total_produk
 
-            }
+
+            res.data.filter((item) => {
+              console.log(item);
+              if (item.total_produk > 0) {
+                label_data.push(item.nama_produk)
+                datasets_data.push(item.total_produk)
+                datasets_backgroundColor.push(item.random_color)
+                total_center += item.total_produk
+              }
+            })
 
             let options = {
                 maintainAspectRatio : false,
@@ -394,6 +397,7 @@
           $('#desa').empty();
           $('#desa').prop('disabled', false);
           $('#desa').append('<option value="">Pilih Desa</option>');
+          $('#desa').append('<option value="all">Semua</option>');
           
           for (const iterator of res.data) {
             

@@ -153,6 +153,7 @@
                         <label class="control-label" for="input-name">Kecamatan</label>
                         <select class="form-control" name="id_kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required>
                           <option value="">Pilih Kecamatan</option>
+                          <option value="all">Semua</option>
                           @foreach ($kecamatan as $item)
                             <option value="{{$item->id}}">{{$item->nama_kecamatan}}</option>
                           @endforeach
@@ -238,7 +239,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="gis">
-                  <iframe src="{{ route('gis.loadmap') }}" class="loadmap" style="width: 100%; height: 600px;"></iframe>
+                  <iframe src="{{ route('gis.loadmap') }}" class="loadmap" style="width: 100%; height: 350px;"></iframe>
                 </div>
               </div>
             </div>
@@ -261,10 +262,10 @@
             <h3>Kontak</h3>
             
               <strong>Alamat:</strong> Jl. Pangeran Antasari No. 2 Kel. Pelaihari
-              Kec. Pelaihari, Kabupaten Tanah Laut Kalimantan Selatan (70811) <br>
-              <strong>Email:</strong> info@example.com<br>
+              Kec. Pelaihari, Kabupaten Tanah Laut Kalimantan Selatan (70815) <br>
+              <strong>Email:</strong> dinaspmdtanahlaut@gmail.com<br>
               <strong>Telpon:</strong> (0512) 21001<br>
-              <strong>Jam Operasional:</strong> 07.30 - 16.00 <br>
+              <strong>Jam Operasional:</strong> 08.00 -16.30 WITA <br>
             
           </div>
 

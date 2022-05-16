@@ -67,7 +67,8 @@ class EkonomiDesaController extends Controller
                 'tahun'             => $request->tahun
             ]);
 
-            return redirect()->route('ekonomi-desa-format1')->with('sukses_sess', 'Berhasil menambahkan data Format 1');
+            // return redirect()->route('ekonomi-desa-format1')->with('sukses_sess', 'Berhasil menambahkan data Format 1');
+            return redirect()->back()->with('sukses_sess', 'Berhasil menambah Data Sumber Daya Alam'); 
 
         } catch (\Throwable $th) {
             
@@ -217,15 +218,15 @@ class EkonomiDesaController extends Controller
             'pemasaran_hasil'   => $request->pemasaran_hasil
         ]);
 
-        return redirect()->route('ekonomi-desa-format1')->with('sukses_sess', 'Berhasil update data Format 1');
+        // return redirect()->route('ekonomi-desa-format1')->with('sukses_sess', 'Berhasil update data Format 1');
+        return redirect()->back()->with('sukses_sess', 'Berhasil update Data Sumber Daya Alam');   
     }
 
     public function delete_format_1($uuid)
     {
         $data = Format1::where('uuid', $uuid)->first();
         $data->delete();
-
-        return redirect()->route('ekonomi-desa-format1')->with('sukses_sess', 'Berhasil hapus data Format 1');
+        return view('ekonomi-desa.del');
     }
 
     public function format_2()
@@ -276,7 +277,8 @@ class EkonomiDesaController extends Controller
                 'tahun'                 => $request->tahun
             ]);
 
-            return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil menambahkan data Format 2');
+            // return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil menambahkan data Format 2');
+            return redirect()->back()->with('sukses_sess', 'Berhasil menambah Data Sumber Daya Alam');
 
         } catch (\Throwable $th) {
             
@@ -324,10 +326,10 @@ class EkonomiDesaController extends Controller
                         $html .= '<td></td>';
                         $html .= '<td class="text-center">'.($value3->nama_sub_komoditas ? $value3->nama_sub_komoditas : '-').'</td>';
                         $html .= '<td class="text-center">'.($value3->nama_produk ? $value3->nama_produk : '-').'</td>';
-                        $html .= '<td class="text-center">'.($value3->jenis_usaha ? $value3->jenis_usaha : '-').'</td>';
                         $html .= '<td class="text-center">'.($value3->jumlah_orang ? $value3->jumlah_orang : '-').'</td>';
                         $html .= '<td class="text-center">'.($value3->jumlah_kegiatan ? $value3->jumlah_kegiatan : '-').'</td>';
                         $html .= '<td class="text-center">'.($value3->jumlah_pemilik ? $value3->jumlah_pemilik : '-').'</td>';
+                        $html .= '<td class="text-center">'.($value3->jenis_usaha ? $value3->jenis_usaha : '-').'</td>';
                         $html .= '<td class="text-center">'.($value3->jumlah_tenaga_kerja ? $value3->jumlah_tenaga_kerja : '-').'</td>';
 
                     if (!$value3->id_produk) {
@@ -407,7 +409,8 @@ class EkonomiDesaController extends Controller
             'jumlah_tenaga_kerja'   => $request->jumlah_tenaga_kerja,
         ]);
 
-        return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil update data Format 2');
+        // return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil update data Format 2');
+        return redirect()->back()->with('sukses_sess', 'Berhasil update Data Sumber Daya Alam');  
     }
 
     public function delete_format_2($uuid)
@@ -415,7 +418,8 @@ class EkonomiDesaController extends Controller
         $data = Format2::where('uuid', $uuid)->first();
         $data->delete();
 
-        return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil hapus data Format 2');
+        // return redirect()->route('ekonomi-desa-format2')->with('sukses_sess', 'Berhasil hapus data Format 2');
+        return view('ekonomi-desa.del');
     }
 
     public function format_3()
@@ -564,7 +568,8 @@ class EkonomiDesaController extends Controller
                 'tahun'                     => $request->tahun
             ]);
 
-            return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil menambahkan data Format 3');
+            // return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil menambahkan data Format 3');
+            return redirect()->back()->with('sukses_sess', 'Berhasil menambah Data Sumber Daya Alam');
 
         } catch (\Throwable $th) {
             
@@ -616,7 +621,8 @@ class EkonomiDesaController extends Controller
             'tahun'                     => $request->tahun
         ]);
 
-        return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil update data Format 3');
+        // return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil update data Format 3');
+        return redirect()->back()->with('sukses_sess', 'Berhasil update Data Sumber Daya Alam');  
     }
 
     public function delete_format_3($uuid)
@@ -624,7 +630,8 @@ class EkonomiDesaController extends Controller
         $data = Format3::where('uuid', $uuid)->first();
         $data->delete();
 
-        return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil hapus data Format 3');
+        // return redirect()->route('ekonomi-desa-format3')->with('sukses_sess', 'Berhasil hapus data Format 3');
+        return view('ekonomi-desa.del');
     }
 
     private function _encrypt($string)

@@ -13,12 +13,12 @@
     <div class="main-content">
       <section class="section">
         <div class="section-header">
-          <h1>DATA FORMAT 1</h1>
+          <h1>Sumber Daya Alam</h1>
           <div class="section-header-button">
           </div>
           <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>
-            <div class="breadcrumb-item">Data Format 1</div>
+            <div class="breadcrumb-item">Data Sumber Daya Alam</div>
           </div>
         </div>
   
@@ -148,11 +148,20 @@
       <script src="{{ asset('vendor/bootstrap-colorpicker-3.2.0/dist/js/bootstrap-colorpicker.min.js') }}"></script>
       <script src="{{ asset('js/plugin.js') }}"></script>
       <script>
-        
+
+        $(window).bind("pageshow", function(event) {
+            if (event.originalEvent.persisted) {
+              $('#tampilkan').click();
+              swal("Berhasil", '', "success");
+            }
+        });
+
         $(document).ready(function() {
-          
-          @if (Session::has('sukses_sess'))
-            swal("Berhasil", '{{ Session::get('sukses_sess') }}', "success");
+         
+          @if (Session::has('refresh_sess'))
+              $('#tampilkan').click();
+              swal("Berhasil", '', "success");
+              // swal("Berhasil", '{{ Session::get('sukses_sess') }}', "success");
           @endif
 
           @if (Auth::user()->id_kecamatan != null)

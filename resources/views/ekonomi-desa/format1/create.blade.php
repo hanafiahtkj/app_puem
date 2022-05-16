@@ -13,11 +13,11 @@
           <div class="section-header-back">
             <a href="{{ route('ekonomi-desa-format1') }}" class="btn btn-icon"><i class="fas fa-arrow-left"></i></a>
           </div>
-          <h1>Tambah Data Format 1</h1>
+          <h1>Tambah Data Sumber Daya Alam</h1>
           <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>
-            <div class="breadcrumb-item"><a href="{{ route('ekonomi-desa-format1') }}">Data Format 1</a></div>
-            <div class="breadcrumb-item">Tambah Data Format 1</div>
+            <div class="breadcrumb-item"><a href="{{ route('ekonomi-desa-format1') }}">Data Sumber Daya Alam</a></div>
+            <div class="breadcrumb-item">Tambah Data Sumber Daya Alam</div>
           </div>
         </div>
   
@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header"><h4>Data Format 1</h4></div>
+                <div class="card-header"><h4>Data Sumber Daya Alam</h4></div>
                 <div class="card-body">
                   <div class="form-group">
                       <label for="nik">Produk</label>
@@ -118,6 +118,10 @@
       <script src="{{ asset('vendor/daterangepicker/daterangepicker.js') }}"></script>
       <script src="{{ asset('js/plugin.js') }}"></script>
       <script> 
+
+            @if (Session::has('sukses_sess'))
+              history.back();
+            @endif
 
             $(document).ready(function(){
 
