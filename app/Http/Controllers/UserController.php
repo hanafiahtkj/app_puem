@@ -141,7 +141,7 @@ class UserController extends Controller
         $validasi = [
             'name'       => 'required|string|max:255',
             'username'   => 'required|unique:users,username,'.$id,
-            'password'   => 'same:confirm-password',
+            'password'   => 'required|string|confirmed|min:8',
             'level'      => 'required',
             'image'      => 'mimes:jpg,bmp,png',
             'status'     => 'required',
