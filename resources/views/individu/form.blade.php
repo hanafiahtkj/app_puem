@@ -34,21 +34,21 @@
             <div class="card">
               <div class="card-header"><h4>Data Individu</h4></div>
               <div class="card-body">
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="nama_pemilik">Nama Pemilik</label>
                   <input id="nama_pemilik" type="text" class="form-control" name="nama_pemilik" value="{{ old('nama_pemilik', @$individu->nama_pemilik) }}" required>
                   <div class="invalid-feedback">
                       Nama Pemilik wajib diisi.
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                     <label for="nik">NIK</label>
                     <input id="nik" type="text" class="form-control" name="nik" value="{{ old('nik', @$individu->nik) }}" required>
                     <div class="invalid-feedback">
                         NIK wajib diisi.
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="jenis_kelamin">Jenis Kelamin</label>
                   <select id="jenis_kelamin" class="form-control selectric" name="jenis_kelamin" required>
                     <option value="">Pilih....</option>
@@ -59,12 +59,12 @@
                 </div>
                 <div class="form-group">
                   <label for="no_hp">No Hp</label>
-                  <input id="no_hp" type="text" class="form-control" name="no_hp" value="{{ old('no_hp', @$individu->no_hp) }}" required>
+                  <input id="no_hp" type="text" class="form-control" name="no_hp" value="{{ old('no_hp', @$individu->no_hp) }}">
                   <div class="invalid-feedback">
                       No Hp wajib diisi.
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="title">Kecamatan</label>
                   <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                     <option value="">Pilih....</option>
@@ -77,7 +77,7 @@
                     <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
                   @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="title">Desa</label>
                   <select id="id_desa" class="form-control selectric" name="id_desa" required disabled>
                     <option value="">Pilih....</option>
@@ -87,7 +87,7 @@
                     <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
                   @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="id_pendidikan">Pendidikan Terakhir</label>
                   <select id="id_pendidikan" class="form-control selectric" name="id_pendidikan" required>
                     <option value="">Pilih....</option>
@@ -104,10 +104,9 @@
                     NPWP wajib diisi.
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label>Status</label>
                   <select class="form-control selectric" name="status" required>
-                      <option value="">Pilih...</option>
                       <option value="1" {{ @$individu->status === 1 ? 'selected' : '' }}>Aktif</option>
                       <option value="0" {{ @$individu->status === 0 ? 'selected' : '' }}>Nonaktif</option>
                   </select>
@@ -115,7 +114,7 @@
                       Status wajib diisi.
                   </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="tanggal_simpan">Tanggal Simpan</label>
                   <input id="tanggal_simpan" type="text" class="form-control datepicker" name="tanggal_simpan" value="{{ @$individu->tanggal_simpan }}" required>
                   <div class="invalid-feedback">

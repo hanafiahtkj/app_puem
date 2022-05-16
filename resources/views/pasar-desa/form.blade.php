@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-header"><h4>Data Pasar Desa</h4></div>
               <div class="card-body"> 
-                <div class="form-group">
+                <div class="form-group required">
                   <label>Kecamatan</label>
                   <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                     <option value="">Pilih....</option>
@@ -48,7 +48,7 @@
                     <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
                   @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label>Desa</label>
                   <select id="id_desa" class="form-control selectric" name="id_desa" required disabled></select>
                   <div class="invalid-feedback">Desa wajib diisi.</div>
@@ -56,24 +56,24 @@
                     <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
                   @endif
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="tahun_berdiri">Tahun Berdiri</label>
                   <input type="text" name="tahun_berdiri" class="form-control numeric" required>
                   <div class="invalid-feedback">Tahun Berdiri wajib diisi.</div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                   <label for="jumlah_pasar">Jumlah Pasar</label>
                   <input type="text" name="jumlah_pasar" class="form-control numeric" required>
                   <div class="invalid-feedback">Jumlah Pasar wajib diisi.</div>
                 </div>
                 <div class="form-group">
                   <label for="sejarah">Sejarah Perkembangan</label>
-                  <textarea name="sejarah" class="form-control"required></textarea>
+                  <textarea name="sejarah" class="form-control"></textarea>
                   <div class="invalid-feedback">Sejarah Perkembangan wajib diisi.</div>
                 </div>
                 <div class="form-group">
                   <label for="instansi_pembina">Instansi yang membina (sebutkan)</label>
-                  <select name="instansi_pembina[]" class="form-control select2" required="" multiple="multiple" id="instansi_pembina">
+                  <select name="instansi_pembina[]" class="form-control select2" multiple="multiple" id="instansi_pembina">
                     @foreach($instansi_pembina as $value)
                       <option value="{{ $value->id }}" 
                         @php
@@ -90,7 +90,7 @@
                 </div>
                 <div class="form-group">
                   <label for="kegiatan_pasar">Kegiatan Pasar dalam sebulan</label>
-                  <select id="kegiatan_pasar" name="kegiatan_pasar" class="form-control" required>
+                  <select id="kegiatan_pasar" name="kegiatan_pasar" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="1-4 Kali">1-4 Kali</option>
                     <option value="5-8 Kali">5-8 Kali</option>
@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group">
                   <label for="status_lahan">Status Lahan</label>
-                  <select id="status_lahan" name="status_lahan" class="form-control" required>
+                  <select id="status_lahan" name="status_lahan" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="Milik Desa">Milik Desa</option>
                     <option value="Perorangan">Perorangan</option>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="form-group">
                   <label for="status_pengelolaan">Status Pengelolaan</label>
-                  <select id="status_pengelolaan" name="status_pengelolaan" class="form-control" required>
+                  <select id="status_pengelolaan" name="status_pengelolaan" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="Pemdes">Pemdes</option>
                     <option value="Swasta">Swasta</option>
@@ -126,7 +126,7 @@
                 </div>
                 <div class="form-group">
                   <label for="sumber_dana_pembangunan">Sumber Dana Pembangunan</label>
-                  <select id="sumber_dana_pembangunan" name="sumber_dana_pembangunan" class="form-control" required>
+                  <select id="sumber_dana_pembangunan" name="sumber_dana_pembangunan" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="APDB">APDB</option>
                     <option value="Swasta">Swasta</option>
@@ -138,7 +138,7 @@
                 </div>
                 <div class="form-group">
                   <label for="kondisi_bangunan">Kondisi Bangunan</label>
-                  <select id="kondisi_bangunan" name="kondisi_bangunan" class="form-control" required>
+                  <select id="kondisi_bangunan" name="kondisi_bangunan" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="Permanen">Permanen</option>
                     <option value="Semi Permanen">Semi Permanen</option>
@@ -150,7 +150,7 @@
                 </div>
                 <div class="form-group">
                   <label for="kondisi_fisik_bangunan">Kondisi Fisik Bangunan</label>
-                  <select id="kondisi_fisik_bangunan" name="kondisi_fisik_bangunan" class="form-control" required>
+                  <select id="kondisi_fisik_bangunan" name="kondisi_fisik_bangunan" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="Sangat Baik">Sangat Baik</option>
                     <option value="Sedang">Sedang</option>
@@ -162,7 +162,7 @@
                 </div>
                 <div class="form-group">
                   <label for="perlu_perbaikan">Perlu Adanya Perbaikan Fisik</label>
-                  <select id="perlu_perbaikan" name="perlu_perbaikan" class="form-control" required>
+                  <select id="perlu_perbaikan" name="perlu_perbaikan" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="Sangat Mendesak">Sangat Mendesak</option>
                     <option value="Perlu">Perlu</option>
@@ -174,7 +174,7 @@
                 </div>
                 <div class="form-group">
                   <label for="bantuan_dari">Pernah Menerima Bantuan dari</label>
-                  <select id="bantuan_dari" name="bantuan_dari" class="form-control" required>
+                  <select id="bantuan_dari" name="bantuan_dari" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="APDB">APDB</option>
                     <option value="Swasta">Swasta</option>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="form-group">
                   <label for="omzet">Omzet Pasar Satu Kegiatan</label>
-                  <select id="omzet" name="omzet" class="form-control" required>
+                  <select id="omzet" name="omzet" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="<=Rp. 50Jt"><=Rp. 50Jt</option>
                     <option value="Rp. 50jt - Rp. 200jt">Rp. 50jt - Rp. 200jt</option>
@@ -199,7 +199,7 @@
                 </div>
                 <div class="form-group">
                   <label for="jumlah_pelaku_usaha">Jumlah Pelaku Usaha</label>
-                  <select id="jumlah_pelaku_usaha" name="jumlah_pelaku_usaha" class="form-control" required>
+                  <select id="jumlah_pelaku_usaha" name="jumlah_pelaku_usaha" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="<=100 Pedagang"><=100 Pedagang</option>
                     <option value="100-200 Pedagang">100-200 Pedagang</option>
@@ -211,7 +211,7 @@
                 </div>
                 <div class="form-group">
                   <label for="asal_pelaku_usaha">Asal Pelaku Usaha</label>
-                  <select id="asal_pelaku_usaha" name="asal_pelaku_usaha" class="form-control" required>
+                  <select id="asal_pelaku_usaha" name="asal_pelaku_usaha" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="Lokal">Lokal</option>
                     <option value="Luar">Luar</option>
@@ -223,7 +223,7 @@
                 </div>
                 <div class="form-group">
                   <label for="dampak_sosial">Dampak Sosial Ekonomi Masyarakat Setempat Terhadap Keberadaan Pasar</label>
-                  <select id="dampak_sosial" name="dampak_sosial" class="form-control" required>
+                  <select id="dampak_sosial" name="dampak_sosial" class="form-control">
                     <option value="">Pilih...</option>
                     <option value="Sangat Berpengaruh">Sangat Berpengaruh</option>
                     <option value="Berpengaruh">Berpengaruh</option>
@@ -235,7 +235,7 @@
                 </div>
                 <div class="form-group">
                   <label for="keterangan">Keterangan</label>
-                  <textarea name="keterangan" class="form-control"required></textarea>
+                  <textarea name="keterangan" class="form-control"></textarea>
                   <div class="invalid-feedback">Keterangan wajib diisi.</div>
                 </div>
                 <div class="form-group">
