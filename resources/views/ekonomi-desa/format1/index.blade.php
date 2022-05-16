@@ -32,12 +32,15 @@
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label class="control-label" for="input-name">Kecamatan</label>
-                              <select class="form-control select2" name="id_kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required>
+                              <select class="form-control select2" name="id_kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                                 <option value="">Pilih</option>
                                 @foreach($kecamatan as $value)
-                                  <option value="{{ $value->id }}">{{ $value->nama_kecamatan }}</option>
+                                  <option value="{{ $value->id }}" {{ $value->id == Auth::user()->id_kecamatan ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
                                 @endforeach
                               </select>
+                              @if(Auth::user()->id_kecamatan != null)
+                                <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                              @endif
                             </div>
                           </div>
                           <div class="col-sm-4">
@@ -152,6 +155,10 @@
             swal("Berhasil", '{{ Session::get('sukses_sess') }}', "success");
           @endif
 
+          @if (Auth::user()->id_kecamatan != null)
+            getDesaByIdKecamatan();
+          @endif
+
         })
 
         function tampilkan(){
@@ -193,6 +200,10 @@
         }
 
         function getDesaByIdKecamatan() {
+          var id_desa = '';
+          @if (Auth::user()->id_desa != null)
+            id_desa = '{{ Auth::user()->id_desa }}';
+          @endif
 
             $('#kec_ket').html( $('#kecamatan option:selected').text() ) 
 
@@ -229,8 +240,13 @@
                 
                 for (const iterator of res.data) {
                 
-                $('#desa').append(`<option value="${iterator.id}">${iterator.nama_desa}</option>`);
+                $('#desa').append('<option value="'+iterator.id+'" '+ ((iterator.id == id_desa) ? 'selected' : '') +'>'+iterator.nama_desa+'</option>');
 
+                }
+
+                if (id_desa != '') {
+                  ketDesa();
+                  $('#desa').prop('disabled', true);
                 }
 
             })

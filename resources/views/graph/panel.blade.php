@@ -30,12 +30,15 @@
                     <div class="col-sm-2">
                       <div class="form-group">
                         <label class="control-label" for="input-name">Kecamatan</label>
-                        <select class="form-control" name="id_kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required>
+                        <select class="form-control" name="id_kecamatan" id="kecamatan" onchange="getDesaByIdKecamatan()" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
                           <option value="">Pilih Kecamatan</option>
                           @foreach ($kecamatan as $item)
-                            <option value="{{$item->id}}">{{$item->nama_kecamatan}}</option>
+                            <option value="{{$item->id}}" {{ $item->id == Auth::user()->id_kecamatan ? 'selected' : '' }}>{{$item->nama_kecamatan}}</option>
                           @endforeach
                         </select>
+                        @if(Auth::user()->id_kecamatan != null)
+                          <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                        @endif
                       </div>
                     </div>
                     <div class="col-sm-2">
@@ -356,6 +359,11 @@
 
       function getDesaByIdKecamatan() {
 
+        var id_desa = '';
+        @if (Auth::user()->id_desa != null)
+          id_desa = '{{ Auth::user()->id_desa }}';
+        @endif
+
       const kecamatanId = $('#kecamatan').val()
 
       if (kecamatanId == "" || kecamatanId == null) {
@@ -389,7 +397,7 @@
           
           for (const iterator of res.data) {
             
-            $('#desa').append(`<option value="${iterator.id}">${iterator.nama_desa}</option>`);
+            $('#desa').append('<option value="'+iterator.id+'" '+ ((iterator.id == id_desa) ? 'selected' : '') +'>'+iterator.nama_desa+'</option>');
 
           }
 
@@ -399,7 +407,13 @@
         })
       }
 
-   
+      $(document).ready(function() {
+          
+        @if (Auth::user()->id_kecamatan != null)
+          getDesaByIdKecamatan();
+        @endif
+
+      })
 
     </script>
   </x-slot>
