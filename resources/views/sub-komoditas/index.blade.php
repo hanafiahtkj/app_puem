@@ -207,7 +207,14 @@
                   dataType: "json",
                   cache: true,
                   success: function(response) {
-                    dataTable.ajax.reload();
+                    if (response.status == true) {
+                      iziToast.success({
+                        title: 'Success!',
+                        message: 'Data Berhasil dihapus!',
+                        position: 'topRight'
+                      });
+                      dataTable.ajax.reload();
+                    }
                   }
                 });
               }
