@@ -173,6 +173,7 @@
                     <option value="APDB">APDB</option>
                     <option value="Swasta">Swasta</option>
                     <option value="APBN">APBN</option>
+                    <option value="Belum Ada">Belum ada</option>
                   </select>
                   <div class="invalid-feedback">
                     Bantuan Dari wajib diisi.
