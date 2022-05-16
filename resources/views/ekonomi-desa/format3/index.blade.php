@@ -153,7 +153,7 @@
 
         $(window).bind("pageshow", function(event) {
           if (event.originalEvent.persisted) {
-            $('#tampilkan').click();
+            $("#tampilkan").trigger("click");
             swal("Berhasil", '', "success");
           }
         });
@@ -161,7 +161,7 @@
         $(document).ready(function() {
           
           @if (Session::has('refresh_sess'))
-              $('#tampilkan').click();
+              $("#tampilkan").trigger("click");
               swal("Berhasil", '', "success");
               // swal("Berhasil", '{{ Session::get('sukses_sess') }}', "success");
           @endif
