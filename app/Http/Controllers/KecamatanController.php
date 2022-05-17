@@ -42,11 +42,11 @@ class KecamatanController extends Controller
         $validasi = [
             'nama_kecamatan' => 'required',
             'kouta'          => 'required',
-            'geojson'        => 'required',
-            'warna'          => 'required',
-            'garis'          => 'required',
-            'latitude'       => 'required',
-            'langtitude'     => 'required',
+            // 'geojson'        => 'required',
+            // 'warna'          => 'required',
+            // 'garis'          => 'required',
+            // 'latitude'       => 'required',
+            // 'langtitude'     => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);
@@ -137,10 +137,10 @@ class KecamatanController extends Controller
         $validasi = [
             'nama_kecamatan' => 'required',
             'kouta'          => 'required',
-            'warna'          => 'required',
-            'garis'          => 'required',
-            'latitude'       => 'required',
-            'langtitude'     => 'required',
+            // 'warna'          => 'required',
+            // 'garis'          => 'required',
+            // 'latitude'       => 'required',
+            // 'langtitude'     => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);

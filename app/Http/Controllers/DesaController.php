@@ -46,9 +46,9 @@ class DesaController extends Controller
             'id_kecamatan'   => 'required',
             'nama_desa'      => 'required',
             'status'         => 'required',
-            'geojson'        => 'required',
-            'warna'          => 'required',
-            'garis'          => 'required',
+            // 'geojson'        => 'required',
+            // 'warna'          => 'required',
+            // 'garis'          => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);
@@ -141,8 +141,8 @@ class DesaController extends Controller
             'id_kecamatan'   => 'required',
             'nama_desa'      => 'required',
             'status'         => 'required',
-            'warna'          => 'required',
-            'garis'          => 'required',
+            // 'warna'          => 'required',
+            // 'garis'          => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validasi);

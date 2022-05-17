@@ -41,12 +41,12 @@
         </div>
         <div class="form-group">
           <label for="title">Warna</label>
-          <input type="text" name="warna" class="form-control colorpickerinput colorpicker-element" data-colorpicker-id="1" required>
+          <input type="text" name="warna" class="form-control colorpickerinput colorpicker-element" data-colorpicker-id="1">
           <div class="invalid-feedback">Warna wajib diisi.</div>
         </div>
         <div class="form-group">
           <label for="title">Garis</label>
-          <input type="text" name="garis" class="form-control colorpickerinput colorpicker-element" data-colorpicker-id="2" required>
+          <input type="text" name="garis" class="form-control colorpickerinput colorpicker-element" data-colorpicker-id="2">
           <div class="invalid-feedback">Garis Produk wajib diisi.</div>
         </div>
       </div>
