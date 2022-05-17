@@ -18,6 +18,7 @@ use App\Http\Controllers\PendidikanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GisController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ProfileController;
 
 Route::group(['middleware' => ['auth']], function () 
 {    
@@ -34,6 +35,12 @@ Route::group(['middleware' => ['auth']], function ()
     // Route::get('gis/loadmap', [GisController::class, 'loadmap'])->name('gis.loadmap');
 
     Route::resource('setting', SettingController::class);
+
+    Route::post('profile/updateProfileInformation', [ProfileController::class, 'updateProfileInformation'])->name('profile.updateProfileInformation');
+
+    Route::post('profile/updatePassword', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+
+    Route::resource('profile', ProfileController::class);
 });
 
 Route::group([

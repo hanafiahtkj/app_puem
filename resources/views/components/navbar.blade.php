@@ -16,6 +16,9 @@
         <img alt="image" src="{{ asset((Auth::User()->foto != null) ? Storage::url('avatars/'.Auth::User()->foto) : 'img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
         <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::User()->name }}</div></a>
         <div class="dropdown-menu dropdown-menu-right">
+            <a href="{{ route('profile.index') }}" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Profil
+            </a>
             <form method="POST" action="{{ route('logout') }}">
             @csrf
             <a href="route('logout')" class="dropdown-item has-icon text-danger" 
