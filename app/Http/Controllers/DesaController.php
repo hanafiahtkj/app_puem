@@ -64,6 +64,7 @@ class DesaController extends Controller
             DB::beginTransaction();
 
             $geojson = '';
+            $pathToStore = '';
             if($request->hasFile('geojson')) {
                 
                 // $upload_path = 'public/geojson';
