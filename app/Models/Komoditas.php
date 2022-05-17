@@ -25,7 +25,7 @@ class Komoditas extends Model
 
     public function getNamaKategoriKomoditasAttribute()
     {
-        return $this->kategoriKomoditas()->first()->nama_kategori_komoditas;
+        return @$this->kategoriKomoditas()->first()->nama_kategori_komoditas;
     }
 
 

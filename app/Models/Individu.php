@@ -32,17 +32,16 @@ class Individu extends Model
 
     public function getNamaKecamatanAttribute()
     {
-        return $this->kecamatan()->first()->nama_kecamatan;
+        return @$this->kecamatan()->first()->nama_kecamatan;
     }
 
     public function getNamaDesaAttribute()
     {
-        return $this->desa()->first()->nama_desa;
+        return @$this->desa()->first()->nama_desa;
     }
 
     public function getNamaPendidikanAttribute()
     {
-        $row = $this->pendidikan()->first();
-        return isset($row) ? $row->nama_pendidikan : '-';
+        return @$this->pendidikan()->first()->nama_pendidikan;
     }
 }

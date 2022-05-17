@@ -32,12 +32,12 @@ class Produk extends Model
 
     public function getNamaKomoditasAttribute()
     {
-        return $this->komoditas()->first()->nama_komoditas;
+        return @$this->komoditas()->first()->nama_komoditas;
     }
 
     public function getNamaSubKomoditasAttribute()
     {
-        return $this->subKomoditas()->first()->nama_sub_komoditas;
+        return @$this->subKomoditas()->first()->nama_sub_komoditas;
     }
 
 

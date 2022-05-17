@@ -30,7 +30,7 @@ class Desa extends Model
 
     public function getNamaKecamatanAttribute()
     {
-        return $this->kecamatan()->first()->nama_kecamatan;
+        return @$this->kecamatan()->first()->nama_kecamatan;
     }
 
     public function getStorageGeojsonAttribute()

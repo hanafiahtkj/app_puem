@@ -27,11 +27,11 @@ class PasarDesa extends Model
 
     public function getNamaKecamatanAttribute()
     {
-        return $this->kecamatan()->first()->nama_kecamatan;
+        return @$this->kecamatan()->first()->nama_kecamatan;
     }
 
     public function getNamaDesaAttribute()
     {
-        return $this->desa()->first()->nama_desa;
+        return @$this->desa()->first()->nama_desa;
     }
 }

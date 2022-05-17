@@ -53,27 +53,27 @@ class Usaha extends Model
 
     public function getNamaKecamatanAttribute()
     {
-        return $this->kecamatan()->first()->nama_kecamatan;
+        return @$this->kecamatan()->first()->nama_kecamatan;
     }
 
     public function getNamaDesaAttribute()
     {
-        return $this->desa()->first()->nama_desa;
+        return @$this->desa()->first()->nama_desa;
     }
 
     public function getNamaKomoditasAttribute()
     {
-        return $this->komoditas()->first()->nama_komoditas;
+        return @$this->komoditas()->first()->nama_komoditas;
     }
 
     public function getNamaSubKomoditasAttribute()
     {
-        return $this->subKomoditas()->first()->nama_sub_komoditas;
+        return @$this->subKomoditas()->first()->nama_sub_komoditas;
     }
 
     public function getNamaProdukAttribute()
     {
-        return $this->produk()->first()->nama_produk;
+        return @$this->produk()->first()->nama_produk;
     }
 
     public function getHargaJualProdukAttribute($value)
