@@ -31,32 +31,34 @@
         @endif
         @csrf
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header"><h4>Data Usaha</h4></div>
               <div class="card-body">
-                <div class="form-group required">
-                  <label for="id_kecamatan">Kecamatan</label>
-                  <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
-                    <option value="">Pilih....</option>
-                    @foreach($kecamatan as $value)
-                      <option value="{{ $value->id }}" {{ (@$usaha->id_kecamatan == $value->id || $value->id == Auth::user()->id_kecamatan) ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
-                    @endforeach
-                  </select>
-                  <div class="invalid-feedback">Kecamatan wajib diisi.</div>
-                  @if(Auth::user()->id_kecamatan != null)
-                    <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
-                  @endif
-                </div>
-                <div class="form-group required">
-                  <label for="id_desa">Desa</label>
-                  <select id="id_desa" class="form-control selectric" name="id_desa" required disabled>
-                    <option value="">Pilih....</option>
-                  </select>
-                  <div class="invalid-feedback">Desa wajib diisi.</div>
-                  @if(Auth::user()->id_desa != null)
-                    <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
-                  @endif
+                <div class="form-row">
+                  <div class="form-group col-md-6 required">
+                    <label for="id_kecamatan">Kecamatan</label>
+                    <select id="id_kecamatan" onChange="getDesa(this.value);" class="form-control selectric" name="id_kecamatan" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
+                      <option value="">Pilih....</option>
+                      @foreach($kecamatan as $value)
+                        <option value="{{ $value->id }}" {{ (@$usaha->id_kecamatan == $value->id || $value->id == Auth::user()->id_kecamatan) ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
+                      @endforeach
+                    </select>
+                    <div class="invalid-feedback">Kecamatan wajib diisi.</div>
+                    @if(Auth::user()->id_kecamatan != null)
+                      <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                    @endif
+                  </div>
+                  <div class="form-group col-md-6 required">
+                    <label for="id_desa">Desa</label>
+                    <select id="id_desa" class="form-control selectric" name="id_desa" required disabled>
+                      <option value="">Pilih....</option>
+                    </select>
+                    <div class="invalid-feedback">Desa wajib diisi.</div>
+                    @if(Auth::user()->id_desa != null)
+                      <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
+                    @endif
+                  </div>
                 </div>
                 <div class="form-group required">
                   <label for="id_ukm">Pemilik</label>
@@ -93,67 +95,87 @@
                     </table>
                   </div>
                 </div>
-                <div class="form-group required">
-                  <label for="nama_usaha">Nama Usaha</label>
-                  <input id="nama_usaha" type="text" class="form-control" name="nama_usaha" value="{{ old('nama_usaha', @$individu->nama_usaha) }}" required>
-                  <div class="invalid-feedback">
-                      Nama Usaha wajib diisi.
-                  </div>
-                </div>
-                <div class="form-group required">
-                    <label for="alamat_usaha">Alamat Usaha</label>
-                    <input id="alamat_usaha" type="text" class="form-control" name="alamat_usaha" value="{{ old('alamat_usaha', @$individu->alamat_usaha) }}" required>
+                <div class="form-row">
+                  <div class="form-group col-md-6 required">
+                    <label for="nama_usaha">Nama Usaha</label>
+                    <input id="nama_usaha" type="text" class="form-control" name="nama_usaha" value="{{ old('nama_usaha', @$individu->nama_usaha) }}" required>
                     <div class="invalid-feedback">
-                        Alamat Usaha wajib diisi.
+                        Nama Usaha wajib diisi.
                     </div>
-                </div> 
-                <div class="form-group required">
-                  <label for="tahun_berdiri">Tahun Beridiri</label>
-                  <select id="tahun_berdiri" class="form-control selectric" name="tahun_berdiri" required>
-                    @for ($i = date('Y'); $i >= 1961; $i--)
-                      <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
-                  </select>
-                  <div class="invalid-feedback">
-                      Tahun Berdiri wajib diisi.
+                  </div>
+                  <div class="form-group col-md-6 required">
+                      <label for="alamat_usaha">Alamat Usaha</label>
+                      <input id="alamat_usaha" type="text" class="form-control" name="alamat_usaha" value="{{ old('alamat_usaha', @$individu->alamat_usaha) }}" required>
+                      <div class="invalid-feedback">
+                          Alamat Usaha wajib diisi.
+                      </div>
+                  </div> 
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6 required">
+                    <label for="title">Komoditas</label>
+                    <select id="id_komoditas" onChange="getSubKomoditas(this.value);" class="form-control selectric" name="id_komoditas" required>
+                      <option value="">Pilih....</option>
+                      @foreach($komoditas as $value)
+                        <option value="{{ $value->id }}" {{ @$individu->id_komoditas == $value->id ? 'selected' : '' }}>{{ $value->nama_komoditas }}</option>
+                      @endforeach
+                    </select>
+                    <div class="invalid-feedback">Komoditas wajib diisi.</div>
+                  </div>
+                  <div class="form-group col-md-6 required">
+                    <label for="title">Sub Komoditas</label>
+                    <select id="id_sub_komoditas" class="form-control selectric" name="id_sub_komoditas" required disabled>
+                      <option value="">Pilih....</option>
+                    </select>
+                    <div class="invalid-feedback">Sub Komoditas wajib diisi.</div>
                   </div>
                 </div>
-                <div class="form-group required">
-                  <label for="title">Komoditas</label>
-                  <select id="id_komoditas" onChange="getSubKomoditas(this.value);" class="form-control selectric" name="id_komoditas" required>
-                    <option value="">Pilih....</option>
-                    @foreach($komoditas as $value)
-                      <option value="{{ $value->id }}" {{ @$individu->id_komoditas == $value->id ? 'selected' : '' }}>{{ $value->nama_komoditas }}</option>
-                    @endforeach
-                  </select>
-                  <div class="invalid-feedback">Komoditas wajib diisi.</div>
+                <div class="form-row">
+                  <div class="form-group col-md-6 required">
+                    <label for="id_produk">Nama/Jenis Produk</label>
+                    <select id="id_produk" class="form-control js-select2-id-produk" name="id_produk" required>
+                      <option value="">Pilih....</option>
+                      @foreach($produk as $value)
+                        <option value="{{ $value->id }}" {{ @$usaha->id_produk == $value->id ? 'selected' : '' }}>{{ $value->nama_produk }}</option>
+                      @endforeach
+                    </select>
+                    <div class="invalid-feedback">Produk wajib diisi.</div>
+                  </div>
+                  <div class="form-group col-md-6 required">
+                    <label for="tahun_berdiri">Tahun Beridiri</label>
+                    <select id="tahun_berdiri" class="form-control selectric" name="tahun_berdiri" required>
+                      @for ($i = date('Y'); $i >= 1961; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                      @endfor
+                    </select>
+                    <div class="invalid-feedback">
+                        Tahun Berdiri wajib diisi.
+                    </div>
+                  </div>
                 </div>
-                <div class="form-group required">
-                  <label for="title">Sub Komoditas</label>
-                  <select id="id_sub_komoditas" class="form-control selectric" name="id_sub_komoditas" required disabled>
-                    <option value="">Pilih....</option>
-                  </select>
-                  <div class="invalid-feedback">Sub Komoditas wajib diisi.</div>
-                </div>
-                <div class="form-group required">
-                  <label for="id_produk">Nama/Jenis Produk</label>
-                  <select id="id_produk" class="form-control js-select2-id-produk" name="id_produk" required>
-                    <option value="">Pilih....</option>
-                    @foreach($produk as $value)
-                      <option value="{{ $value->id }}" {{ @$usaha->id_produk == $value->id ? 'selected' : '' }}>{{ $value->nama_produk }}</option>
-                    @endforeach
-                  </select>
-                  <div class="invalid-feedback">Produk wajib diisi.</div>
-                </div>
-                <div class="form-group">
-                  <label for="jenis_uem">Jenis Uem</label>
-                  <select id="jenis_uem" class="form-control selectric" name="jenis_uem">
-                    <option value="">Pilih....</option>
-                    @foreach($badan_usaha as $value)
-                      <option value="{{ $value->id }}" {{ @$usaha->jenis_uem == $value->id ? 'selected' : '' }}>{{ $value->nama_badan_usaha }}</option>
-                    @endforeach
-                  </select>
-                  <div class="invalid-feedback">Jenis Uem</div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="jenis_uem">Jenis Uem</label>
+                    <select id="jenis_uem" class="form-control selectric" name="jenis_uem">
+                      <option value="">Pilih....</option>
+                      @foreach($badan_usaha as $value)
+                        <option value="{{ $value->id }}" {{ @$usaha->jenis_uem == $value->id ? 'selected' : '' }}>{{ $value->nama_badan_usaha }}</option>
+                      @endforeach
+                    </select>
+                    <div class="invalid-feedback">Jenis Uem</div>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="pernah_menerima_pembinaan">Pernah menerima pembinaan/pelatihan dari</label>
+                    <select id="pernah_menerima_pembinaan" name="pernah_menerima_pembinaan" class="form-control">
+                      <option value="">Pilih...</option>
+                      <option value="Pemerintah">Pemerintah</option>
+                      <option value="Swasta/LSM/Lainnya">Swasta/LSM/Lainnya</option>
+                      <option value="Belum Sama Sekali">Belum Sama Sekali</option>
+                    </select>
+                    <div class="invalid-feedback">
+                      Pernah menerima pembinaan wajib diisi.
+                    </div>
+                  </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
@@ -363,18 +385,6 @@
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="pernah_menerima_pembinaan">Pernah menerima pembinaan/pelatihan dari</label>
-                    <select id="pernah_menerima_pembinaan" name="pernah_menerima_pembinaan" class="form-control">
-                      <option value="">Pilih...</option>
-                      <option value="Pemerintah">Pemerintah</option>
-                      <option value="Swasta/LSM/Lainnya">Swasta/LSM/Lainnya</option>
-                      <option value="Belum Sama Sekali">Belum Sama Sekali</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Pernah menerima pembinaan wajib diisi.
-                    </div>
-                  </div>
-                  <div class="form-group col-md-12">
                     <label for="instansi_pembina">Instansi yang membina (sebutkan)</label>
                     <select name="instansi_pembina[]" class="form-control select2" multiple="multiple" id="instansi_pembina">
                       @foreach($instansi_pembina as $value)
@@ -391,9 +401,7 @@
                       Instansi Pembina wajib diisi.
                     </div>
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-12">
+                  <div class="form-group col-md-6">
                     <label for="dampak_sosial_ekonomi">Dampak sosial ekonomi masyarakat setempat terhadap kegiatan UKM</label>
                     <select id="dampak_sosial_ekonomi" name="dampak_sosial_ekonomi" class="form-control">
                       <option value="">Pilih...</option>
@@ -408,7 +416,7 @@
                 </div>
                 <div class="form-group">
                   <label for="keterangan">Keterangan</label>
-                  <textarea id="keterangan" class="form-control" name="keterangan" style="height: 100px;">{{ @$usaha->keterangan }}</textarea>
+                  <textarea id="keterangan" class="form-control" name="keterangan" style="height: 60px;">{{ @$usaha->keterangan }}</textarea>
                   <div class="invalid-feedback">
                     Keterangan wajib diisi.
                   </div>
@@ -423,7 +431,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-12">
             <div class="card">
               <div class="card-header"><h4>Data Perizinan</h4></div>
                 <div class="card-body">
