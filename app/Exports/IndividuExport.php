@@ -19,11 +19,11 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Carbon\Carbon;
 use DB;
 
-class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAutoSize
+class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAutoSize, WithDrawings
 {
     public function __construct($id_kecamatan, $id_desa, $type) 
     {
-        $this->rowCount  = 5;
+        $this->rowCount  = 10;
         $this->id_kecamatan  = $id_kecamatan;
         $this->id_desa       = $id_desa;
         $this->type          = $type;
@@ -63,18 +63,17 @@ class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAu
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:J3';
+                $cellRange = 'A1:J8';
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()
                     ->setSize(12)
                     ->setBold(true);
 
-                $cellRange = 'A1:J5';
+                $cellRange = 'A1:J8';
                 $event->sheet->getDelegate()->getStyle($cellRange)
                     ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER)
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-
-                $event->sheet->getStyle('A5:J'.$this->rowCount)->applyFromArray([
+                $event->sheet->getStyle('A10:J'.$this->rowCount)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -82,8 +81,29 @@ class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAu
                         ],
                     ],
                 ]);
+
+                $event->sheet->getStyle('A4:J4')->applyFromArray([
+                    'borders' => [
+                        'bottom' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '000000'],
+                        ]
+                    ],
+                ]);
             },
         ];
+    }
+
+    public function drawings()
+    {
+        $drawing = new Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('This is my logo');
+        $drawing->setPath(public_path('/img/logo.png'));
+        $drawing->setHeight(60);
+        $drawing->setCoordinates('C2');
+
+        return $drawing;
     }
 
     public function columnWidths(): array

@@ -30,6 +30,28 @@
 <table id="table-head">
   <thead>
     <tr>
+      <th rowspan="4" width="50">
+        <img src="{{ public_path('/img/logo.png') }}" alt="" style="height: 100px;">
+      </th>
+      <th colspan="7" style="font-size: 24px">PEMERINTAH KABUPATEN TANAH LAUT</th>
+    </tr>
+    <tr>
+      <th colspan="10" style="font-size: 24px">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
+    </tr>
+    <tr>
+      <th colspan="10" style="font-size: 14px">Jalan P. Antasari No. 2 Pelaihari  Telp. ( 0512 ) 21001 – 23001 Kode Pos 70815</th>
+    </tr>
+    <tr>
+      <th colspan="10" style="font-size: 18px">PELAIHARI</th>
+    </tr>
+  </thead>
+</table>
+
+<hr>
+
+<table id="table-head">
+  <thead>
+    <tr>
       <th>DATA PROFIL INDIVIDU USAHA EKONOMI MASYARAKAT</th>
     </tr>
     <tr>

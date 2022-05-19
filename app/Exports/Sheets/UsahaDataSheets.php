@@ -20,11 +20,11 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use Carbon\Carbon;
 use DB;
 
-class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldAutoSize, WithTitle
+class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldAutoSize, WithTitle, WithDrawings
 {
     public function __construct($id_kecamatan, $id_desa, $type, $tahun, $berdasarkan, $filter) 
     {
-        $this->rowCount  = 6;
+        $this->rowCount  = 11;
         $this->id_kecamatan = $id_kecamatan;
         $this->id_desa      = $id_desa;
         $this->type         = $type;
@@ -94,18 +94,27 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:R6';
+                $cellRange = 'A1:R10';
                 $event->sheet->getDelegate()->getStyle($cellRange)
                     ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER)
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 
-                $event->sheet->getStyle('A5:R'.$this->rowCount)->applyFromArray([
+                $event->sheet->getStyle('A10:R'.$this->rowCount)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                             'color' => ['argb' => '000000'],
                         ],
+                    ],
+                ]);
+
+                $event->sheet->getStyle('A4:R4')->applyFromArray([
+                    'borders' => [
+                        'bottom' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '000000'],
+                        ]
                     ],
                 ]);
             },
@@ -120,5 +129,17 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
     public function title(): string
     {
         return 'Data Usaha';
+    }
+
+    public function drawings()
+    {
+        $drawing = new Drawing();
+        $drawing->setName('Logo');
+        $drawing->setDescription('This is my logo');
+        $drawing->setPath(public_path('/img/logo.png'));
+        $drawing->setHeight(60);
+        $drawing->setCoordinates('G2');
+
+        return $drawing;
     }
 }

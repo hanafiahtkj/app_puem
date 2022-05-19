@@ -1,6 +1,23 @@
 <table>
   <thead>
     <tr>
+      <th colspan="10">PEMERINTAH KABUPATEN TANAH LAUT</th>
+    </tr>
+    <tr>
+      <th colspan="10">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
+    </tr>
+    <tr>
+      <th colspan="10">Jalan P. Antasari No. 2 Pelaihari  Telp. ( 0512 ) 21001 – 23001 Kode Pos 70815</th>
+    </tr>
+    <tr>
+      <th colspan="10">PELAIHARI</th>
+    </tr>
+  </thead>
+</table>
+
+<table>
+  <thead>
+    <tr>
       <th colspan="10">DATA PROFIL INDIVIDU USAHA EKONOMI MASYARAKAT</th>
     </tr>
     <tr>
