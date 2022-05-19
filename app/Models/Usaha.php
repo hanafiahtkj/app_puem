@@ -33,7 +33,7 @@ class Usaha extends Model
 
     public function ukm()
     {
-        return $this->belongsTo(individu::class, 'id_ukm', 'id');
+        return $this->belongsTo(Individu::class, 'id_ukm', 'id');
     }
 
     public function komoditas()
