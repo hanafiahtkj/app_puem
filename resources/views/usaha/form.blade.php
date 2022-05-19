@@ -627,38 +627,46 @@
       });
       
       $("#formInput").submit(function(e){
-        e.preventDefault();
-        var btn = $('#btn-store');
-        btn.addClass('btn-progress');
-        var formData = new FormData($(this)[0]);
-        formData.append('_token', '{{ csrf_token() }}');
-        $.ajax({
-            type: "POST",
-            url: $(this).attr('action'),
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: "json",
-            success: function(data, textStatus, jqXHR) {
-              $(".is-invalid").removeClass("is-invalid");
-              if (data['status'] == true) {
-                swal({
-                  title: "Data berhasil disimpan!", 
-                  icon: "success",
-                })
-                .then((value) => {
-                  window.location = "{{ route('uem.usaha.index') }}";
-                });
-              }
-              else {
-                printErrorMsg(data.errors);
-              }
-              btn.removeClass('btn-progress');
-            },
-            error: function(data, textStatus, jqXHR) {
-              alert('Terjadi kesalahan , Proses dibatalkan!');
-            },
-        });
+        var form = $(this);
+        if (form[0].checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        else {
+          e.preventDefault();
+          var btn = $('#btn-store');
+          btn.addClass('btn-progress');
+          var formData = new FormData($(this)[0]);
+          formData.append('_token', '{{ csrf_token() }}');
+          $.ajax({
+              type: "POST",
+              url: $(this).attr('action'),
+              data: formData,
+              processData: false,
+              contentType: false,
+              dataType: "json",
+              success: function(data, textStatus, jqXHR) {
+                $(".is-invalid").removeClass("is-invalid");
+                if (data['status'] == true) {
+                  swal({
+                    title: "Data berhasil disimpan!", 
+                    icon: "success",
+                  })
+                  .then((value) => {
+                    window.location = "{{ route('uem.usaha.index') }}";
+                  });
+                }
+                else {
+                  printErrorMsg(data.errors);
+                }
+                btn.removeClass('btn-progress');
+              },
+              error: function(data, textStatus, jqXHR) {
+                alert('Terjadi kesalahan , Proses dibatalkan!');
+              },
+          });
+        }
+        form.addClass('was-validated');
       });
 
       @if (isset($usaha))
