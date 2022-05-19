@@ -5,6 +5,9 @@
   #table-head {
     width: 100%;
   }
+  #table-ttd {
+    width: 100%;
+  }
   #table-body {
     width: 100%;
     margin-top: 15px;
@@ -27,10 +30,18 @@
 <table id="table-head">
   <thead>
     <tr>
-      <th>BPMPD KABUPATEN TANAH LAUT</th>
+      <th>DATA PROFIL INDIVIDU USAHA EKONOMI MASYARAKAT</th>
     </tr>
     <tr>
-      <th>DATA PROFIL USAHA EKONOMI MASYARAKAT KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}</th>
+      <th>
+        KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}
+        @if(isset($desa))
+        DESA {{ strtoupper($desa->nama_desa) }}
+        @endif 
+      </th>
+    </tr>
+    <tr>
+      <th>TAHUN {{ date('Y') }}</th>
     </tr>
   </thead>
 </table>
@@ -68,5 +79,31 @@
         <td>{{ $value->jumlah_tenaga_kerja }}</td>
       </tr>
     @endforeach
+  </tbody>
+</table>
+
+<table id="table-head">
+  <tbody>
+    <tr>
+      <td align="right" colspan="10">Pelaihari, {{ $tgl_sekarang }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="10">{{ $setting->mengetahui }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="10">Dinas PMD Kabupaten Tanah Laut,</td>
+    </tr>
+    <tr>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+    </tr>
+    <tr>
+      <td align="right" colspan="10"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
+    </tr>
+    <tr>
+      <td align="right" colspan="10">NIP. {{ $setting->nip }}</td>
+    </tr>
   </tbody>
 </table>

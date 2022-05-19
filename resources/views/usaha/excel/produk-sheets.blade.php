@@ -1,10 +1,7 @@
 <table>
   <thead>
     <tr>
-      <th colspan="17">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
-    </tr>
-    <tr>
-      <th colspan="17">REKAP PEMETAAN USAHA EKONOMI MASYARAKAT PEDESAAN</th>
+      <th colspan="17">REKAP PEMETAAN USAHA EKONOMI MASYARAKAT</th>
     </tr>
     <tr>
       <th colspan="17">
@@ -13,6 +10,9 @@
         @endif 
         KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}
       </th>
+    </tr>
+    <tr>
+      <th colspan="17">TAHUN {{ $tahun }}</th>
     </tr>
   </thead>
 </table>

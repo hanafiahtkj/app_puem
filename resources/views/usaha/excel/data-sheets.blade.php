@@ -1,18 +1,18 @@
 <table>
   <thead>
     <tr>
-      <th colspan="16">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
+      <th colspan="18">REKAP PEMETAAN USAHA EKONOMI MASYARAKAT</th>
     </tr>
     <tr>
-      <th colspan="16">REKAP PEMETAAN USAHA EKONOMI MASYARAKAT PEDESAAN</th>
-    </tr>
-    <tr>
-      <th colspan="16">
+      <th colspan="18">
         @if(isset($desa))
         DESA {{ strtoupper($desa->nama_desa) }}
         @endif 
         KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}
       </th>
+    </tr>
+    <tr>
+      <th colspan="18">TAHUN {{ $tahun }}</th>
     </tr>
   </thead>
 </table>
@@ -55,7 +55,7 @@
       <th>13</th>
       <th>14</th>
       <th>15</th>
-      <th>16</th>
+      <th>18</th>
     </tr>
   </thead>
   <tbody>
@@ -84,5 +84,28 @@
         <td>{{ $value->nilai_investasi }}</td>
       </tr>
     @endforeach
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td align="right" colspan="18">Pelaihari, {{ $tgl_sekarang }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="18">{{ $setting->mengetahui }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="18">Dinas PMD Kabupaten Tanah Laut,</td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+      <td align="right" colspan="18"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
+    </tr>
+    <tr>
+      <td align="right" colspan="18">NIP. {{ $setting->nip }}</td>
+    </tr>
   </tbody>
 </table>

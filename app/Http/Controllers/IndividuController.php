@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Komoditas;
 use App\Models\Kecamatan;
+use App\Models\Desa;
 use App\Models\Pendidikan;
 use App\Models\Individu;
 use App\Models\Usaha;
 use App\Models\BadanUsaha;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use App\Exports\IndividuExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use PDF;
 use DB;
 
@@ -227,7 +230,10 @@ class IndividuController extends Controller
 
         $data = [
             'kecamatan' => Kecamatan::find($request->get('id_kecamatan')),
+            'desa'      => Desa::find($request->get('id_desa')),
             'data'      => $report->get(),
+            'setting'   => Setting::first(),
+            'tgl_sekarang' => Carbon::now()->isoFormat('Do MMMM YYYY'),
         ];
         // return view('individu.pdf.rekap', $data);
         $pdf = PDF::loadView('individu.pdf.rekap', $data)->setPaper('a4', 'landscape');

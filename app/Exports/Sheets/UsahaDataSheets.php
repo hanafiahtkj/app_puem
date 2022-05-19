@@ -5,6 +5,7 @@ namespace App\Exports\Sheets;
 use App\Models\Usaha;
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use App\Models\Setting;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -81,6 +82,9 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
             'kecamatan' => Kecamatan::find($this->id_kecamatan),
             'desa'      => Desa::find($this->id_desa),
             'data'      => $report->get(),
+            'setting'      => Setting::first(),
+            'tgl_sekarang' => Carbon::now()->isoFormat('Do MMMM YYYY'),
+            'tahun'        => $this->tahun,
         ];
         // echo view('usaha.excel.data-sheets', $data); die();
         return view('usaha.excel.data-sheets', $data);

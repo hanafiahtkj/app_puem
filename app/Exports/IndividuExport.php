@@ -4,6 +4,8 @@ namespace App\Exports;
 
 use App\Models\Individu;
 use App\Models\Kecamatan;
+use App\Models\Desa;
+use App\Models\Setting;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -21,7 +23,7 @@ class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAu
 {
     public function __construct($id_kecamatan, $id_desa, $type) 
     {
-        $this->rowCount  = 4;
+        $this->rowCount  = 5;
         $this->id_kecamatan  = $id_kecamatan;
         $this->id_desa       = $id_desa;
         $this->type          = $type;
@@ -48,7 +50,10 @@ class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAu
 
         $data = [
             'kecamatan' => Kecamatan::find($this->id_kecamatan),
+            'desa'      => Desa::find($this->id_desa),
             'data'      => $report->get(),
+            'setting'   => Setting::first(),
+            'tgl_sekarang' => Carbon::now()->isoFormat('Do MMMM YYYY'),
         ];
         // echo view('individu.excel.rekap', $data); die();
         return view('individu.excel.rekap', $data);
@@ -58,18 +63,18 @@ class IndividuExport implements FromView, WithEvents, WithColumnWidths, ShouldAu
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:J2';
+                $cellRange = 'A1:J3';
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()
                     ->setSize(12)
                     ->setBold(true);
 
-                $cellRange = 'A1:J4';
+                $cellRange = 'A1:J5';
                 $event->sheet->getDelegate()->getStyle($cellRange)
                     ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER)
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 
-                $event->sheet->getStyle('A4:J'.$this->rowCount)->applyFromArray([
+                $event->sheet->getStyle('A5:J'.$this->rowCount)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

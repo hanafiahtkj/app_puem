@@ -85,6 +85,7 @@ class UsahaProdukSheets implements FromView, WithEvents, WithColumnWidths, Shoul
             'data'         => $data,
             'size'         => $size,
             'setting'      => Setting::first(),
+            'tahun'        => $this->tahun,
         ];
         // echo view('usaha.excel.produk-sheets', $data); die();
         return view('usaha.excel.produk-sheets', $data);

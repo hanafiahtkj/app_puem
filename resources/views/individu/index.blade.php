@@ -143,7 +143,7 @@
         $('#id_desa').append(new Option('Semua.....', ''))
         $.get(url, function( response ) {
           $.each(response.data, function (key, value) {
-            $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
+            $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+' ('+value.jumlah+')</option>');
           });
 
           if (id_desa != '') {

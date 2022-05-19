@@ -213,7 +213,10 @@ class DesaController extends Controller
     {
         $desa = [];
         if ($id) {
-            $desa = Desa::where('id_kecamatan', $id)->get();
+            $desa = Desa::where('desa.id_kecamatan', $id)
+            ->leftJoin('individu', 'desa.id', '=', 'individu.id_desa')
+            ->select('desa.*', DB::raw('count(individu.id) as jumlah'))
+            ->get();
         }
         return response()->json(['data' => $desa]);
     }

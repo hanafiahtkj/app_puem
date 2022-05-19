@@ -1,10 +1,17 @@
 <table>
   <thead>
     <tr>
-      <th colspan="10">BPMPD KABUPATEN TANAH LAUT</th>
+      <th colspan="10">DATA PROFIL INDIVIDU USAHA EKONOMI MASYARAKAT</th>
     </tr>
     <tr>
-      <th colspan="10">DATA PROFIL USAHA EKONOMI MASYARAKAT KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}</th>
+      <th colspan="10">KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}
+        @if(isset($desa))
+        DESA {{ strtoupper($desa->nama_desa) }}
+        @endif
+      </th>
+    </tr>
+    <tr>
+      <th colspan="10">TAHUN {{ date('Y') }}</th>
     </tr>
   </thead>
 </table>
@@ -42,5 +49,28 @@
         <td>{{ $value->jumlah_tenaga_kerja }}</td>
       </tr>
     @endforeach
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td align="right" colspan="10">Pelaihari, {{ $tgl_sekarang }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="10">{{ $setting->mengetahui }}</td>
+    </tr>
+    <tr>
+      <td align="right" colspan="10">Dinas PMD Kabupaten Tanah Laut,</td>
+    </tr>
+    <tr></tr>
+    <tr></tr>
+    <tr></tr>
+    <tr>
+      <td align="right" colspan="10"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
+    </tr>
+    <tr>
+      <td align="right" colspan="10">NIP. {{ $setting->nip }}</td>
+    </tr>
   </tbody>
 </table>
