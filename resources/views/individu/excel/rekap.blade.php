@@ -72,22 +72,27 @@
 <table>
   <tbody>
     <tr>
-      <td align="right" colspan="10">Pelaihari, {{ $tgl_sekarang }}</td>
+      <td colspan="7"></td>
+      <td align="center" colspan="3">Pelaihari, {{ $tgl_sekarang }}</td>
     </tr>
     <tr>
-      <td align="right" colspan="10">{{ $setting->mengetahui }}</td>
+      <td colspan="7"></td>
+      <td align="center" colspan="3">{{ $setting->mengetahui }}</td>
     </tr>
     <tr>
-      <td align="right" colspan="10">Dinas PMD Kabupaten Tanah Laut,</td>
+      <td colspan="7"></td>
+      <td align="center" colspan="3">Dinas PMD Kabupaten Tanah Laut,</td>
     </tr>
     <tr></tr>
     <tr></tr>
     <tr></tr>
     <tr>
-      <td align="right" colspan="10"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
+      <td colspan="7"></td>
+      <td align="center" colspan="3"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
     </tr>
     <tr>
-      <td align="right" colspan="10">NIP. {{ $setting->nip }}</td>
+      <td colspan="7"></td>
+      <td align="center" colspan="3">NIP. {{ $setting->nip }}</td>
     </tr>
   </tbody>
 </table>

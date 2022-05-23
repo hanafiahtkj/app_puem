@@ -235,8 +235,8 @@ class IndividuController extends Controller
             'setting'   => Setting::first(),
             'tgl_sekarang' => Carbon::now()->isoFormat('Do MMMM YYYY'),
         ];
-        // return view('individu.pdf.rekap', $data);
-        $pdf = PDF::loadView('individu.pdf.rekap', $data)->setPaper('a4', 'landscape');
+        // return view('individu.pdf.rekap', $data); die;
+        $pdf = PDF::loadView('individu.pdf.rekap', $data)->setPaper('F4', 'landscape');
         return $pdf->stream($request->get('type').'.pdf');
     }
 

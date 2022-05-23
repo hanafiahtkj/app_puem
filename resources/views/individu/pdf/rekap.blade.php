@@ -25,15 +25,19 @@
     background: #dd5;
     color: #222;
   }
+  .absolute {
+    position: absolute;
+  }
 </style>
+
+<div class="absolute">
+  <img src="{{ public_path('/img/logo.png') }}" alt="" style="height: 100px;">
+</div>
 
 <table id="table-head">
   <thead>
     <tr>
-      <th rowspan="4" width="50">
-        <img src="{{ public_path('/img/logo.png') }}" alt="" style="height: 100px;">
-      </th>
-      <th colspan="7" style="font-size: 24px">PEMERINTAH KABUPATEN TANAH LAUT</th>
+      <th colspan="10" style="font-size: 24px">PEMERINTAH KABUPATEN TANAH LAUT</th>
     </tr>
     <tr>
       <th colspan="10" style="font-size: 24px">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
@@ -104,16 +108,19 @@
   </tbody>
 </table>
 
-<table id="table-head">
+<table id="table-head" style="page-break-inside: avoid;">
   <tbody>
     <tr>
-      <td align="right" colspan="10">Pelaihari, {{ $tgl_sekarang }}</td>
+      <td colspan="9" style="width: 450px;"</td>
+      <td align="center">Pelaihari, {{ $tgl_sekarang }}</td>
     </tr>
     <tr>
-      <td align="right" colspan="10">{{ $setting->mengetahui }}</td>
+      <td colspan="9"></td>
+      <td align="center">{{ $setting->mengetahui }}</td>
     </tr>
     <tr>
-      <td align="right" colspan="10">Dinas PMD Kabupaten Tanah Laut,</td>
+      <td colspan="9"></td>
+      <td align="center">Dinas PMD Kabupaten Tanah Laut,</td>
     </tr>
     <tr>
       <br/>
@@ -122,10 +129,12 @@
       <br/>
     </tr>
     <tr>
-      <td align="right" colspan="10"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
+      <td colspan="9"></td>
+      <td align="center"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
     </tr>
     <tr>
-      <td align="right" colspan="10">NIP. {{ $setting->nip }}</td>
+      <td colspan="9"></td>
+      <td align="center" colspan="10">NIP. {{ $setting->nip }}</td>
     </tr>
   </tbody>
 </table>
