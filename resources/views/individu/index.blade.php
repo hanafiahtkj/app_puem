@@ -137,7 +137,7 @@
       function getDesa(id, id_desa = '', disabled = false) 
       {
         var id  = id;
-        var url = '{{ route("master.desa.get-desa", ":id") }}';
+        var url = '{{ route("master.desa.get-desa2", ":id") }}';
         url = url.replace(':id', id);
         $('#id_desa').html('');
         $('#id_desa').append(new Option('Semua.....', ''))

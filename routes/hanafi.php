@@ -74,6 +74,10 @@ Route::group([
 
     Route::get('desa/get-desa/{id}', [DesaController::class, 'getDesa'])->name('desa.get-desa');
 
+    Route::get('desa/get-desa2/{id}', [DesaController::class, 'getDesa2'])->name('desa.get-desa2');
+
+    Route::get('desa/get-desa3/{id}', [DesaController::class, 'getDesa3'])->name('desa.get-desa3');
+
     Route::get('desa/getDataTables', [DesaController::class, 'getDataTables'])->name('desa.getDataTables');
 
     Route::resource('desa', DesaController::class);

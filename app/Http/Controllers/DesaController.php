@@ -214,8 +214,31 @@ class DesaController extends Controller
         $desa = [];
         if ($id) {
             $desa = Desa::where('desa.id_kecamatan', $id)
+            ->select('desa.*')
+            ->get();
+        }
+        return response()->json(['data' => $desa]);
+    }
+
+    public function getDesa2($id)
+    {
+        $desa = [];
+        if ($id) {
+            $desa = Desa::where('desa.id_kecamatan', $id)
             ->leftJoin('individu', 'desa.id', '=', 'individu.id_desa')
             ->select('desa.*', DB::raw('count(individu.id) as jumlah'))
+            ->get();
+        }
+        return response()->json(['data' => $desa]);
+    }
+
+    public function getDesa3($id)
+    {
+        $desa = [];
+        if ($id) {
+            $desa = Desa::where('desa.id_kecamatan', $id)
+            ->leftJoin('usaha', 'desa.id', '=', 'usaha.id_desa')
+            ->select('desa.*', DB::raw('count(usaha.id) as jumlah'))
             ->get();
         }
         return response()->json(['data' => $desa]);
