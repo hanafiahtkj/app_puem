@@ -264,9 +264,9 @@ class UsahaController extends Controller
     public function getDataTables(Request $request)
     {
         $query = db::table('usaha')
-            ->join('desa', 'usaha.id_desa', '=', 'desa.id')
-            ->join('kecamatan', 'desa.id_kecamatan', '=', 'kecamatan.id')
-            ->join('individu', 'usaha.id_ukm', '=', 'individu.id');
+            ->leftJoin('desa', 'usaha.id_desa', '=', 'desa.id')
+            ->leftJoin('kecamatan', 'desa.id_kecamatan', '=', 'kecamatan.id')
+            ->leftJoin('individu', 'usaha.id_ukm', '=', 'individu.id');
 
         if (($id_kecamatan = Auth::user()->id_kecamatan) || ($id_kecamatan = $request->get('id_kecamatan'))) {
             $query->where('usaha.id_kecamatan', $id_kecamatan);
