@@ -222,25 +222,32 @@ class DesaController extends Controller
 
     public function getDesa2($id)
     {
-        $desa = [];
+        $desa = DB::table('desa')
+            ->leftJoin('individu', 'desa.id', '=', 'individu.id_desa');
+
         if ($id) {
-            $desa = Desa::where('desa.id_kecamatan', $id)
-            ->leftJoin('individu', 'desa.id', '=', 'individu.id_desa')
-            ->select('desa.*', DB::raw('count(individu.id) as jumlah'))
-            ->get();
+            $desa = $desa->where('desa.id_kecamatan', $id);
         }
+
+        $desa = $desa->select('desa.id', 'desa.nama_desa', DB::raw('count(individu.id) as jumlah'))
+            ->groupBy('desa.id', 'desa.nama_desa')
+            ->get();
+
         return response()->json(['data' => $desa]);
     }
 
     public function getDesa3($id)
     {
-        $desa = [];
+        $desa = DB::table('desa')
+            ->leftJoin('usaha', 'desa.id', '=', 'usaha.id_desa');
+
         if ($id) {
-            $desa = Desa::where('desa.id_kecamatan', $id)
-            ->leftJoin('usaha', 'desa.id', '=', 'usaha.id_desa')
-            ->select('desa.*', DB::raw('count(usaha.id) as jumlah'))
-            ->get();
+            $desa = $desa->where('desa.id_kecamatan', $id);
         }
+
+        $desa = $desa->select('desa.id', 'desa.nama_desa', DB::raw('count(usaha.id) as jumlah'))
+            ->groupBy('desa.id', 'desa.nama_desa')
+            ->get();
         return response()->json(['data' => $desa]);
     }
 
