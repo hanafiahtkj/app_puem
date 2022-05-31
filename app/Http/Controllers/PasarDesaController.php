@@ -9,6 +9,8 @@ use App\Models\Kecamatan;
 use App\Models\PasarDesa;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
+use App\Exports\PasarDesaExport;
+use Maatwebsite\Excel\Facades\Excel;
 use DB;
 
 class PasarDesaController extends Controller
@@ -20,7 +22,9 @@ class PasarDesaController extends Controller
      */
     public function index()
     {
-        $data = [];
+        $data = [
+            'kecamatan' => Kecamatan::all(),
+        ];
         return view('pasar-desa.index', $data);
     }
 
@@ -195,5 +199,24 @@ class PasarDesaController extends Controller
 
         return Datatables::of($query)
             ->make(true);
+    }
+
+    public function export(Request $request)
+	{
+        $type = $request->get('type');
+        $extension = $request->get('extension');
+        $function  = '_rekap_'.$request->get('extension');
+        return $this->{$function}($request);
+    }
+
+    function _rekap_excel(Request $request)
+	{
+        $id_kecamatan = $request->get('id_kecamatan');
+        $id_desa      = $request->get('id_desa');
+        $type         = $request->get('type');
+        return Excel::download(
+            new PasarDesaExport($id_kecamatan, $id_desa, $type), 
+            $type.'.xlsx'
+        );
     }
 }

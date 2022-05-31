@@ -24,6 +24,68 @@
       </div>
 
       <div class="section-body">
+        <form id="report" method="GET" action="{{ route('pasar-desa.export') }}" target="_blank" class="needs-validation" novalidate>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body p-1">
+                  <div class="m-0 p-4">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label" for="input-name">Kecamatan</label>
+                          <select class="form-control select2" name="id_kecamatan" id="id_kecamatan" onChange="getDesa(this.value);" required @if(Auth::user()->id_kecamatan != null) disabled @endif>
+                            <option value="">Semua....</option>
+                            @foreach ($kecamatan as $key => $value)
+                                <option value="{{ $value->id }}" {{ $value->id == Auth::user()->id_kecamatan ? 'selected' : '' }}>{{ $value->nama_kecamatan }}</option>
+                            @endforeach
+                          </select>
+                          <div class="invalid-feedback">
+                            Kecamatan wajib diisi.
+                          </div>
+                          @if(Auth::user()->id_kecamatan != null)
+                            <input type="hidden" name="id_kecamatan" value="{{ Auth::user()->id_kecamatan }}">
+                          @endif
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="control-label" for="input-name">Desa</label>
+                          <select class="form-control select2" name="id_desa" id="id_desa" @if(Auth::user()->id_desa != null) disabled @endif>
+                            <option value="">Semua....</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            Desa wajib diisi.
+                          </div>
+                          @if(Auth::user()->id_desa != null)
+                            <input type="hidden" name="id_desa" value="{{ Auth::user()->id_desa }}">
+                          @endif
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <button type="button" id="button-filter" class="btn btn-primary pull-right mr-2 mb-2"><i class="fa fa-filter"></i> Filter</button>
+                        <div class="btn-group mr-2 mb-2">
+                          <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-file-excel"></i> Export Excel
+                          </button>
+                          <div class="dropdown-menu">
+                            <a class="dropdown-item submit" data-type="rekap_kecamatan" data-extension="excel" href="javascript:void(0);">Rekap Kecamatan</a>
+                            <a class="dropdown-item submit" data-type="rekap_desa" data-extension="excel" href="javascript:void(0);">Rekap Desa</a>
+                          </div>
+                        </div>
+                        <input type="hidden" name="extension" id="extension">
+                        <input type="hidden" name="type" id="type">
+                        <div class="d-none"><input type="submit" id="btn-export"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -63,6 +125,24 @@
     <script src="{{ asset('vendor/select2-4.0.13/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('js/plugin.js') }}"></script>
     <script>
+
+      function getDesa(id, id_desa = '', disabled = false) 
+      {
+        var id  = id;
+        var url = '{{ route("master.desa.get-desa2", ":id") }}';
+        url = url.replace(':id', id);
+        $('#id_desa').html('');
+        $('#id_desa').append(new Option('Semua.....', ''))
+        $.get(url, function( response ) {
+          $.each(response.data, function (key, value) {
+            $('#id_desa').append('<option value="'+value.id+'" '+ ((value.id == id_desa) ? 'selected' : '') +'>'+value.nama_desa+'</option>');
+          });
+
+          if (id_desa != '') {
+            $('#id_desa').prop('disabled', disabled);
+          }
+        });
+      }
 
       $(document).ready(function () {
 
@@ -156,6 +236,24 @@
                 });
               }
             });
+        });
+
+        @if (Auth::user()->id_kecamatan != null)
+          getDesa('{{ Auth::user()->id_kecamatan }}', '{{ Auth::user()->id_desa }}', true);
+        @endif
+
+        $('.submit').on('click', function () {
+          $('#type').val($(this).data('type'));
+          $('#extension').val($(this).data('extension'));
+
+          if ($(this).data('type') == 'rekap_desa') {
+            $('#id_desa').prop('required', true);
+          }
+          else {
+            $('#id_desa').prop('required', false);
+          }
+
+          $('#btn-export').click();
         });
 
       });

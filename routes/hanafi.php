@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth']], function ()
 
     Route::get('dashboard', DashboardController::class)->name('dashboard');
 
+    Route::get('pasar-desa/export', [PasarDesaController::class, 'export'])->name('pasar-desa.export');
+
     Route::get('pasar-desa/getDataTables', [PasarDesaController::class, 'getDataTables'])->name('pasar-desa.getDataTables');
 
     Route::resource('pasar-desa', PasarDesaController::class);
