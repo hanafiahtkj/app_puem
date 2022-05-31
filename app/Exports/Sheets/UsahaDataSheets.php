@@ -82,7 +82,7 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
             }
         }
 
-        $report = $report->select('usaha.*', 'individu.nama_pemilik', 'individu.nik', 'pendidikan.nama_pendidikan', 'individu.jenis_kelamin', 'komoditas.nama_komoditas', 'sub_komoditas.nama_sub_komoditas', 'produk.nama_produk', 'desa.nama_desa', 'kecamatan.nama_kecamatan')
+        $report = $report->select('usaha.*', 'individu.nama_pemilik', 'individu.nik', 'individu.npwp', 'pendidikan.nama_pendidikan', 'individu.jenis_kelamin', 'komoditas.nama_komoditas', 'sub_komoditas.nama_sub_komoditas', 'produk.nama_produk', 'desa.nama_desa', 'kecamatan.nama_kecamatan')
             ->orderBy('individu.nama_pemilik','ASC')
             ->orderBy('individu.id','ASC');
 
@@ -104,13 +104,13 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
     {
         return [
             AfterSheet::class => function(AfterSheet $event) {
-                $cellRange = 'A1:R10';
+                $cellRange = 'A1:S10';
                 $event->sheet->getDelegate()->getStyle($cellRange)
                     ->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER)
                     ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
 
-                $event->sheet->getStyle('A10:R'.$this->rowCount)->applyFromArray([
+                $event->sheet->getStyle('A10:S'.$this->rowCount)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -119,7 +119,7 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
                     ],
                 ]);
 
-                $event->sheet->getStyle('A4:R4')->applyFromArray([
+                $event->sheet->getStyle('A4:S4')->applyFromArray([
                     'borders' => [
                         'bottom' => [
                             'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

@@ -47,16 +47,16 @@ function skala_asset($asset) {
 <table>
   <thead>
     <tr>
-      <th colspan="18">PEMERINTAH KABUPATEN TANAH LAUT</th>
+      <th colspan="19">PEMERINTAH KABUPATEN TANAH LAUT</th>
     </tr>
     <tr>
-      <th colspan="18">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
+      <th colspan="19">DINAS PEMBERDAYAAN MASYARAKAT DAN DESA</th>
     </tr>
     <tr>
-      <th colspan="18">Jalan P. Antasari No. 2 Pelaihari  Telp. ( 0512 ) 21801 – 23001 Kode Pos 70815</th>
+      <th colspan="19">Jalan P. Antasari No. 2 Pelaihari  Telp. ( 0512 ) 21801 – 23001 Kode Pos 70815</th>
     </tr>
     <tr>
-      <th colspan="18">PELAIHARI</th>
+      <th colspan="19">PELAIHARI</th>
     </tr>
   </thead>
 </table>
@@ -64,10 +64,10 @@ function skala_asset($asset) {
 <table>
   <thead>
     <tr>
-      <th colspan="18">REKAP PEMETAAN USAHA EKONOMI MASYARAKAT</th>
+      <th colspan="19">REKAP PEMETAAN USAHA EKONOMI MASYARAKAT</th>
     </tr>
     <tr>
-      <th colspan="18">
+      <th colspan="19">
         @if(isset($desa))
         DESA {{ strtoupper($desa->nama_desa) }}
         @endif 
@@ -75,7 +75,7 @@ function skala_asset($asset) {
       </th>
     </tr>
     <tr>
-      <th colspan="18">TAHUN {{ $tahun }}</th>
+      <th colspan="19">TAHUN {{ $tahun }}</th>
     </tr>
   </thead>
 </table>
@@ -86,6 +86,7 @@ function skala_asset($asset) {
       <th>No.</th>
       <th>Nama Pemilik Usaha</th>
       <th>NIK</th>
+      <th>NPWP</th>
       <th>Jenis Kelamin</th>
       <th>Pendidikan Tertinggi</th>
       <th>Alamat Tempat Usaha</th>
@@ -112,6 +113,7 @@ function skala_asset($asset) {
         <td align="center">{{ $loop->iteration }}</td>
         <td>{{ $value->nama_pemilik }}</td>
         <td>{{ '\''.$value->nik }}</td>
+        <td>{{ $value->npwp }}</td>
         <td>{{ $value->jenis_kelamin }}</td>
         <td>{{ $value->nama_pendidikan }}</td>
         <td>{{ $value->alamat_usaha }}</td>
@@ -135,11 +137,11 @@ function skala_asset($asset) {
 <table>
   <tbody>
     <tr>
-      <td colspan="15"></td>
+      <td colspan="16"></td>
       <td align="center" colspan="3">Pelaihari, {{ $tgl_sekarang }}</td>
     </tr>
     <tr>
-      <td colspan="15"></td>
+      <td colspan="16"></td>
       <td align="center" colspan="3">{{ $setting->mengetahui }}</td>
     </tr>
     <tr>
@@ -150,11 +152,11 @@ function skala_asset($asset) {
     <tr></tr>
     <tr></tr>
     <tr>
-      <td colspan="15"></td>
+      <td colspan="16"></td>
       <td align="center" colspan="3"><b style="border-bottom: 1px solid #000;">{{ $setting->nama_pptk }}</b></td>
     </tr>
     <tr>
-      <td colspan="15"></td>
+      <td colspan="16"></td>
       <td align="center" colspan="3">NIP. {{ $setting->nip }}</td>
     </tr>
   </tbody>
