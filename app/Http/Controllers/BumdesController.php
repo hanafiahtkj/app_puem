@@ -116,6 +116,9 @@ class BumdesController extends Controller
             $data->rev_nosk              = $request->rev_nosk;
             $data->unit_usahasatu        = $request->usaha_1;
             $data->unit_usahadua         = $request->usaha_2;
+            $data->unit_usahatiga        = $request->usaha_3;
+            $data->unit_usahaempat       = $request->usaha_4;
+            $data->unit_usahalima        = $request->usaha_5;
             $data->update();
 
             return redirect()->route('bumdes-index')->with('bumdes_sess', 'Berhasil update data bumdes');
@@ -160,8 +163,10 @@ class BumdesController extends Controller
                 'rev_noadart'           => $request->rev_noadart,
                 'rev_nosk'              => $request->rev_nosk,
                 'unit_usahasatu'        => $request->usaha_1,
-                'unit_usahadua'         => $request->usaha_2
-                
+                'unit_usahadua'         => $request->usaha_2,
+                'unit_usahatiga'        => $request->usaha_3,
+                'unit_usahaempat'       => $request->usaha_4,
+                'unit_usahalima'        => $request->usaha_5,
             ]);
 
             return redirect()->route('bumdes-index')->with('bumdes_sess', 'Berhasil menambahkan data bumdes');

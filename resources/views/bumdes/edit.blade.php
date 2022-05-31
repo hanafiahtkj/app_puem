@@ -181,6 +181,18 @@
                                 <label for="">Nama Unit Usaha 2</label>
                                 <input type="text" class="form-control" name="usaha_2" id="" value="{{ $data->unit_usahadua }}">
                               </div>
+                              <div class="form-group">
+                                <label for="">Nama Unit Usaha 3</label>
+                                <input type="text" class="form-control" name="usaha_3" id="" value="{{ $data->unit_usahatiga }}">
+                              </div>
+                              <div class="form-group">
+                                <label for="">Nama Unit Usaha 4</label>
+                                <input type="text" class="form-control" name="usaha_4" id="" value="{{ $data->unit_usahaempat }}">
+                              </div>
+                              <div class="form-group">
+                                <label for="">Nama Unit Usaha 5</label>
+                                <input type="text" class="form-control" name="usaha_5" id="" value="{{ $data->unit_usahalima }}">
+                              </div>
                             </div>
                           </div>
                         </div>

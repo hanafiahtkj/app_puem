@@ -179,6 +179,18 @@
                                 <label for="">Nama Unit Usaha 2</label>
                                 <input type="text" class="form-control" name="usaha_2" id="">
                               </div>
+                              <div class="form-group">
+                                <label for="">Nama Unit Usaha 3</label>
+                                <input type="text" class="form-control" name="usaha_3" id="">
+                              </div>
+                              <div class="form-group">
+                                <label for="">Nama Unit Usaha 4</label>
+                                <input type="text" class="form-control" name="usaha_4" id="">
+                              </div>
+                              <div class="form-group">
+                                <label for="">Nama Unit Usaha 5</label>
+                                <input type="text" class="form-control" name="usaha_5" id="">
+                              </div>
                             </div>
                           </div>
                         </div>
