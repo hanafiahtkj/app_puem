@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use App\Exports\PasarDesaExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 use DB;
 
 class PasarDesaController extends Controller
@@ -195,6 +196,15 @@ class PasarDesaController extends Controller
     public function getDataTables(Request $request)
     {
         $query = PasarDesa::query();
+
+        if (($id_kecamatan = Auth::user()->id_kecamatan) || ($id_kecamatan = $request->get('id_kecamatan'))) {
+            $query->where('id_kecamatan', $id_kecamatan);
+        }
+
+        if (($id_desa = Auth::user()->id_desa) || ($id_desa = $request->get('id_desa'))) {
+            $query->where('id_desa', $id_desa);
+        }
+
         $query = $query->orderBy('id','DESC')->get();
 
         return Datatables::of($query)

@@ -256,6 +256,10 @@
           $('#btn-export').click();
         });
 
+        $('#button-filter').on('click', function () {
+          dataTable.ajax.reload();
+        });
+
       });
     </script>
   </x-slot>
