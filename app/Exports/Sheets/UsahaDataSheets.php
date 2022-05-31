@@ -36,13 +36,13 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
     public function view(): View
     {
         $report = db::table('usaha')
-        ->join('desa', 'usaha.id_desa', '=', 'desa.id')
-        ->join('kecamatan', 'desa.id_kecamatan', '=', 'kecamatan.id')
-        ->join('individu', 'usaha.id_ukm', '=', 'individu.id')
-        ->join('pendidikan', 'individu.id_pendidikan', '=', 'pendidikan.id')
-        ->join('komoditas', 'usaha.id_komoditas', '=', 'komoditas.id')
-        ->join('sub_komoditas', 'usaha.id_sub_komoditas', '=', 'sub_komoditas.id')
-        ->join('produk', 'usaha.id_produk', '=', 'produk.id')
+        ->leftJoin('desa', 'usaha.id_desa', '=', 'desa.id')
+        ->leftJoin('kecamatan', 'desa.id_kecamatan', '=', 'kecamatan.id')
+        ->leftJoin('individu', 'usaha.id_ukm', '=', 'individu.id')
+        ->leftJoin('pendidikan', 'individu.id_pendidikan', '=', 'pendidikan.id')
+        ->leftJoin('komoditas', 'usaha.id_komoditas', '=', 'komoditas.id')
+        ->leftJoin('sub_komoditas', 'usaha.id_sub_komoditas', '=', 'sub_komoditas.id')
+        ->leftJoin('produk', 'usaha.id_produk', '=', 'produk.id')
         ->where('usaha.id_kecamatan', $this->id_kecamatan);
 
         if($this->type == 'rekap_desa'){
@@ -63,7 +63,17 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
                         $report = $report->where('usaha.jenis_uem', $this->filter);
                         break;
                     case 'Skala Usaha':
-                        //
+                        if ($this->filter == 'Mikro') {
+                            $report = $report->whereRaw('(usaha.omzet_perhari * 365) <= 300000000');
+                        } elseif ($this->filter == 'Kecil') {
+                            $report = $report
+                                ->whereRaw('(usaha.omzet_perhari * 365) > 300000000')
+                                ->whereRaw('(usaha.omzet_perhari * 365) < 500000000');
+                        } elseif ($this->filter == 'Menengah') {
+                            $report = $report
+                                ->whereRaw('(usaha.omzet_perhari * 365) >= 2500000000')
+                                ->whereRaw('(usaha.omzet_perhari * 365) < 50000000000');
+                        }
                         break;
                     case 'Jenis Kelamin':
                         $report = $report->where('individu.jenis_kelamin', $this->filter);

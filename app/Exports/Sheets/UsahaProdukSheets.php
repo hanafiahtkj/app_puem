@@ -36,8 +36,8 @@ class UsahaProdukSheets implements FromView, WithEvents, WithColumnWidths, Shoul
     public function view(): View
     {
         $report = db::table('produk')
-            ->join('usaha', 'usaha.id_produk', '=', 'produk.id')
-            ->join('individu', 'usaha.id_ukm', '=', 'individu.id')
+            ->leftJoin('usaha', 'usaha.id_produk', '=', 'produk.id')
+            ->leftJoin('individu', 'usaha.id_ukm', '=', 'individu.id')
             ->where('usaha.id_kecamatan', $this->id_kecamatan);
 
         if($this->type == 'rekap_desa'){

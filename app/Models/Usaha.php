@@ -14,7 +14,7 @@ class Usaha extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $appends = ['nama_kecamatan', 'nama_desa'];
+    protected $appends = ['nama_kecamatan', 'nama_desa', 'skala_usaha', 'skala_asset'];
 
     public function individu()
     {
@@ -122,5 +122,28 @@ class Usaha extends Model
     public function setOmzetPerhariAttribute($value)
     {
         $this->attributes['omzet_perhari'] = str_replace(",", ".", str_replace(".", "", $value));
+    }
+
+    public function getSkalaUsahaAttribute()
+    {
+        $total = $this->omzet_perhari * 365;
+        // mikro : <= 300 jt
+        // kecil : >300 jt & <2,5 milyar
+        // menengah : >=2,5 milyar & <50 milyar
+        switch ($total) {
+            case $total <= 300000000:
+                return 'Mikro';
+                break;
+            case $total > 300000000 && $total < 2500000000:
+                return 'Kecil';
+                break;
+            case $total >= 2500000000 && $total < 50000000000:
+                return 'Menengah';
+                break;
+            default:
+                return '-';
+                break;
+        }
+        return $total;
     }
 }

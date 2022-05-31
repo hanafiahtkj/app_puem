@@ -1,3 +1,49 @@
+<?php 
+function skala_usaha($omzet) {
+  $total = $omzet * 365;
+  // mikro : <= 300 jt
+  // kecil : >300 jt & <2,5 milyar
+  // menengah : >=2,5 milyar & <50 milyar
+  switch ($total) {
+      case $total <= 300000000:
+          return 'Mikro';
+          break;
+      case $total > 300000000 && $total < 2500000000:
+          return 'Kecil';
+          break;
+      case $total >= 2500000000 && $total < 50000000000:
+          return 'Menengah';
+          break;
+      default:
+          return '-';
+          break;
+  }
+  return $total;
+}
+
+function skala_asset($asset) {
+  $total = $asset;
+  // mikro : <= 300 jt
+  // kecil : >300 jt & <2,5 milyar
+  // menengah : >=2,5 milyar & <50 milyar
+  switch ($total) {
+      case $total <= 300000000:
+          return 'Mikro';
+          break;
+      case $total > 300000000 && $total < 2500000000:
+          return 'Kecil';
+          break;
+      case $total >= 2500000000 && $total < 50000000000:
+          return 'Menengah';
+          break;
+      default:
+          return '-';
+          break;
+  }
+  return $total;
+}
+?>
+
 <table>
   <thead>
     <tr>
@@ -96,8 +142,8 @@
         <td>{{ $value->harga_jual_produk }}</td>
         <td>{{ $value->hari_kerja_sebulan }}</td>
         <td>Rp. {{ number_format($value->omzet_perhari, 0, '.', ',') }}</td>
-        <td>Mikro</td>
-        <td>Mikro</td>
+        <td>{{ skala_usaha($value->omzet_perhari) }}</td>
+        <td>{{ skala_asset($value->nilai_asset) }}</td>
         <td>{{ $value->nilai_investasi }}</td>
       </tr>
     @endforeach

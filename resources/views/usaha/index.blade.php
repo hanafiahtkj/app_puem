@@ -197,7 +197,7 @@
             $('#filter').append(new Option('Semua....', ''));
             $('#filter').append(new Option('Mikro', 'Mikro'));
             $('#filter').append(new Option('Kecil', 'Kecil'));
-            $('#filter').append(new Option('Makro', 'Makro'));
+            $('#filter').append(new Option('Menengah', 'Menengah'));
             break;
           case 'Jenis Kelamin':
             $('#filter').html('');

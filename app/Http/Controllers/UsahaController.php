@@ -287,7 +287,17 @@ class UsahaController extends Controller
                         $query->where('usaha.jenis_uem', $filter);
                         break;
                     case 'Skala Usaha':
-                        //
+                        if ($filter == 'Mikro') {
+                            $query->whereRaw('(usaha.omzet_perhari * 365) <= 300000000');
+                        } elseif ($filter == 'Kecil') {
+                            $query
+                                ->whereRaw('(usaha.omzet_perhari * 365) > 300000000')
+                                ->whereRaw('(usaha.omzet_perhari * 365) < 500000000');
+                        } elseif ($filter == 'Menengah') {
+                            $query
+                                ->whereRaw('(usaha.omzet_perhari * 365) >= 2500000000')
+                                ->whereRaw('(usaha.omzet_perhari * 365) < 50000000000');
+                        }
                         break;
                     case 'Jenis Kelamin':
                         $query->where('individu.jenis_kelamin', $filter);
