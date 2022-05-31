@@ -24,7 +24,7 @@ class UsahaDataSheets implements FromView, WithEvents, WithColumnWidths, ShouldA
 {
     public function __construct($id_kecamatan, $id_desa, $type, $tahun, $berdasarkan, $filter) 
     {
-        $this->rowCount  = 11;
+        $this->rowCount  = 10;
         $this->id_kecamatan = $id_kecamatan;
         $this->id_desa      = $id_desa;
         $this->type         = $type;

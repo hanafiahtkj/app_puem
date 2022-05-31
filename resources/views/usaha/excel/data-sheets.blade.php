@@ -102,24 +102,6 @@ function skala_asset($asset) {
       <th>Skala Asset</th>
       <th>Nilai Investasi</th>
     </tr>
-    <tr>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>10</th>
-      <th>11</th>
-      <th>12</th>
-      <th>13</th>
-      <th>14</th>
-      <th>15</th>
-      <th>18</th>
-    </tr>
   </thead>
   <tbody>
     @php
@@ -127,9 +109,9 @@ function skala_asset($asset) {
     @endphp
     @foreach ($data as $key => $value)
       <tr>
-        <td align="center">{{ $loop->iteration+1 }}</td>
+        <td align="center">{{ $loop->iteration }}</td>
         <td>{{ $value->nama_pemilik }}</td>
-        <td>{{ $value->nik }}</td>
+        <td>{{ '\''.$value->nik }}</td>
         <td>{{ $value->jenis_kelamin }}</td>
         <td>{{ $value->nama_pendidikan }}</td>
         <td>{{ $value->alamat_usaha }}</td>
