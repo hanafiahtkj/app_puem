@@ -9,12 +9,16 @@ use Illuminate\Support\Str;
 use App\Models\Kecamatan;
 use App\Models\Desa;
 use App\Models\Bumdes;
+use App\Models\Setting;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BumdesExport;
 
 class BumdesController extends Controller
 {
     public function index()
     {
-        return view('bumdes.index');
+        $kecamatan = Kecamatan::all();
+        return view('bumdes.index', compact('kecamatan'));
     }
 
     public function data_json()
@@ -184,6 +188,13 @@ class BumdesController extends Controller
         $data->delete();
 
         return redirect()->route('bumdes-index')->with('bumdes_sess', 'Berhasil menghapus data bumdes');
+    }
+
+    public function export_excel(Request $request)
+    {
+        $get_kecamatan = Kecamatan::where('id', $request->kecamatan)->firstOrFail();
+        $nama_kecamatan = strtolower($get_kecamatan->nama_kecamatan);
+        return Excel::download(new BumdesExport($request->kecamatan), "rekap bumdes $nama_kecamatan.xlsx");
     }
  
 }

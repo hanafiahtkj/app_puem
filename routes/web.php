@@ -52,6 +52,7 @@ Route::group([
         Route::get('bumdes/{uuid}/edit', [BumdesController::class, 'edit'])->name('bumdes-edit');
         Route::put('bumdes/{uuid}/update', [BumdesController::class, 'update'])->name('bumdes-update');
         Route::delete('bumdes/{uuid}/delete', [BumdesController::class, 'destroy'])->name('bumdes-delete');
+        Route::post('bumdes/excel', [BumdesController::class, 'export_excel'])->name('bumdes-excel');
 
         Route::get('grafik/panel', [GraphController::class, 'grafik_panel'])->name('grafik-panel');
 });

@@ -16,6 +16,7 @@
         <h1>DATA BUMDES</h1>
         <div class="section-header-button">
           <a href="{{ route('bumdes-create') }}" class="btn btn-primary"> <i class="fa fa-plus"> Tambah</i> </a>
+          <button class="btn btn-success" data-toggle="modal" data-target="#excelModal"><i class="fa fa-file-excel"> Export Excel</i></button>
         </div>
         <div class="section-header-breadcrumb">
           <div class="breadcrumb-item active"><a href="{{ route('dashboard') }}">Dasbor</a></div>
@@ -54,6 +55,38 @@
         </div>
       </div>
     </section>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="excelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Export Rekap data BUMDES</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <form action="{{ route('bumdes-excel') }}" method="POST">
+           @csrf
+          <div class="form-group">
+            <label for="">Kecamatan</label>
+            <select class="form-control" name="kecamatan" id="" required>
+              <option>Pilih</option>
+              @foreach ($kecamatan as $item)
+                <option value="{{ $item->id }}">{{ $item->nama_kecamatan }}</option>
+              @endforeach
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Export</button>
+         </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <x-slot name="extra_js">
