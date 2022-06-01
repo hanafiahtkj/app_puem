@@ -61,12 +61,20 @@ class BumdesExport implements FromView, WithEvents, WithDrawings
     public function view(): View
     {
 
-        $data = Bumdes::leftjoin('kecamatan', 'bumdes.kecamatan', '=', 'kecamatan.id')
+        if ($this->id_kecamatan == "all") {
+            $data = Bumdes::leftjoin('kecamatan', 'bumdes.kecamatan', '=', 'kecamatan.id')
+                ->leftjoin('desa', 'bumdes.desa', '=', 'desa.id')
+                ->select('bumdes.*', 'kecamatan.nama_kecamatan', 'desa.nama_desa')
+                ->get();
+        }else{
+            $data = Bumdes::leftjoin('kecamatan', 'bumdes.kecamatan', '=', 'kecamatan.id')
             ->leftjoin('desa', 'bumdes.desa', '=', 'desa.id')
             ->select('bumdes.*', 'kecamatan.nama_kecamatan', 'desa.nama_desa')
             ->where('bumdes.kecamatan', $this->id_kecamatan)
             ->get();
+        }
 
+        
         $newArr = $data->map(function($item, $key){
             return [
                 'no'            => $key + 1,
@@ -80,7 +88,7 @@ class BumdesExport implements FromView, WithEvents, WithDrawings
         });
 
         $data = [
-            'kecamatan' => Kecamatan::find($this->id_kecamatan),
+            'kecamatan' => $this->id_kecamatan == "all" ? "Semua Kecamatan" : " Kecamatan ".Kecamatan::find($this->id_kecamatan)->nama_kecamatan,
             'data'      => $newArr,
             'setting'   => Setting::first(),
             'tgl_sekarang' => Carbon::now()->isoFormat('Do MMMM YYYY'),

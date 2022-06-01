@@ -192,8 +192,12 @@ class BumdesController extends Controller
 
     public function export_excel(Request $request)
     {
-        $get_kecamatan = Kecamatan::where('id', $request->kecamatan)->firstOrFail();
-        $nama_kecamatan = strtolower($get_kecamatan->nama_kecamatan);
+        if ($request->kecamatan == "all") {
+            $nama_kecamatan = (string) "Semua Kecamatan";
+        }else{
+            $get_kecamatan = Kecamatan::where('id', $request->kecamatan)->firstOrFail();
+            $nama_kecamatan = strtolower($get_kecamatan->nama_kecamatan);
+        }
         return Excel::download(new BumdesExport($request->kecamatan), "rekap bumdes $nama_kecamatan.xlsx");
     }
  

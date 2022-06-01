@@ -74,6 +74,7 @@
             <label for="">Kecamatan</label>
             <select class="form-control" name="kecamatan" id="" required>
               <option>Pilih</option>
+              <option value="all">Semua</option>
               @foreach ($kecamatan as $item)
                 <option value="{{ $item->id }}">{{ $item->nama_kecamatan }}</option>
               @endforeach

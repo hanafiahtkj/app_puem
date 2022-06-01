@@ -18,7 +18,7 @@
   <table>
     <thead>
       <tr>
-        <th colspan="10">REKAP DATA BUMDES KECAMATAN {{ strtoupper($kecamatan->nama_kecamatan) }}</th>
+        <th colspan="10">REKAP DATA BUMDES {{ strtoupper($kecamatan) }}</th>
       </tr>
       <tr>
         <th colspan="10">TAHUN {{ date('Y') }}</th>
