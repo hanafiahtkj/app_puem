@@ -14,7 +14,7 @@ class Usaha extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $appends = ['nama_kecamatan', 'nama_desa', 'skala_usaha', 'skala_asset'];
+    protected $appends = ['nama_kecamatan', 'nama_desa', 'skala_usaha'];
 
     public function individu()
     {
