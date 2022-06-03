@@ -98,7 +98,7 @@
                             <div class="card-body">
                               <div class="form-group">
                                 <label for="">Nama Direktur*</label>
-                                <input type="text" class="form-control" name="direktur" id="" required value="{{ $data->nama_direktur }}">
+                                <input type="text" class="form-control" name="direktur" id="" value="{{ $data->nama_direktur }}">
                               </div>
                               <div class="form-group">
                                 <label for="">HP / Telpon Direktur</label>
