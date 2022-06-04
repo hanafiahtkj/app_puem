@@ -12,7 +12,7 @@
                 </a>
                 <h6 class="text-white">SISTEM INFORMASI</h6> 
                 <h6 class="text-white">PEMETAAN USAHA</h6> 
-                <h6 class="text-white">EKONOMI MASYARAKAT DESA</h6>
+                <h6 class="text-white">EKONOMI MASYARAKAT</h6>
             </div>
 
             <div class="card card-grey mb-0">

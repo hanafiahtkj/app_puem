@@ -83,7 +83,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1>SISTEM INFORMASI PEMETAAN USAHA EKONOMI MASYARAKAT DESA</h1>
+          <h1>SISTEM INFORMASI PEMETAAN USAHA EKONOMI MASYARAKAT</h1>
           <h2>Sistem Informasi ini memberikan sebuah informasi tentang pasar desa, data bumdes, grafik dan peta persebaran ukm. yang ada di Kabupaten Tanah Laut.</h2>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img">
