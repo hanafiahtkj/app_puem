@@ -11,8 +11,8 @@
                   <img src="{{ asset('img/logo.png') }}" alt="logo" width="80" class="mb-4">
                 </a>
                 <h6 class="text-white">SISTEM INFORMASI</h6> 
-                <h6 class="text-white">PEMETAAN</h6> 
-                <h6 class="text-white">USAHA MASYARAKAT DESA</h6>
+                <h6 class="text-white">PEMETAAN USAHA</h6> 
+                <h6 class="text-white">EKONOMI MASYARAKAT DESA</h6>
             </div>
 
             <div class="card card-grey mb-0">
@@ -55,7 +55,8 @@
               </div>
             </div>
             <div class="simple-footer text-white">
-              Copyright &copy; 2022 All rights reserved | demo app
+              &copy; Copyright Dinas Pemberdayaan Masyarakat dan Desa Kabupaten Tanah Laut. All Rights Reserved
+              {{-- Copyright &copy; 2022 All rights reserved | demo app --}}
             </div>
           </div>
         </div>
